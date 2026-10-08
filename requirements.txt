@@ -1,0 +1,5 @@
+openpyxl
+z3-solver
+flamapy
+flamapy-fm
+flamapy-z3

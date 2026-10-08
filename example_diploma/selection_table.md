@@ -1,0 +1,12 @@
+| pattern | why (generator's reasons) | effect on NFR04, NFR07 |
+|---|---|---|
+| P32 Master and Sub Key | realizes FR01; required by P25; supports NFR04; supports NFR07 | NFR04 +2, NFR07 +2 |
+| P07 DID Registry | required by P24; required by P27 | NFR04 -1, NFR07 +1 |
+| P24 Public DIDs | realizes FR02; realizes FR03; realizes FR06; required by P12 | NFR04 -1 |
+| P25 Pairwise DIDs | chosen for FR02, FR06 among P25/P26; required by P29; supports NFR04 | NFR04 +2, NFR07 +1 |
+| P27 Dual Resolution | realizes FR07; realizes FR08; required by P17; required by P29 | NFR07 +1 |
+| P29 Off Chain | chosen for FR07 among P28/P29; supports NFR04 | NFR04 +2, NFR07 +1 |
+| P05 Trusted Schemas Registry | realizes FR14; required by P12 | NFR07 +1 |
+| P12 Verifiable ID | realizes FR12; chosen for FR13 among P12/P13/P14; required by P17 | NFR04 -1, NFR07 +1 |
+| P38 Local | chosen for FR15 among P38/P39/P40; supports NFR04; supports NFR07 | NFR04 +2, NFR07 +2 |
+| P17 Selective Content Generation | realizes FR16; supports NFR04 | NFR04 +2 |

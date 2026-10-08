@@ -1,0 +1,653 @@
+{
+ "request": {
+  "FR": [
+   "FR13",
+   "FR17"
+  ],
+  "NFR": [
+   "NFR18"
+  ],
+  "forbid": []
+ },
+ "required_functions": [
+  "FR01_Key_pair_generation",
+  "FR02_DID_generation",
+  "FR03_DID_document_creation_publication",
+  "FR06_DID_connection",
+  "FR07_DID_resolution",
+  "FR08_Mutual_authentication",
+  "FR09_Service_access_request",
+  "FR10_Proof_request",
+  "FR11_VC_request",
+  "FR12_Holder_authentication_by_the_Issuer",
+  "FR13_VC_issuance",
+  "FR14_Credential_schema_management",
+  "FR15_VC_storage",
+  "FR16_VP_generation_selective_disclosure",
+  "FR17_VP_presentation"
+ ],
+ "valid_partial_configuration": true,
+ "tradeoffs": [
+  "nfr18: strongly hindered by P24 Public DIDs, forced by the requested functions"
+ ],
+ "products": 40,
+ "commonality": [
+  "P05_Trusted_Schemas_Registry",
+  "P07_DID_Registry",
+  "P12_Verifiable_ID",
+  "P17_Selective_Content_Generation",
+  "P24_Public_DIDs",
+  "P26_Static_DIDs",
+  "P27_Dual_Resolution",
+  "P28_On_Chain",
+  "P32_Master_and_Sub_Key"
+ ],
+ "status": "SAT",
+ "size": 10,
+ "score": 1,
+ "selection": [
+  "P05_Trusted_Schemas_Registry",
+  "P07_DID_Registry",
+  "P12_Verifiable_ID",
+  "P17_Selective_Content_Generation",
+  "P24_Public_DIDs",
+  "P25_Pairwise_DIDs",
+  "P27_Dual_Resolution",
+  "P29_Off_Chain",
+  "P32_Master_and_Sub_Key",
+  "P40_Identity_Hub"
+ ],
+ "choices": [
+  {
+   "for": [
+    "FR02",
+    "FR06"
+   ],
+   "among": [
+    "P25",
+    "P26"
+   ],
+   "chosen": [
+    "P25"
+   ]
+  },
+  {
+   "for": [
+    "FR07"
+   ],
+   "among": [
+    "P28",
+    "P29"
+   ],
+   "chosen": [
+    "P29"
+   ]
+  },
+  {
+   "for": [
+    "FR13"
+   ],
+   "among": [
+    "P12",
+    "P13",
+    "P14"
+   ],
+   "chosen": [
+    "P12"
+   ]
+  },
+  {
+   "for": [
+    "FR15"
+   ],
+   "among": [
+    "P38",
+    "P39",
+    "P40"
+   ],
+   "chosen": [
+    "P40"
+   ]
+  }
+ ],
+ "reasons": {
+  "P05_Trusted_Schemas_Registry": [
+   "realizes FR14",
+   "required by P12"
+  ],
+  "P07_DID_Registry": [
+   "required by P24",
+   "required by P27"
+  ],
+  "P12_Verifiable_ID": [
+   "realizes FR12",
+   "chosen for FR13 among P12/P13/P14",
+   "required by P17"
+  ],
+  "P17_Selective_Content_Generation": [
+   "realizes FR16"
+  ],
+  "P24_Public_DIDs": [
+   "realizes FR02",
+   "realizes FR03",
+   "realizes FR06",
+   "required by P12"
+  ],
+  "P25_Pairwise_DIDs": [
+   "chosen for FR02, FR06 among P25/P26",
+   "required by P29",
+   "supports NFR18"
+  ],
+  "P27_Dual_Resolution": [
+   "realizes FR07",
+   "realizes FR08",
+   "required by P17",
+   "required by P29"
+  ],
+  "P29_Off_Chain": [
+   "chosen for FR07 among P28/P29",
+   "supports NFR18"
+  ],
+  "P32_Master_and_Sub_Key": [
+   "realizes FR01",
+   "required by P25"
+  ],
+  "P40_Identity_Hub": [
+   "chosen for FR15 among P38/P39/P40"
+  ]
+ },
+ "sequence": [
+  "P32_Master_and_Sub_Key",
+  "P07_DID_Registry",
+  "P24_Public_DIDs",
+  "P25_Pairwise_DIDs",
+  "P27_Dual_Resolution",
+  "P29_Off_Chain",
+  "P05_Trusted_Schemas_Registry",
+  "P12_Verifiable_ID",
+  "P40_Identity_Hub",
+  "P17_Selective_Content_Generation"
+ ],
+ "refinement": [
+  {
+   "pattern": "P32",
+   "status": "APPLIED",
+   "components_added": [
+    "KeyMgr_H",
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H"
+   ],
+   "connectors_added": [
+    "derive"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR01",
+    "required by P25"
+   ]
+  },
+  {
+   "pattern": "P07",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDRegistry"
+   ],
+   "connectors_added": [],
+   "connectors_deleted": [],
+   "refines": {
+    "VDR": "Verifiable data registry"
+   },
+   "reason": [
+    "required by P24",
+    "required by P27"
+   ]
+  },
+  {
+   "pattern": "P24",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDMgr_I",
+    "DIDMgr_V",
+    "KeyMgr_I",
+    "KeyMgr_V",
+    "PublicDID_I",
+    "PublicDID_V"
+   ],
+   "connectors_added": [
+    "publish DID document",
+    "publish DID document",
+    "controls",
+    "controls"
+   ],
+   "connectors_deleted": [
+    "register identifiers and schemas (Issuer\u2192VDR)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR02",
+    "realizes FR03",
+    "realizes FR06",
+    "required by P12"
+   ]
+  },
+  {
+   "pattern": "P25",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDMgr_H",
+    "PairwiseDID_H"
+   ],
+   "connectors_added": [
+    "key per relationship",
+    "DIDComm pairwise channel",
+    "DIDComm pairwise channel"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "chosen for FR02, FR06 among P25/P26",
+    "required by P29",
+    "supports NFR18"
+   ]
+  },
+  {
+   "pattern": "P27",
+   "status": "APPLIED",
+   "components_added": [
+    "Resolver_H",
+    "Resolver_I",
+    "Resolver_V"
+   ],
+   "connectors_added": [
+    "resolve + authenticate",
+    "resolve + authenticate"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR07",
+    "realizes FR08",
+    "required by P17",
+    "required by P29"
+   ]
+  },
+  {
+   "pattern": "P29",
+   "status": "APPLIED",
+   "components_added": [],
+   "connectors_added": [
+    "off-chain resolution",
+    "off-chain resolution"
+   ],
+   "connectors_deleted": [
+    "verify identifiers and schemas (Holder\u2192VDR)",
+    "verify identifiers and schemas (Verifier\u2192VDR)"
+   ],
+   "refines": {},
+   "reason": [
+    "chosen for FR07 among P28/P29",
+    "supports NFR18"
+   ]
+  },
+  {
+   "pattern": "P05",
+   "status": "APPLIED",
+   "components_added": [
+    "TSR"
+   ],
+   "connectors_added": [
+    "publish / read schema",
+    "check schema"
+   ],
+   "connectors_deleted": [],
+   "refines": {
+    "VDR": "Verifiable data registry"
+   },
+   "reason": [
+    "realizes FR14",
+    "required by P12"
+   ]
+  },
+  {
+   "pattern": "P12",
+   "status": "APPLIED",
+   "components_added": [
+    "IssuanceSvc",
+    "VIDIssuer",
+    "Wallet",
+    "CredStore_H"
+   ],
+   "connectors_added": [
+    "issue V-ID",
+    "sign",
+    "read schema"
+   ],
+   "connectors_deleted": [
+    "issue credentials (Issuer\u2192Holder)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR12",
+    "chosen for FR13 among P12/P13/P14",
+    "required by P17"
+   ]
+  },
+  {
+   "pattern": "P40",
+   "status": "APPLIED",
+   "components_added": [
+    "IdentityHub"
+   ],
+   "connectors_added": [
+    "replicate"
+   ],
+   "connectors_deleted": [],
+   "refines": {
+    "Wallet": "Wallet (hub-backed)"
+   },
+   "reason": [
+    "chosen for FR15 among P38/P39/P40"
+   ]
+  },
+  {
+   "pattern": "P17",
+   "status": "APPLIED",
+   "components_added": [
+    "PresGen_H",
+    "VerifSvc",
+    "PresVerif_V"
+   ],
+   "connectors_added": [
+    "select claims",
+    "present proof",
+    "get issuer key",
+    "check schema"
+   ],
+   "connectors_deleted": [
+    "present presentations (Holder\u2192Verifier)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR16"
+   ]
+  }
+ ],
+ "architecture": {
+  "components": {
+   "Holder": [
+    "Actor agent",
+    null
+   ],
+   "Issuer": [
+    "Actor agent",
+    null
+   ],
+   "Verifier": [
+    "Actor agent",
+    null
+   ],
+   "VDR": [
+    "Verifiable data registry",
+    null
+   ],
+   "KeyMgr_H": [
+    "Key manager (hierarchical)",
+    "Holder"
+   ],
+   "MasterKeyStore_H": [
+    "Master key store (offline)",
+    "KeyMgr_H"
+   ],
+   "SubKeyDeriv_H": [
+    "Sub-key derivation",
+    "KeyMgr_H"
+   ],
+   "DIDRegistry": [
+    "DID registry (DPKI)",
+    "VDR"
+   ],
+   "DIDMgr_I": [
+    "DID manager",
+    "Issuer"
+   ],
+   "DIDMgr_V": [
+    "DID manager",
+    "Verifier"
+   ],
+   "KeyMgr_I": [
+    "Key manager",
+    "Issuer"
+   ],
+   "KeyMgr_V": [
+    "Key manager",
+    "Verifier"
+   ],
+   "PublicDID_I": [
+    "Public DID (did:web/ion) + service endpoint",
+    "DIDMgr_I"
+   ],
+   "PublicDID_V": [
+    "Public DID + service endpoint",
+    "DIDMgr_V"
+   ],
+   "DIDMgr_H": [
+    "DID manager",
+    "Holder"
+   ],
+   "PairwiseDID_H": [
+    "Pairwise DID manager (did:peer)",
+    "DIDMgr_H"
+   ],
+   "Resolver_H": [
+    "DID resolver",
+    "DIDMgr_H"
+   ],
+   "Resolver_I": [
+    "DID resolver",
+    "DIDMgr_I"
+   ],
+   "Resolver_V": [
+    "DID resolver",
+    "DIDMgr_V"
+   ],
+   "TSR": [
+    "Schema registry",
+    "VDR"
+   ],
+   "IssuanceSvc": [
+    "Credential issuance",
+    "Issuer"
+   ],
+   "VIDIssuer": [
+    "Verifiable ID issuance",
+    "IssuanceSvc"
+   ],
+   "Wallet": [
+    "Wallet (hub-backed)",
+    "Holder"
+   ],
+   "CredStore_H": [
+    "Credential store",
+    "Wallet"
+   ],
+   "IdentityHub": [
+    "Identity hub (external agent)",
+    null
+   ],
+   "PresGen_H": [
+    "Presentation generator (selective disclosure)",
+    "Wallet"
+   ],
+   "VerifSvc": [
+    "Presentation verification",
+    "Verifier"
+   ],
+   "PresVerif_V": [
+    "Presentation verifier",
+    "VerifSvc"
+   ]
+  },
+  "connectors": [
+   [
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H",
+    "derive",
+    "local",
+    "sub-key per DID / purpose"
+   ],
+   [
+    "PublicDID_I",
+    "DIDRegistry",
+    "publish DID document",
+    "registry write",
+    "DID document (public key, endpoint)"
+   ],
+   [
+    "PublicDID_V",
+    "DIDRegistry",
+    "publish DID document",
+    "registry write",
+    "DID document"
+   ],
+   [
+    "KeyMgr_I",
+    "PublicDID_I",
+    "controls",
+    "local",
+    "issuer key pair"
+   ],
+   [
+    "KeyMgr_V",
+    "PublicDID_V",
+    "controls",
+    "local",
+    "verifier key pair"
+   ],
+   [
+    "SubKeyDeriv_H",
+    "PairwiseDID_H",
+    "key per relationship",
+    "local",
+    "sub-key"
+   ],
+   [
+    "PairwiseDID_H",
+    "DIDMgr_I",
+    "DIDComm pairwise channel",
+    "DIDComm",
+    "peer DID documents, messages"
+   ],
+   [
+    "PairwiseDID_H",
+    "DIDMgr_V",
+    "DIDComm pairwise channel",
+    "DIDComm",
+    "peer DID documents, messages"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_I",
+    "resolve + authenticate",
+    "resolution",
+    "DID document \u2192 public key"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_V",
+    "resolve + authenticate",
+    "resolution",
+    "DID document \u2192 public key"
+   ],
+   [
+    "PairwiseDID_H",
+    "Resolver_I",
+    "off-chain resolution",
+    "peer exchange",
+    "DID document"
+   ],
+   [
+    "PairwiseDID_H",
+    "Resolver_V",
+    "off-chain resolution",
+    "peer exchange",
+    "DID document"
+   ],
+   [
+    "Issuer",
+    "TSR",
+    "publish / read schema",
+    "registry read-write",
+    "credential schema"
+   ],
+   [
+    "Verifier",
+    "TSR",
+    "check schema",
+    "registry read",
+    "credential schema"
+   ],
+   [
+    "VIDIssuer",
+    "CredStore_H",
+    "issue V-ID",
+    "issue-credential (DIDComm)",
+    "V-ID signed with Issuer key"
+   ],
+   [
+    "KeyMgr_I",
+    "VIDIssuer",
+    "sign",
+    "local",
+    "Issuer private key"
+   ],
+   [
+    "IssuanceSvc",
+    "TSR",
+    "read schema",
+    "registry read",
+    "credential schema"
+   ],
+   [
+    "CredStore_H",
+    "IdentityHub",
+    "replicate",
+    "hub protocol",
+    "credentials (encrypted)"
+   ],
+   [
+    "CredStore_H",
+    "PresGen_H",
+    "select claims",
+    "local",
+    "subset of credential claims"
+   ],
+   [
+    "PresGen_H",
+    "PresVerif_V",
+    "present proof",
+    "present-proof (DIDComm)",
+    "VP with minimal disclosure"
+   ],
+   [
+    "PresVerif_V",
+    "Resolver_V",
+    "get issuer key",
+    "local",
+    "issuer DID \u2192 public key"
+   ],
+   [
+    "VerifSvc",
+    "TSR",
+    "check schema",
+    "registry read",
+    "credential schema"
+   ]
+  ]
+ },
+ "interfaces": {
+  "unknown_type": [],
+  "unbound_connector": [],
+  "unsatisfied": []
+ }
+}

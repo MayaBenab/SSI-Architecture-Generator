@@ -1,0 +1,806 @@
+{
+    "results":  [
+                    {
+                        "state":  "done",
+                        "created_at":  "2026-10-05T16:52:43.418598Z",
+                        "updated_at":  "2026-10-05T16:53:08.171116Z",
+                        "trace":  false,
+                        "pres_ex_id":  "db97da83-def9-4077-9064-1761da5be159",
+                        "connection_id":  "67f5a94d-d308-47e9-a56c-e4c4d550c6a1",
+                        "thread_id":  "3b916d08-1b45-4a4c-a19f-b50a19bc22df",
+                        "initiator":  "self",
+                        "role":  "verifier",
+                        "pres_request":  {
+                                             "@type":  "https://didcomm.org/present-proof/2.0/request-presentation",
+                                             "@id":  "3b916d08-1b45-4a4c-a19f-b50a19bc22df",
+                                             "will_confirm":  true,
+                                             "formats":  [
+                                                             {
+                                                                 "attach_id":  "indy",
+                                                                 "format":  "hlindy/proof-req@v2.0"
+                                                             }
+                                                         ],
+                                             "request_presentations~attach":  [
+                                                                                  {
+                                                                                      "@id":  "indy",
+                                                                                      "mime-type":  "application/json",
+                                                                                      "data":  {
+                                                                                                   "base64":  "eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgInJlcXVlc3RlZF9hdHRyaWJ1dGVzIjogeyJkZWdyZWUiOiB7Im5hbWUiOiAiZGVncmVlIiwgInJlc3RyaWN0aW9ucyI6IFt7ImNyZWRfZGVmX2lkIjogIjRmVURSOVI3Zmp3RUxSdkg5SlQ2SEg6MzpDTDoxMDpkZWZhdWx0In1dfX0sICJuYW1lIjogImRpcGxvbWEtY2hlY2siLCAidmVyc2lvbiI6ICIxLjAiLCAicmVxdWVzdGVkX3ByZWRpY2F0ZXMiOiB7fX0="
+                                                                                               }
+                                                                                  }
+                                                                              ]
+                                         },
+                        "pres":  {
+                                     "@type":  "https://didcomm.org/present-proof/2.0/presentation",
+                                     "@id":  "bb22db27-fa1b-4cbf-acf1-8ad5f12152b6",
+                                     "~thread":  {
+                                                     "thid":  "3b916d08-1b45-4a4c-a19f-b50a19bc22df"
+                                                 },
+                                     "formats":  [
+                                                     {
+                                                         "attach_id":  "indy",
+                                                         "format":  "hlindy/proof@v2.0"
+                                                     }
+                                                 ],
+                                     "presentations~attach":  [
+                                                                  {
+                                                                      "@id":  "indy",
+                                                                      "mime-type":  "application/json",
+                                                                      "data":  {
+                                                                                   "base64":  "eyJwcm9vZiI6IHsicHJvb2ZzIjogW3sicHJpbWFyeV9wcm9vZiI6IHsiZXFfcHJvb2YiOiB7InJldmVhbGVkX2F0dHJzIjogeyJkZWdyZWUiOiAiNDIyMTQ1NzE2NTUwMzUwMTg4MzcyNTYzMTgzOTg5NDExNzE3OTU4NDk0MDQ2MTI4MjU0MTM4NjI4NDM1MTIxNzg5NTYyOTA4NDc3MDYifSwgImFfcHJpbWUiOiAiMjY4NjA2NTAyOTYyMTk3NjAyOTkyNzQzMDgwNTAzNDQwMzE2NTMzNTYyODk3ODQ5ODc2NjQzMzk1NTgxMTY4MjgxNDg5NzY4MTUxMzYzMDc5MTQwOTc5MjA4NTE2MjQyNDQ3NTYxMzMxMDQzODAwOTk3Mzg4MDc5OTk3MTAwMDY5NjQ1NjQzMTM5NDgwNjA5NDI3NzAzOTk0NjU4Njc4MjAzODA5OTc5NjcyNzI1MDg4NTI0NzQyNzkyMzQwNjUzNzkxNTAwNDI4OTM2NDUwOTI5NzI1MjY5MzM2MTczNTYxMjE5NTI5OTgzOTAwNTE2MTEyMTcyODI1NjQ4NzM0MDIyMDE4NjY1NzM2MjE4NTE1NTk2OTkyNzI3MDc5MTM0ODYzNTUyMjg3MTk4NjgyNTg4MTYzMDM2NzMwNzg1ODM2MTUxNjQ3NjU5MjcyOTMzOTcxMDI5OTk1NjM5ODQ3OTg5MjY5Njg3MTg3NTc5ODA5MzM2ODg0NjM3NDgyNjIzNTQ3NzgzODYzOTI1Njk1NzEyNTcyMTQ4NDU3MzEyODIwMjA1NzgyOTIxMjcyNjExNTkzNzE3OTYxOTk0MzkxNDA1MTc3ODA1NzIxMzkyMjI4NTk4MDAyOTY4MTE5NjQzNTIxNTMwMDkzMTA0NjM4Mzc4NDk5Njc5MTUyNzc2ODEzMjAwNzgxOTE5NDU1NTMwOTUyMDM4MTQ1NTQ2MzU3NDM1Njk5MzU3MzA4MTM4NDA2NDE2NzI5MTA0MDIzNjAzODc2MTkyMjY1MTEwMTMxMTA2OTIyMDA0MTA4Mjc4MzAxMDU2OTc4MjgiLCAiZSI6ICIxMTUxMzkxNzY0NzYwODk2NDg0MzAxNjAzMDg5NDY5MjgzNDUzNDQ1NjE2NTUwODQwMDQ4Mjk1MDY4MDI2NDYyOTI5NzU0NzczOTYyODQwNzUxNjUzMTk4NzQxNzM5MzQ0NDYxODEzMTEzNzg0NTg0NjU5MzEzNDgwODkyNDIyNTQzNzAxNzY4NjQiLCAidiI6ICIxMzA5MTA0MTI3NjgxMjAyMjQ1NjgxMDY1NTU5ODkwMDkzMTE3OTk0ODM3Mzg1OTg2NjI4OTcyOTQwMzA0NjgxMDQ0MzE0NDY5MzE2NjQwNzE3NDY2Nzc4ODE5NzI3NzM1NDg5NzE5NTE0MTE4ODY1OTU1ODAwNDMwMTA2NTM0Mjg0MDQ4OTIzNTcwMjc0Nzc2Mzg1Njc0Mzk3Njg4MjI1MDcxNzI4NzA5OTg5Njc4NTc4NTk2OTcwODI5NzQ2OTYwNTE4Mjg3NTg1ODYxNjYwNjI5MzA5OTg4NTgwMjU2NDkwMjgzNDU4NzYwNTIzMDkwMDYyOTYzODg5NjkyMjMzNjg2MzAwNTQ0NDkwMTM3MTQwNDc1ODAyNjU2ODgyOTY3MDU3MjExMjc4MjA3NDkyODY5MTI4OTkzNzczMDQ2NzUxMjgxMjE0NzEzNTQ1NTI4OTQ5MzE1MDM4NjU0MjcwMzAwNjcxMzE4MjYxNjcyNTMwNTQ0OTYyMjcxNDI1NzA5MzcxNDQ4NTk4NzUyMDcxNTEyMjQ0MDk0MjE0OTc2NDkxNDQyOTgxMDA2MDkzNzI3ODk2MzU5OTM3ODEwMjQzODc0Mjg1MjI4NzU3OTAxMjAzMTYwNjY4NzcwOTY0OTc1MzA1OTU1MjQ1Njg5NjM0NTUxNjkwNjYxMjgxNzE4Njg3MDM1MDk4MzM0NzkyMjE3NzgzNTIwMzM0MzA3OTMzNjczOTA1NTYyNzUyMjEzMzM3NTA0Nzc5OTIxODA3MjIzNzA5NTAwNjcwNzAwMDA4MTQ4NTkyNzEyNDg2NTY0NTUyOTk1ODIyMDk1MTQ0NTg0MDg0MDg4OTUzNjIwMDQ3ODQ5MTkyMTQ4ODY5OTg3MDIzMTc3NjgzNzIzNTg0NTU1Njc4ODEwOTY0MDQzNjk1MjE0MzY1NzI5ODcwMTQ2NDgxMzI1MjczMzg0NDc4MjcxMTI4OTg5NjEzODA3NjY1ODI1MDc2MjU0NDc5NDM0OTIyNzUzODU5MzUxMDQxNjcxNTQ0NjU2MzcwNTIxODAyOTAwODcyMjEzNTIzNzAyNjUwNzc3NzE2Nzk4MjYxNDI0MjU5OTQyNDE3MTYxOTk0MzI0NjA2Mjk0NjAzNzAzMjM1MDA0MTk0NjgzMzc2MjAzMTc1NjUwOTIyNjQ5MjY1Njc0Mjk1NjAwNDU2NTQ4OTE0NjI3MDUyMzUwODYyMTg5MTYzMTc1MTA2IiwgIm0iOiB7InllYXIiOiAiMTgyNzczNTk1OTM3OTYwNDQzMTE2NTU2MTM2Njc0MzA3NzEzNDExOTc2OTgwMTk3MTEzNTU5NTY3ODgyNzk4MjU4OTk3NDgzMzQzNTYwNzEwODE4OTk1OTE2MDc0MDAxMTkxNjkxNjk5MTI3MzYyNDY1NDEyNDg1OTMxMDMyMDkzNjczNjExNDgwMjAzNDU3MDcxNDg5MjgyOTI2Nzg2Njg4NTY3MTIxODY3NDU3MTg4OCIsICJjb2xsZWdlIjogIjE1NzQ2OTkzODQ4MjIwNzU2MTEyMjk5MTM4MDg1NDY5MDc1NjMzNjY0NDQ5MDA1NDUzOTE1OTkwMTYwMDMwMTM3ODI5OTkyODc5MDgxMzg5NjcxNDkzODk0NzEyMzk4MDAyODYzNzE1NDEwMzI4Njc3ODQwMTA2NTM5MDk0MTU2MDQwMTk1NTY0MTA3ODA2ODE4NDkwNzA2ODMwNjkyNzI3Nzk4MzEwMDM0NDg1MjIyNTkiLCAibWFzdGVyX3NlY3JldCI6ICI5MjExMjk1MjY4OTYyODkyMzg5MjQ5NDgxNzMwMjY1OTA5MjU0MjMxNTUwNTg3ODQyMjUwODU3MDY3MDM3Mzk2OTk5Mjk2NTI1MzQ0NjAxMzMyOTc1NTQxMDA4OTUzNDg0MDU0NTMwNTM4NDkwNjk5MTY5NjE1MTU1NDY2NDg4NDEzMzU5OTczNDM5Nzc2NzgxNTEyMTQzNzM4MzkyOTQ0NzYzMDgyNTYxNjYwMjUyNzg2In0sICJtMiI6ICI1NTEyMDc2MDU0OTkzMzA0MTk4NDE2NTMwNTg1MTIzODA3ODQwMTQ3MDgxMjc1NTg0MDA0NTQzNTc0MjEzODM0NjI5MjY5MDMyNzM3NDk0MDgwMzc5Njc4ODc2Njk5NTg0NDA2MzY0Mjg4MTgxMTQzMzMyNzQwNjQ4ODM0NzUxOTUyMzIwOTIxNDMzNTI0NjUwNTU2NzI3NjI2NjM3MTEwNTY4MDMyMzcxNTU5MDMwMDY4Mzk4OTY0MTQzNjIyNTEwNDc0ODI1NzU4MzE0NDYwNTQwMjQ1ODY5MzU4NTA1NTY3OTgxODUxNjIwMDg5NTMwMTI1NDE1MjQ0MTE5MDIyNzQ4NTc2MTU5MTgyNTY4OTM2NDg5NTE4MzU5MDE4ODQ1NzYwNjg0MjUwMjAwMTE1NDQ3MzgyNjgxMTM3NzYwNzg0NTQ3ODE0NjcwMTcxNzIwNzg4OTA0MDc4MDc2NTQwNDE0ODczNjM0MzE2MTEyNDYxNjE2NDQ2ODE3MDYzNzAxMDU1MDQzOTYwMzQyMjM1NDA5MzI5ODMzNDEzMDAxMDk3NzE4MzYzNDI5Nzg1NjcyNzU4NzUxMzExMTUxMTIzOTczNDE5ODMyNzA5MjE2MjQ4MTE5MDEyNzg3NzYxODM1NDA1NjM3OTU1ODE1NDYzMzkyNjQyOTA5MjY0NTQ4NTMzODU1MTEyNjA0MzM3ODg4Njc1MzY3MTM1OTA4NTY0OTY0NjkzNDgwMjY1MjYxNjMzMzA3MTcxODI4MTI3MjYzOTQ1NTg5MDU0NjAzOTg4MTgxMTUwMjIzNzEwMTQ2NDk5ODAxODAwMjQ2ODQxMDYxMTE4MTYwMjc4MTY4NTI5NTk0MjM1MzQxNTg2NTA5MzIxMDIwNjQwMTU0OTM3OTExMTk3MjkxNTcxNTA4Njk1MzM0NjA3NDEyNDcyNDMxNjM0ODIyNjQyODE3MTgyNDU2ODM1OTEyMjU4NzUifSwgImdlX3Byb29mcyI6IFtdfSwgIm5vbl9yZXZvY19wcm9vZiI6IG51bGx9XSwgImFnZ3JlZ2F0ZWRfcHJvb2YiOiB7ImNfaGFzaCI6ICIyMjA5NzA0MTE5NTYxNjcwNzI4ODE4MjE4ODAyNTU4Nzk5MjE1MDQ2NjEwMjA0MDQ3NTQxMDMyMzgwMDQwOTYwNDM4ODEzNDM4NDk5OSIsICJjX2xpc3QiOiBbWzIxMiwgMTk4LCAyNTUsIDEzNCwgMTM2LCAxNTIsIDE5MywgMjA5LCAyMjgsIDgyLCAyMjgsIDEzMywgODIsIDQ5LCAzOSwgMjI5LCAxNTIsIDUwLCAyMzMsIDE2OCwgMzIsIDE2MywgMTIwLCA2OCwgNTMsIDU0LCA3MiwgMjQ0LCA2MSwgOTQsIDg5LCAxMjksIDExMSwgMjM0LCA4MywgMTQsIDI1MywgNjQsIDIwNSwgMTg1LCAxNzUsIDExOCwgMTA1LCAxODYsIDE4OCwgMTQyLCA5NSwgMTM2LCA0NSwgMjIxLCAxOSwgMjI4LCAxLCA2NiwgOTcsIDU5LCA5LCAxNjgsIDIzNCwgMjIyLCAxMTUsIDM5LCAxNDMsIDIyMCwgNDksIDExLCA1NywgMjA2LCAxMzAsIDk3LCAxMDQsIDE2MiwgMTYyLCAxNCwgMzUsIDk3LCAxNjgsIDE3NiwgMTY3LCAyMTAsIDE2NCwgMTc1LCAyMzIsIDIyMiwgNywgMjM3LCA0NiwgMTcxLCA2OSwgMTI3LCAxMTYsIDE3MywgMTQ2LCAyMDIsIDExLCAyMzAsIDgzLCAyOSwgMTUsIDE2NiwgMTc4LCAxOTgsIDEyMywgMTQ3LCA2NywgMTYyLCA1LCAyNDUsIDE5MiwgMTQsIDM2LCAxMTcsIDU0LCAxODcsIDY5LCAxNSwgNDgsIDE0MSwgNzksIDEzNCwgMTQ3LCA4OCwgNjgsIDY0LCAyNTEsIDIyNCwgMTYyLCAyNTEsIDIzOCwgMTYyLCA3NywgMTcyLCAzNiwgODIsIDE5NCwgNzUsIDI0MywgNTEsIDYwLCAxNjQsIDEwMiwgNzMsIDYxLCAyMDgsIDE2NCwgMjYsIDc4LCAxODMsIDE0NSwgMTgyLCAyMzEsIDIwMCwgMjIsIDIxMSwgMTg0LCAxNzIsIDIwNiwgNjMsIDc3LCAxMiwgODgsIDgxLCA5NywgNjQsIDE0OCwgMTI3LCA2NCwgMCwgMjQxLCAxMTAsIDMxLCAxNDgsIDE5NCwgMjQ1LCAyMzEsIDEyMSwgMTY0LCAyMSwgNjYsIDI1MSwgMTQxLCAxMjgsIDE1NCwgMjMyLCA3OCwgNDUsIDEzMCwgMjIzLCAyNTQsIDU2LCA1MCwgMjMzLCA3MywgMTU4LCAxNzUsIDk1LCAxMDEsIDE3MCwgMjgsIDY3LCAyNSwgMTExLCAxNzYsIDIxLCAyNTIsIDksIDExMiwgNTQsIDI0MCwgODMsIDM3LCAxNzcsIDE3MSwgMTYxLCA4MCwgMTA4LCAyNywgMTQ3LCAxNTcsIDU4LCAyMCwgMTU4LCAyMzIsIDE4NiwgMTAyLCAzMSwgODgsIDE4OCwgOTksIDI0MCwgMTU4LCA5NywgMTkwLCAxOTgsIDM2LCAyOSwgMTk3LCAxMzQsIDE1OCwgMjA3LCAyNCwgMywgMTAzLCAxMCwgODIsIDc2LCA4NSwgMTU2LCA5OCwgMjUsIDI2LCAxOTMsIDk3LCAyMzUsIDExMCwgMzZdXX19LCAicmVxdWVzdGVkX3Byb29mIjogeyJyZXZlYWxlZF9hdHRycyI6IHsiZGVncmVlIjogeyJzdWJfcHJvb2ZfaW5kZXgiOiAwLCAicmF3IjogIk1hc3RlciBvZiBDb21wdXRlciBTY2llbmNlIiwgImVuY29kZWQiOiAiNDIyMTQ1NzE2NTUwMzUwMTg4MzcyNTYzMTgzOTg5NDExNzE3OTU4NDk0MDQ2MTI4MjU0MTM4NjI4NDM1MTIxNzg5NTYyOTA4NDc3MDYifX0sICJzZWxmX2F0dGVzdGVkX2F0dHJzIjoge30sICJ1bnJldmVhbGVkX2F0dHJzIjoge30sICJwcmVkaWNhdGVzIjoge319LCAiaWRlbnRpZmllcnMiOiBbeyJzY2hlbWFfaWQiOiAiNGZVRFI5UjdmandFTFJ2SDlKVDZISDoyOmRpcGxvbWE6MS4wIiwgImNyZWRfZGVmX2lkIjogIjRmVURSOVI3Zmp3RUxSdkg5SlQ2SEg6MzpDTDoxMDpkZWZhdWx0IiwgInJldl9yZWdfaWQiOiBudWxsLCAidGltZXN0YW1wIjogbnVsbH1dfQ=="
+                                                                               }
+                                                                  }
+                                                              ]
+                                 },
+                        "by_format":  {
+                                          "pres_request":  {
+                                                               "indy":  {
+                                                                            "nonce":  "1234567890",
+                                                                            "requested_attributes":  {
+                                                                                                         "degree":  {
+                                                                                                                        "name":  "degree",
+                                                                                                                        "restrictions":  [
+                                                                                                                                             {
+                                                                                                                                                 "cred_def_id":  "4fUDR9R7fjwELRvH9JT6HH:3:CL:10:default"
+                                                                                                                                             }
+                                                                                                                                         ]
+                                                                                                                    }
+                                                                                                     },
+                                                                            "name":  "diploma-check",
+                                                                            "version":  "1.0",
+                                                                            "requested_predicates":  {
+
+                                                                                                     }
+                                                                        }
+                                                           },
+                                          "pres":  {
+                                                       "indy":  {
+                                                                    "proof":  {
+                                                                                  "proofs":  [
+                                                                                                 {
+                                                                                                     "primary_proof":  {
+                                                                                                                           "eq_proof":  {
+                                                                                                                                            "revealed_attrs":  {
+                                                                                                                                                                   "degree":  "42214571655035018837256318398941171795849404612825413862843512178956290847706"
+                                                                                                                                                               },
+                                                                                                                                            "a_prime":  "26860650296219760299274308050344031653356289784987664339558116828148976815136307914097920851624244756133104380099738807999710006964564313948060942770399465867820380997967272508852474279234065379150042893645092972526933617356121952998390051611217282564873402201866573621851559699272707913486355228719868258816303673078583615164765927293397102999563984798926968718757980933688463748262354778386392569571257214845731282020578292127261159371796199439140517780572139222859800296811964352153009310463837849967915277681320078191945553095203814554635743569935730813840641672910402360387619226511013110692200410827830105697828",
+                                                                                                                                            "e":  "115139176476089648430160308946928345344561655084004829506802646292975477396284075165319874173934446181311378458465931348089242254370176864",
+                                                                                                                                            "v":  "1309104127681202245681065559890093117994837385986628972940304681044314469316640717466778819727735489719514118865955800430106534284048923570274776385674397688225071728709989678578596970829746960518287585861660629309988580256490283458760523090062963889692233686300544490137140475802656882967057211278207492869128993773046751281214713545528949315038654270300671318261672530544962271425709371448598752071512244094214976491442981006093727896359937810243874285228757901203160668770964975305955245689634551690661281718687035098334792217783520334307933673905562752213337504779921807223709500670700008148592712486564552995822095144584084088953620047849192148869987023177683723584555678810964043695214365729870146481325273384478271128989613807665825076254479434922753859351041671544656370521802900872213523702650777716798261424259942417161994324606294603703235004194683376203175650922649265674295600456548914627052350862189163175106",
+                                                                                                                                            "m":  {
+                                                                                                                                                      "year":  "1827735959379604431165561366743077134119769801971135595678827982589974833435607108189959160740011916916991273624654124859310320936736114802034570714892829267866885671218674571888",
+                                                                                                                                                      "college":  "1574699384822075611229913808546907563366444900545391599016003013782999287908138967149389471239800286371541032867784010653909415604019556410780681849070683069272779831003448522259",
+                                                                                                                                                      "master_secret":  "9211295268962892389249481730265909254231550587842250857067037396999296525344601332975541008953484054530538490699169615155466488413359973439776781512143738392944763082561660252786"
+                                                                                                                                                  },
+                                                                                                                                            "m2":  "551207605499330419841653058512380784014708127558400454357421383462926903273749408037967887669958440636428818114333274064883475195232092143352465055672762663711056803237155903006839896414362251047482575831446054024586935850556798185162008953012541524411902274857615918256893648951835901884576068425020011544738268113776078454781467017172078890407807654041487363431611246161644681706370105504396034223540932983341300109771836342978567275875131115112397341983270921624811901278776183540563795581546339264290926454853385511260433788867536713590856496469348026526163330717182812726394558905460398818115022371014649980180024684106111816027816852959423534158650932102064015493791119729157150869533460741247243163482264281718245683591225875"
+                                                                                                                                        },
+                                                                                                                           "ge_proofs":  [
+
+                                                                                                                                         ]
+                                                                                                                       },
+                                                                                                     "non_revoc_proof":  null
+                                                                                                 }
+                                                                                             ],
+                                                                                  "aggregated_proof":  {
+                                                                                                           "c_hash":  "22097041195616707288182188025587992150466102040475410323800409604388134384999",
+                                                                                                           "c_list":  [
+                                                                                                                          [
+                                                                                                                              212,
+                                                                                                                              198,
+                                                                                                                              255,
+                                                                                                                              134,
+                                                                                                                              136,
+                                                                                                                              152,
+                                                                                                                              193,
+                                                                                                                              209,
+                                                                                                                              228,
+                                                                                                                              82,
+                                                                                                                              228,
+                                                                                                                              133,
+                                                                                                                              82,
+                                                                                                                              49,
+                                                                                                                              39,
+                                                                                                                              229,
+                                                                                                                              152,
+                                                                                                                              50,
+                                                                                                                              233,
+                                                                                                                              168,
+                                                                                                                              32,
+                                                                                                                              163,
+                                                                                                                              120,
+                                                                                                                              68,
+                                                                                                                              53,
+                                                                                                                              54,
+                                                                                                                              72,
+                                                                                                                              244,
+                                                                                                                              61,
+                                                                                                                              94,
+                                                                                                                              89,
+                                                                                                                              129,
+                                                                                                                              111,
+                                                                                                                              234,
+                                                                                                                              83,
+                                                                                                                              14,
+                                                                                                                              253,
+                                                                                                                              64,
+                                                                                                                              205,
+                                                                                                                              185,
+                                                                                                                              175,
+                                                                                                                              118,
+                                                                                                                              105,
+                                                                                                                              186,
+                                                                                                                              188,
+                                                                                                                              142,
+                                                                                                                              95,
+                                                                                                                              136,
+                                                                                                                              45,
+                                                                                                                              221,
+                                                                                                                              19,
+                                                                                                                              228,
+                                                                                                                              1,
+                                                                                                                              66,
+                                                                                                                              97,
+                                                                                                                              59,
+                                                                                                                              9,
+                                                                                                                              168,
+                                                                                                                              234,
+                                                                                                                              222,
+                                                                                                                              115,
+                                                                                                                              39,
+                                                                                                                              143,
+                                                                                                                              220,
+                                                                                                                              49,
+                                                                                                                              11,
+                                                                                                                              57,
+                                                                                                                              206,
+                                                                                                                              130,
+                                                                                                                              97,
+                                                                                                                              104,
+                                                                                                                              162,
+                                                                                                                              162,
+                                                                                                                              14,
+                                                                                                                              35,
+                                                                                                                              97,
+                                                                                                                              168,
+                                                                                                                              176,
+                                                                                                                              167,
+                                                                                                                              210,
+                                                                                                                              164,
+                                                                                                                              175,
+                                                                                                                              232,
+                                                                                                                              222,
+                                                                                                                              7,
+                                                                                                                              237,
+                                                                                                                              46,
+                                                                                                                              171,
+                                                                                                                              69,
+                                                                                                                              127,
+                                                                                                                              116,
+                                                                                                                              173,
+                                                                                                                              146,
+                                                                                                                              202,
+                                                                                                                              11,
+                                                                                                                              230,
+                                                                                                                              83,
+                                                                                                                              29,
+                                                                                                                              15,
+                                                                                                                              166,
+                                                                                                                              178,
+                                                                                                                              198,
+                                                                                                                              123,
+                                                                                                                              147,
+                                                                                                                              67,
+                                                                                                                              162,
+                                                                                                                              5,
+                                                                                                                              245,
+                                                                                                                              192,
+                                                                                                                              14,
+                                                                                                                              36,
+                                                                                                                              117,
+                                                                                                                              54,
+                                                                                                                              187,
+                                                                                                                              69,
+                                                                                                                              15,
+                                                                                                                              48,
+                                                                                                                              141,
+                                                                                                                              79,
+                                                                                                                              134,
+                                                                                                                              147,
+                                                                                                                              88,
+                                                                                                                              68,
+                                                                                                                              64,
+                                                                                                                              251,
+                                                                                                                              224,
+                                                                                                                              162,
+                                                                                                                              251,
+                                                                                                                              238,
+                                                                                                                              162,
+                                                                                                                              77,
+                                                                                                                              172,
+                                                                                                                              36,
+                                                                                                                              82,
+                                                                                                                              194,
+                                                                                                                              75,
+                                                                                                                              243,
+                                                                                                                              51,
+                                                                                                                              60,
+                                                                                                                              164,
+                                                                                                                              102,
+                                                                                                                              73,
+                                                                                                                              61,
+                                                                                                                              208,
+                                                                                                                              164,
+                                                                                                                              26,
+                                                                                                                              78,
+                                                                                                                              183,
+                                                                                                                              145,
+                                                                                                                              182,
+                                                                                                                              231,
+                                                                                                                              200,
+                                                                                                                              22,
+                                                                                                                              211,
+                                                                                                                              184,
+                                                                                                                              172,
+                                                                                                                              206,
+                                                                                                                              63,
+                                                                                                                              77,
+                                                                                                                              12,
+                                                                                                                              88,
+                                                                                                                              81,
+                                                                                                                              97,
+                                                                                                                              64,
+                                                                                                                              148,
+                                                                                                                              127,
+                                                                                                                              64,
+                                                                                                                              0,
+                                                                                                                              241,
+                                                                                                                              110,
+                                                                                                                              31,
+                                                                                                                              148,
+                                                                                                                              194,
+                                                                                                                              245,
+                                                                                                                              231,
+                                                                                                                              121,
+                                                                                                                              164,
+                                                                                                                              21,
+                                                                                                                              66,
+                                                                                                                              251,
+                                                                                                                              141,
+                                                                                                                              128,
+                                                                                                                              154,
+                                                                                                                              232,
+                                                                                                                              78,
+                                                                                                                              45,
+                                                                                                                              130,
+                                                                                                                              223,
+                                                                                                                              254,
+                                                                                                                              56,
+                                                                                                                              50,
+                                                                                                                              233,
+                                                                                                                              73,
+                                                                                                                              158,
+                                                                                                                              175,
+                                                                                                                              95,
+                                                                                                                              101,
+                                                                                                                              170,
+                                                                                                                              28,
+                                                                                                                              67,
+                                                                                                                              25,
+                                                                                                                              111,
+                                                                                                                              176,
+                                                                                                                              21,
+                                                                                                                              252,
+                                                                                                                              9,
+                                                                                                                              112,
+                                                                                                                              54,
+                                                                                                                              240,
+                                                                                                                              83,
+                                                                                                                              37,
+                                                                                                                              177,
+                                                                                                                              171,
+                                                                                                                              161,
+                                                                                                                              80,
+                                                                                                                              108,
+                                                                                                                              27,
+                                                                                                                              147,
+                                                                                                                              157,
+                                                                                                                              58,
+                                                                                                                              20,
+                                                                                                                              158,
+                                                                                                                              232,
+                                                                                                                              186,
+                                                                                                                              102,
+                                                                                                                              31,
+                                                                                                                              88,
+                                                                                                                              188,
+                                                                                                                              99,
+                                                                                                                              240,
+                                                                                                                              158,
+                                                                                                                              97,
+                                                                                                                              190,
+                                                                                                                              198,
+                                                                                                                              36,
+                                                                                                                              29,
+                                                                                                                              197,
+                                                                                                                              134,
+                                                                                                                              158,
+                                                                                                                              207,
+                                                                                                                              24,
+                                                                                                                              3,
+                                                                                                                              103,
+                                                                                                                              10,
+                                                                                                                              82,
+                                                                                                                              76,
+                                                                                                                              85,
+                                                                                                                              156,
+                                                                                                                              98,
+                                                                                                                              25,
+                                                                                                                              26,
+                                                                                                                              193,
+                                                                                                                              97,
+                                                                                                                              235,
+                                                                                                                              110,
+                                                                                                                              36
+                                                                                                                          ]
+                                                                                                                      ]
+                                                                                                       }
+                                                                              },
+                                                                    "requested_proof":  {
+                                                                                            "revealed_attrs":  {
+                                                                                                                   "degree":  {
+                                                                                                                                  "sub_proof_index":  0,
+                                                                                                                                  "raw":  "Master of Computer Science",
+                                                                                                                                  "encoded":  "42214571655035018837256318398941171795849404612825413862843512178956290847706"
+                                                                                                                              }
+                                                                                                               },
+                                                                                            "self_attested_attrs":  {
+
+                                                                                                                    },
+                                                                                            "unrevealed_attrs":  {
+
+                                                                                                                 },
+                                                                                            "predicates":  {
+
+                                                                                                           }
+                                                                                        },
+                                                                    "identifiers":  [
+                                                                                        {
+                                                                                            "schema_id":  "4fUDR9R7fjwELRvH9JT6HH:2:diploma:1.0",
+                                                                                            "cred_def_id":  "4fUDR9R7fjwELRvH9JT6HH:3:CL:10:default",
+                                                                                            "rev_reg_id":  null,
+                                                                                            "timestamp":  null
+                                                                                        }
+                                                                                    ]
+                                                                }
+                                                   }
+                                      },
+                        "verified":  "true",
+                        "verified_msgs":  [
+                                              "RMV_GLB_NRI"
+                                          ],
+                        "auto_present":  false,
+                        "auto_verify":  true,
+                        "auto_remove":  false
+                    },
+                    {
+                        "state":  "done",
+                        "created_at":  "2026-10-05T16:53:03.835315Z",
+                        "updated_at":  "2026-10-05T16:53:37.787715Z",
+                        "trace":  false,
+                        "pres_ex_id":  "5639c6bf-0333-4395-9b76-3b8f49e05d51",
+                        "connection_id":  "67f5a94d-d308-47e9-a56c-e4c4d550c6a1",
+                        "thread_id":  "f26d2e20-ae6c-4cd5-937c-98bba061bcf5",
+                        "initiator":  "self",
+                        "role":  "verifier",
+                        "pres_request":  {
+                                             "@type":  "https://didcomm.org/present-proof/2.0/request-presentation",
+                                             "@id":  "f26d2e20-ae6c-4cd5-937c-98bba061bcf5",
+                                             "will_confirm":  true,
+                                             "formats":  [
+                                                             {
+                                                                 "attach_id":  "indy",
+                                                                 "format":  "hlindy/proof-req@v2.0"
+                                                             }
+                                                         ],
+                                             "request_presentations~attach":  [
+                                                                                  {
+                                                                                      "@id":  "indy",
+                                                                                      "mime-type":  "application/json",
+                                                                                      "data":  {
+                                                                                                   "base64":  "eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgInJlcXVlc3RlZF9hdHRyaWJ1dGVzIjogeyJkZWdyZWUiOiB7Im5hbWUiOiAiZGVncmVlIiwgInJlc3RyaWN0aW9ucyI6IFt7ImNyZWRfZGVmX2lkIjogIjRmVURSOVI3Zmp3RUxSdkg5SlQ2SEg6MzpDTDoxMDpkZWZhdWx0In1dfX0sICJuYW1lIjogImRpcGxvbWEtY2hlY2siLCAidmVyc2lvbiI6ICIxLjAiLCAicmVxdWVzdGVkX3ByZWRpY2F0ZXMiOiB7fX0="
+                                                                                               }
+                                                                                  }
+                                                                              ]
+                                         },
+                        "pres":  {
+                                     "@type":  "https://didcomm.org/present-proof/2.0/presentation",
+                                     "@id":  "4ea8a860-e5ee-4d37-bc77-c0ac29face15",
+                                     "~thread":  {
+                                                     "thid":  "f26d2e20-ae6c-4cd5-937c-98bba061bcf5"
+                                                 },
+                                     "formats":  [
+                                                     {
+                                                         "attach_id":  "indy",
+                                                         "format":  "hlindy/proof@v2.0"
+                                                     }
+                                                 ],
+                                     "presentations~attach":  [
+                                                                  {
+                                                                      "@id":  "indy",
+                                                                      "mime-type":  "application/json",
+                                                                      "data":  {
+                                                                                   "base64":  "eyJwcm9vZiI6IHsicHJvb2ZzIjogW3sicHJpbWFyeV9wcm9vZiI6IHsiZXFfcHJvb2YiOiB7InJldmVhbGVkX2F0dHJzIjogeyJkZWdyZWUiOiAiNDIyMTQ1NzE2NTUwMzUwMTg4MzcyNTYzMTgzOTg5NDExNzE3OTU4NDk0MDQ2MTI4MjU0MTM4NjI4NDM1MTIxNzg5NTYyOTA4NDc3MDYifSwgImFfcHJpbWUiOiAiODc4NzM5MDU2MDIzNjU2OTk2MDI2OTI2NzkyMDQ4MjM4MDQ1MzQ3MjEwODk4OTgxNTYyMzg1MzM4Mzc1MDYxNDI5OTkxNDE4MjkyMzQ4ODU4NzYwNzEzNDA1MTExMDg4NzY5Njk4NzUzNzA2MzczODYxMzQxODM5Nzg2OTkyNTczODk0Mzk1MjA1ODM4ODA0Nzg4MDM5NDkzNTM2MTQ0Nzg1MjcxNTMxNTE4NTUwNzE4ODczNzI2NTYyOTg3Njc4NTU5MDM4MTQ5Njg0NTQ4NzI0MzA4OTMzNjIxMjU4MzkxNzMwMjEzNDY3NjQ0NjQzNjg2NDI4MDg0OTU4ODg2NzI0NjkyMzY3MTgyNzQ2MzkyMTI3MDA5MDA3OTg0ODU3ODM3NDEzMjA0ODk1NjIwMTQ2MzE0MzY1OTA5ODU1NzkwNzIxMDMzODIxODAwOTA3OTM4ODI2MDA3NjUwNTM2Mjg3MTg3OTIyODU1NDE5NzYwNzg1NDQ5Mzc3MzMxNzI3Mjg2ODAzNDIzODgyMDQ2NDExNTQwNzA2NjA5OTEzNTE0MzEyMDQ0NjMyMjYxNDMwMjYyNTY2OTMxNDAwMzM5NzU2NDQzMTc2ODgwODg4ODMzODc1NzA3MzE4Mzg4MDkzMjEyOTgzMjk4MjgwNTI1ODQzNDA2MTQ0ODcyODE0MDA0OTYyNDA1NTg5OTkyODk4NjA0MDQxOTk2NjgzMjY3MTg2NDkwMDg4NzcyMzgxMjk2MDg0NTQyMDI5NzUxMTM4ODQxNTEzMjk5ODAwMjY4NDE4NTMxNDU1ODUxMDgyNjYyNjU5MTM4MSIsICJlIjogIjE0MTU4NTIxODE3MDUyMTA4MDUxNTYxMzUwNTkxMjQ2NDUzNTMxNTM5NzMxNTE4Mjc0ODgzOTk0MjE5OTA1NzI5MTI1MTkyNzI1MzMzNTI2NTIyMzA1Mjg1NTM4NjQ0NzA5NjIwNDEzMTI1OTM0MTgyMjk0ODEwOTE0MjgyNjk1MjUxNjg1MTQ3MCIsICJ2IjogIjkxNDc4NjU0ODg2MTY3NTQ3MTU2OTc5MTczNDk3Nzk4NDcyMDMxMjg5MDYyMjU0NDE3MDMxNTIzMzIxNzgxMjE0MTk5NzYwNjc4NzYxMzY4ODI3NzE3ODk0MDY3NDUxMTYyNzUzMDc3MjY1MjA1OTU4NjI5MTU4MjE0Mjg5NjI4MjI2MTA2NjgyOTM2NDk0NzczNzEyMDA5NTU1NTc5OTI5NzcxMjU4NDI2ODI3MDA0MTM0NTIxNDk2NDI3MDc5ODUzODMxMTEzODA3MDAzNzIzODM1NjY0MTExOTU2Mzg3NjYwMTI5NjU5MjE3ODk3OTQwNjY5ODQxNTUwMTMwNzk4NzQ1MzgwNTMxMzE1NjEwODM1MDQ0MTUwNzgyNTc2NDQ2MDgyOTI0MDk2NDYzNDA2ODc2MDE5ODYxMTExMzY3MDA0NDI3NzIyODMzMzEyOTc0MzcyMzU3ODE0ODAwNzU0NjIzOTY1NDI0NDUwOTYwMTE2Nzg2NTIyMjg4NzkzODU3MTM3Njc0MjMwODYwMjYwODQyNjM4NzUyNzc2NTc2MTMyNjQyMjQxNDk2NzAxNjE5Mzk2Mjg5ODgyMzY5NDQ0NzgxMzA0OTI5NzIyNzQzNzUwNDQzMTgxOTU2NDY1NDgyMTU3MzU5NzEzMDg1MjU4NDc4MzI3NzE3MjExOTY5MzE4NjQzNTkwODEyMjc1MTIyNjg4Mzk4MDU1MDIwNzY0MDQ1NjcxMjk4MjUyODgzMzc0NzgzMTI3MTQ4OTIwOTM4NDIyMjQ4OTE5ODY0MDI4NjExMzQ0ODMzODM4NTc5NTU3NDgxMDAwNDUxNTk1ODU0NzA2OTU5MDM3MzQ0MDM1OTgzMTYwMzUyMzE2NTIzMDA1NzEzMDIxOTA1ODAxOTY5MzYzMzY0NjY4NDY5NTY3MzM1NDY2OTY3NzQ1OTk2Mjc3ODk1ODY2NzQyMjUyMDY2NjM3MDg1OTM2MzI5NzA2MzU3OTcxMjgyNDE3NzQ1NTg4NDc5MDM2NjU3MjE3NjUyMTkyNTIzNDEwNTIwNDI2NjI3MDY3MDEyMzk1MTg3Nzg2OTUwMjc5MzM0MTMzMTkwNDgwMDA1ODMyMTYxNjY0NTgwMjUzMjE5MTY1NDg2OTgwODMzOTIyNjY4NjYwNDk4NzY1NDgyOTQzMzIwNTI3NjI1MDczNTg2ODExNTQ0NTkwNTcwMzQ2MDQ2NzE3MDc4NTMzODg2NSIsICJtIjogeyJtYXN0ZXJfc2VjcmV0IjogIjQ3OTgxNjE4NjQ0OTYwODA4OTA0MDc4NjE4MDU3MzY4MDM3ODA1MzYwMTMzNTI5NTE4NTAzNzYwNTgzMDA2NDc3OTM2NDQxMDU0MTMzMjE1MTM5MjMwODAzOTE0Mjc2MjE4OTc4ODc4ODk0NzU0NDU1MDgyNTAzMzc4NzAxNjAxMDQ3NjEyMTMwMjMwNzY2ODIyOTY0MDcwOTYzNzA0MjUxNTQ3MTc3MTg1ODEzODc3NTMiLCAieWVhciI6ICI0MjQyNDU1MjUzMzc5NDIyNTA4NzE1NDI4ODY1NDU1MDI5NTg5OTI5NzYyNDAyNzQ4OTQwMTkzNDEyMTM1MTgwMzYyODEwMDkyOTE4OTUxMjA3Mzc1MDYyOTE4ODI1NzIwNDY2MjU4MjgxNzQ2NDY1ODA0MDI3NDAzMDg2ODcxNTcwNDU5MTc0MTA4MzA5ODY1NTUzNDQzODYwMjM4MzAwMzY0MzU3OTIzNDE2NTQ0OTQiLCAiY29sbGVnZSI6ICIxMDI3MjA2MDgxNDk0OTY1NDgzODkyMDg5Nzk0NzM3NDg3NzM3MDA1NzIxODMxOTAyMjk2NTMxNDc0NjY2NDY3ODEyODk1MTk4NDkyNTUxNDYyMjg2NzcyNTM3MTA5NTg2NDY1OTg4ODcyMzI1ODg0NTIxOTUwMTI1MzQ5MDE1MzQzMzk5ODUxNzczNDE4NDM3MDk2Mjg5MDQ5MDA5ODkyNjE4NjE4MjQzMzg1MDM2MTU4MyJ9LCAibTIiOiAiNjE5NTE1MTcwNTA5ODE5NjI2MjY0NjY1MjkwODkyOTgzODI0ODIzMTc5MDU3NzI4MDUzMTU4ODEzNzkzMjIyNDE4MjM1MjU5MTM2MDUxNTUwMTQ1MDI3MjE1NDI3NTg1ODgwODkwNTQ4NDc0Mzk5MTQ0MDAxODY0MjE4MDE1NTI2NjAzMjc5NzMwOTA3OTQ2MzkzNjkyNDI1Mzk4Mjg2MjQ0NTA5NDIzNDI5MDAzNzUxMzgwOTU1ODgzMzg5NTY2NzAwMjcxOTk4NDYxNTcyNTE1MzYzNjQ4Mzc5MDU0NzA2NTk4OTc5NzY5NTUxNjE1NTc2MDExNDM2NzE2NjU2ODEwMTI3NzgyNTMwMDMwNzMzMzk3NDE0ODcxNDgyMTU2MDc2MDA2MTY3NTk0NDEwNTE0NTQ4NDE0ODA4MjQwMzE1NDA3NDU2NjAyNDY4NjA2ODgzMjY0MzkxMDQxODUyMTEzMjU1MTcyNzM0MzQxMTQ2NDUwOTUwODA1NTYzNzc1NzYzNDY3ODk1MTY5NDk4Nzc5NTQ0Nzc4MzQ1MzY2MDAwNjIxMDU3ODk4NTQ1MzkxMDkyOTkyNjYyNjE3NTE3ODIyOTEzNTkxMTM1MDQyMzU5OTI0ODkwODY2MjE5Nzc2MzgxNjU5NTQxNDIyMTMzMTc0OTM0OTg0NzI1MDA2MDA5MTMyODU3MTk1OTAyNzMyMjYxNzkzMjA5MzIyNDUyMTU2OTMxNDMwMjU5MDY0NjE1MDQ3NTQ0OTY2MTYzNDk1NDAzODQxNDQxMTkxNjUwNjEwMzEyNzM2ODI1NzcyNDE3ODIzMzA1MzY5ODQ4NzE0MTgyMTEzOTgxNzcwNzMyODkxMDIxODc0MzcxODg0NTE4NDUwODg0NDE0NTQ3MjgxNDYwMjc1MjE4MTczNjQwMTYxMDkwODQ4NDU2NTMwOTQ2MTk0ODMyMTgzNzg2MDE0OTIzNzEyODYwMjkifSwgImdlX3Byb29mcyI6IFtdfSwgIm5vbl9yZXZvY19wcm9vZiI6IG51bGx9XSwgImFnZ3JlZ2F0ZWRfcHJvb2YiOiB7ImNfaGFzaCI6ICIxMDE3NDc0ODEyMDg3NjU5MjEyNDM2NDIwMTM5OTQ1NzM5Nzg1NzUyMDc1NTE0MTk3MTQ1ODA4NTQ0NTMzOTgzODM3NTc2MzUwODY0OTQiLCAiY19saXN0IjogW1s2OSwgMTU2LCAxMCwgMjM3LCAxNjIsIDk4LCAyNTEsIDIzNywgMjUsIDE1MCwgMTk5LCAzLCAxOCwgMTg3LCAxOTgsIDE2OCwgMTQsIDEyNSwgMTI4LCA1NywgOTIsIDEyNywgMjMzLCA5NSwgMTcyLCA2MSwgMTQ5LCAyMCwgMTksIDM1LCA3OSwgMjUxLCAxMjcsIDM4LCAzNSwgMjA4LCAxOTksIDYyLCAzMCwgMTI5LCAyMTEsIDE3OCwgMTQ2LCA0MiwgNTUsIDEsIDIwNSwgMTU0LCAzNiwgMzUsIDEwNCwgMTgwLCAxNjgsIDE2MCwgMTM1LCAxNDIsIDE2MCwgMjIxLCA3NiwgMTI5LCAxNzIsIDgwLCAxNTQsIDM4LCA4NCwgMjEzLCA5MywgMjQ4LCAyMjcsIDIxMywgMjUzLCAxOTAsIDE5NiwgOTksIDUsIDgzLCAyNTIsIDE1OSwgMTcwLCAzNywgNCwgMywgNywgMTA2LCAyMzgsIDIxNCwgMTM2LCAyMzMsIDE0OCwgNDgsIDgxLCAxODcsIDk4LCA5MSwgMCwgMTI5LCA5NSwgMjQyLCAyMzEsIDksIDM1LCAyNTIsIDgwLCA2OCwgMjE4LCAxMTUsIDEwMCwgNzcsIDg0LCA2MCwgODQsIDEzNiwgMjUzLCAxMDEsIDU0LCAyNTUsIDEwOSwgMTEwLCA4MSwgMjI0LCAyNDgsIDgsIDI0OCwgMTA4LCA1OSwgMjUyLCAxNjIsIDIxNywgMTMxLCA1NywgNjYsIDIxMSwgNzUsIDIzNiwgOTAsIDE1OCwgMjI4LCA2NCwgOTIsIDEzNywgNDMsIDkyLCA0MywgMTg0LCAyLCAyMTksIDE0OSwgNywgMTk0LCAxMDIsIDIyOCwgMjA3LCAxMDksIDE3NSwgMTQ1LCAyMTMsIDE2NSwgMzQsIDE2NiwgMjQ3LCAyMzEsIDIxMywgNDcsIDEzNywgMiwgNDgsIDE0LCAyMTAsIDI1MiwgMTg0LCAyNiwgMywgMTM1LCAxOTUsIDE2MywgMTU0LCA5NSwgMjEwLCAxMTAsIDIzOSwgMTA5LCAyLCA3NiwgMTc3LCA2NCwgMTQ2LCAyMzMsIDE2NCwgMjQ4LCAxNDksIDEzOSwgMjAzLCAzOSwgMTIyLCAyMjcsIDEzMSwgMTgxLCA0MiwgMTc1LCAyNDIsIDI0NCwgMjQsIDkzLCA2NiwgMTI4LCAxODksIDEwNSwgMTA5LCAxMDIsIDEwLCA5MiwgNTcsIDI0NSwgMjIyLCAyNDAsIDk0LCAxMTQsIDQwLCAxNjQsIDYwLCAyMjksIDI1MCwgMTk1LCAxOTksIDUwLCAxMzgsIDI0MSwgMiwgMjQ5LCAxNTIsIDE4OSwgNDEsIDIzNCwgNDMsIDk2LCAxODcsIDIyMCwgMTYzLCAxMjAsIDIzOSwgMTAwLCA0OSwgMTUxLCA5MCwgMTQ2LCAxNDgsIDE4MCwgNDYsIDE0MSwgMTM3LCAxNDcsIDE3MywgMjM4LCAxNDUsIDE3MCwgMTQ5XV19fSwgInJlcXVlc3RlZF9wcm9vZiI6IHsicmV2ZWFsZWRfYXR0cnMiOiB7ImRlZ3JlZSI6IHsic3ViX3Byb29mX2luZGV4IjogMCwgInJhdyI6ICJNYXN0ZXIgb2YgQ29tcHV0ZXIgU2NpZW5jZSIsICJlbmNvZGVkIjogIjQyMjE0NTcxNjU1MDM1MDE4ODM3MjU2MzE4Mzk4OTQxMTcxNzk1ODQ5NDA0NjEyODI1NDEzODYyODQzNTEyMTc4OTU2MjkwODQ3NzA2In19LCAic2VsZl9hdHRlc3RlZF9hdHRycyI6IHt9LCAidW5yZXZlYWxlZF9hdHRycyI6IHt9LCAicHJlZGljYXRlcyI6IHt9fSwgImlkZW50aWZpZXJzIjogW3sic2NoZW1hX2lkIjogIjRmVURSOVI3Zmp3RUxSdkg5SlQ2SEg6MjpkaXBsb21hOjEuMCIsICJjcmVkX2RlZl9pZCI6ICI0ZlVEUjlSN2Zqd0VMUnZIOUpUNkhIOjM6Q0w6MTA6ZGVmYXVsdCIsICJyZXZfcmVnX2lkIjogbnVsbCwgInRpbWVzdGFtcCI6IG51bGx9XX0="
+                                                                               }
+                                                                  }
+                                                              ]
+                                 },
+                        "by_format":  {
+                                          "pres_request":  {
+                                                               "indy":  {
+                                                                            "nonce":  "1234567890",
+                                                                            "requested_attributes":  {
+                                                                                                         "degree":  {
+                                                                                                                        "name":  "degree",
+                                                                                                                        "restrictions":  [
+                                                                                                                                             {
+                                                                                                                                                 "cred_def_id":  "4fUDR9R7fjwELRvH9JT6HH:3:CL:10:default"
+                                                                                                                                             }
+                                                                                                                                         ]
+                                                                                                                    }
+                                                                                                     },
+                                                                            "name":  "diploma-check",
+                                                                            "version":  "1.0",
+                                                                            "requested_predicates":  {
+
+                                                                                                     }
+                                                                        }
+                                                           },
+                                          "pres":  {
+                                                       "indy":  {
+                                                                    "proof":  {
+                                                                                  "proofs":  [
+                                                                                                 {
+                                                                                                     "primary_proof":  {
+                                                                                                                           "eq_proof":  {
+                                                                                                                                            "revealed_attrs":  {
+                                                                                                                                                                   "degree":  "42214571655035018837256318398941171795849404612825413862843512178956290847706"
+                                                                                                                                                               },
+                                                                                                                                            "a_prime":  "8787390560236569960269267920482380453472108989815623853383750614299914182923488587607134051110887696987537063738613418397869925738943952058388047880394935361447852715315185507188737265629876785590381496845487243089336212583917302134676446436864280849588867246923671827463921270090079848578374132048956201463143659098557907210338218009079388260076505362871879228554197607854493773317272868034238820464115407066099135143120446322614302625669314003397564431768808888338757073183880932129832982805258434061448728140049624055899928986040419966832671864900887723812960845420297511388415132998002684185314558510826626591381",
+                                                                                                                                            "e":  "141585218170521080515613505912464535315397315182748839942199057291251927253335265223052855386447096204131259341822948109142826952516851470",
+                                                                                                                                            "v":  "914786548861675471569791734977984720312890622544170315233217812141997606787613688277178940674511627530772652059586291582142896282261066829364947737120095555799297712584268270041345214964270798538311138070037238356641119563876601296592178979406698415501307987453805313156108350441507825764460829240964634068760198611113670044277228333129743723578148007546239654244509601167865222887938571376742308602608426387527765761326422414967016193962898823694447813049297227437504431819564654821573597130852584783277172119693186435908122751226883980550207640456712982528833747831271489209384222489198640286113448338385795574810004515958547069590373440359831603523165230057130219058019693633646684695673354669677459962778958667422520666370859363297063579712824177455884790366572176521925234105204266270670123951877869502793341331904800058321616645802532191654869808339226686604987654829433205276250735868115445905703460467170785338865",
+                                                                                                                                            "m":  {
+                                                                                                                                                      "master_secret":  "4798161864496080890407861805736803780536013352951850376058300647793644105413321513923080391427621897887889475445508250337870160104761213023076682296407096370425154717718581387753",
+                                                                                                                                                      "year":  "424245525337942250871542886545502958992976240274894019341213518036281009291895120737506291882572046625828174646580402740308687157045917410830986555344386023830036435792341654494",
+                                                                                                                                                      "college":  "10272060814949654838920897947374877370057218319022965314746664678128951984925514622867725371095864659888723258845219501253490153433998517734184370962890490098926186182433850361583"
+                                                                                                                                                  },
+                                                                                                                                            "m2":  "61951517050981962626466529089298382482317905772805315881379322241823525913605155014502721542758588089054847439914400186421801552660327973090794639369242539828624450942342900375138095588338956670027199846157251536364837905470659897976955161557601143671665681012778253003073339741487148215607600616759441051454841480824031540745660246860688326439104185211325517273434114645095080556377576346789516949877954477834536600062105789854539109299266261751782291359113504235992489086621977638165954142213317493498472500600913285719590273226179320932245215693143025906461504754496616349540384144119165061031273682577241782330536984871418211398177073289102187437188451845088441454728146027521817364016109084845653094619483218378601492371286029"
+                                                                                                                                        },
+                                                                                                                           "ge_proofs":  [
+
+                                                                                                                                         ]
+                                                                                                                       },
+                                                                                                     "non_revoc_proof":  null
+                                                                                                 }
+                                                                                             ],
+                                                                                  "aggregated_proof":  {
+                                                                                                           "c_hash":  "101747481208765921243642013994573978575207551419714580854453398383757635086494",
+                                                                                                           "c_list":  [
+                                                                                                                          [
+                                                                                                                              69,
+                                                                                                                              156,
+                                                                                                                              10,
+                                                                                                                              237,
+                                                                                                                              162,
+                                                                                                                              98,
+                                                                                                                              251,
+                                                                                                                              237,
+                                                                                                                              25,
+                                                                                                                              150,
+                                                                                                                              199,
+                                                                                                                              3,
+                                                                                                                              18,
+                                                                                                                              187,
+                                                                                                                              198,
+                                                                                                                              168,
+                                                                                                                              14,
+                                                                                                                              125,
+                                                                                                                              128,
+                                                                                                                              57,
+                                                                                                                              92,
+                                                                                                                              127,
+                                                                                                                              233,
+                                                                                                                              95,
+                                                                                                                              172,
+                                                                                                                              61,
+                                                                                                                              149,
+                                                                                                                              20,
+                                                                                                                              19,
+                                                                                                                              35,
+                                                                                                                              79,
+                                                                                                                              251,
+                                                                                                                              127,
+                                                                                                                              38,
+                                                                                                                              35,
+                                                                                                                              208,
+                                                                                                                              199,
+                                                                                                                              62,
+                                                                                                                              30,
+                                                                                                                              129,
+                                                                                                                              211,
+                                                                                                                              178,
+                                                                                                                              146,
+                                                                                                                              42,
+                                                                                                                              55,
+                                                                                                                              1,
+                                                                                                                              205,
+                                                                                                                              154,
+                                                                                                                              36,
+                                                                                                                              35,
+                                                                                                                              104,
+                                                                                                                              180,
+                                                                                                                              168,
+                                                                                                                              160,
+                                                                                                                              135,
+                                                                                                                              142,
+                                                                                                                              160,
+                                                                                                                              221,
+                                                                                                                              76,
+                                                                                                                              129,
+                                                                                                                              172,
+                                                                                                                              80,
+                                                                                                                              154,
+                                                                                                                              38,
+                                                                                                                              84,
+                                                                                                                              213,
+                                                                                                                              93,
+                                                                                                                              248,
+                                                                                                                              227,
+                                                                                                                              213,
+                                                                                                                              253,
+                                                                                                                              190,
+                                                                                                                              196,
+                                                                                                                              99,
+                                                                                                                              5,
+                                                                                                                              83,
+                                                                                                                              252,
+                                                                                                                              159,
+                                                                                                                              170,
+                                                                                                                              37,
+                                                                                                                              4,
+                                                                                                                              3,
+                                                                                                                              7,
+                                                                                                                              106,
+                                                                                                                              238,
+                                                                                                                              214,
+                                                                                                                              136,
+                                                                                                                              233,
+                                                                                                                              148,
+                                                                                                                              48,
+                                                                                                                              81,
+                                                                                                                              187,
+                                                                                                                              98,
+                                                                                                                              91,
+                                                                                                                              0,
+                                                                                                                              129,
+                                                                                                                              95,
+                                                                                                                              242,
+                                                                                                                              231,
+                                                                                                                              9,
+                                                                                                                              35,
+                                                                                                                              252,
+                                                                                                                              80,
+                                                                                                                              68,
+                                                                                                                              218,
+                                                                                                                              115,
+                                                                                                                              100,
+                                                                                                                              77,
+                                                                                                                              84,
+                                                                                                                              60,
+                                                                                                                              84,
+                                                                                                                              136,
+                                                                                                                              253,
+                                                                                                                              101,
+                                                                                                                              54,
+                                                                                                                              255,
+                                                                                                                              109,
+                                                                                                                              110,
+                                                                                                                              81,
+                                                                                                                              224,
+                                                                                                                              248,
+                                                                                                                              8,
+                                                                                                                              248,
+                                                                                                                              108,
+                                                                                                                              59,
+                                                                                                                              252,
+                                                                                                                              162,
+                                                                                                                              217,
+                                                                                                                              131,
+                                                                                                                              57,
+                                                                                                                              66,
+                                                                                                                              211,
+                                                                                                                              75,
+                                                                                                                              236,
+                                                                                                                              90,
+                                                                                                                              158,
+                                                                                                                              228,
+                                                                                                                              64,
+                                                                                                                              92,
+                                                                                                                              137,
+                                                                                                                              43,
+                                                                                                                              92,
+                                                                                                                              43,
+                                                                                                                              184,
+                                                                                                                              2,
+                                                                                                                              219,
+                                                                                                                              149,
+                                                                                                                              7,
+                                                                                                                              194,
+                                                                                                                              102,
+                                                                                                                              228,
+                                                                                                                              207,
+                                                                                                                              109,
+                                                                                                                              175,
+                                                                                                                              145,
+                                                                                                                              213,
+                                                                                                                              165,
+                                                                                                                              34,
+                                                                                                                              166,
+                                                                                                                              247,
+                                                                                                                              231,
+                                                                                                                              213,
+                                                                                                                              47,
+                                                                                                                              137,
+                                                                                                                              2,
+                                                                                                                              48,
+                                                                                                                              14,
+                                                                                                                              210,
+                                                                                                                              252,
+                                                                                                                              184,
+                                                                                                                              26,
+                                                                                                                              3,
+                                                                                                                              135,
+                                                                                                                              195,
+                                                                                                                              163,
+                                                                                                                              154,
+                                                                                                                              95,
+                                                                                                                              210,
+                                                                                                                              110,
+                                                                                                                              239,
+                                                                                                                              109,
+                                                                                                                              2,
+                                                                                                                              76,
+                                                                                                                              177,
+                                                                                                                              64,
+                                                                                                                              146,
+                                                                                                                              233,
+                                                                                                                              164,
+                                                                                                                              248,
+                                                                                                                              149,
+                                                                                                                              139,
+                                                                                                                              203,
+                                                                                                                              39,
+                                                                                                                              122,
+                                                                                                                              227,
+                                                                                                                              131,
+                                                                                                                              181,
+                                                                                                                              42,
+                                                                                                                              175,
+                                                                                                                              242,
+                                                                                                                              244,
+                                                                                                                              24,
+                                                                                                                              93,
+                                                                                                                              66,
+                                                                                                                              128,
+                                                                                                                              189,
+                                                                                                                              105,
+                                                                                                                              109,
+                                                                                                                              102,
+                                                                                                                              10,
+                                                                                                                              92,
+                                                                                                                              57,
+                                                                                                                              245,
+                                                                                                                              222,
+                                                                                                                              240,
+                                                                                                                              94,
+                                                                                                                              114,
+                                                                                                                              40,
+                                                                                                                              164,
+                                                                                                                              60,
+                                                                                                                              229,
+                                                                                                                              250,
+                                                                                                                              195,
+                                                                                                                              199,
+                                                                                                                              50,
+                                                                                                                              138,
+                                                                                                                              241,
+                                                                                                                              2,
+                                                                                                                              249,
+                                                                                                                              152,
+                                                                                                                              189,
+                                                                                                                              41,
+                                                                                                                              234,
+                                                                                                                              43,
+                                                                                                                              96,
+                                                                                                                              187,
+                                                                                                                              220,
+                                                                                                                              163,
+                                                                                                                              120,
+                                                                                                                              239,
+                                                                                                                              100,
+                                                                                                                              49,
+                                                                                                                              151,
+                                                                                                                              90,
+                                                                                                                              146,
+                                                                                                                              148,
+                                                                                                                              180,
+                                                                                                                              46,
+                                                                                                                              141,
+                                                                                                                              137,
+                                                                                                                              147,
+                                                                                                                              173,
+                                                                                                                              238,
+                                                                                                                              145,
+                                                                                                                              170,
+                                                                                                                              149
+                                                                                                                          ]
+                                                                                                                      ]
+                                                                                                       }
+                                                                              },
+                                                                    "requested_proof":  {
+                                                                                            "revealed_attrs":  {
+                                                                                                                   "degree":  {
+                                                                                                                                  "sub_proof_index":  0,
+                                                                                                                                  "raw":  "Master of Computer Science",
+                                                                                                                                  "encoded":  "42214571655035018837256318398941171795849404612825413862843512178956290847706"
+                                                                                                                              }
+                                                                                                               },
+                                                                                            "self_attested_attrs":  {
+
+                                                                                                                    },
+                                                                                            "unrevealed_attrs":  {
+
+                                                                                                                 },
+                                                                                            "predicates":  {
+
+                                                                                                           }
+                                                                                        },
+                                                                    "identifiers":  [
+                                                                                        {
+                                                                                            "schema_id":  "4fUDR9R7fjwELRvH9JT6HH:2:diploma:1.0",
+                                                                                            "cred_def_id":  "4fUDR9R7fjwELRvH9JT6HH:3:CL:10:default",
+                                                                                            "rev_reg_id":  null,
+                                                                                            "timestamp":  null
+                                                                                        }
+                                                                                    ]
+                                                                }
+                                                   }
+                                      },
+                        "verified":  "true",
+                        "verified_msgs":  [
+                                              "RMV_GLB_NRI"
+                                          ],
+                        "auto_present":  false,
+                        "auto_verify":  true,
+                        "auto_remove":  false
+                    }
+                ]
+}

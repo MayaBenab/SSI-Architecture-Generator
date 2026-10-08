@@ -1,0 +1,963 @@
+{
+ "mapping": {
+  "P04": {
+   "name": "Trusted Issuer Registry (TIR)",
+   "realised": true,
+   "note": "trusted issuer registry approximated by a configured list",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [
+    "verifier: check the issuer DID against a trusted-issuer list"
+   ],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P05": {
+   "name": "Trusted Schemas Registry (TSR)",
+   "realised": true,
+   "note": "schema registry = ledger schema + cred def",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": [
+     "issuer: POST /schemas {schema_name, schema_version, attributes} -> schema_id on the ledger",
+     "issuer: POST /credential-definitions {schema_id, tag, support_revocation:false} -> cred_def_id"
+    ]
+   },
+   "noledger_substitution": "schema registry replaced by a JSON-LD context (no ledger); the schema is the credential's @context"
+  },
+  "P06": {
+   "name": "Status Registry",
+   "realised": true,
+   "note": "status registry = Indy revocation registry + tails server",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [
+     "tails-server"
+    ],
+    "options": {
+     "all": [],
+     "issuer": [
+      "--tails-server-base-url http://tails-server:6543",
+      "--notify-revocation"
+     ],
+     "verifier": []
+    },
+    "tests": [
+     "issuer: revoke the credential; verifier: proof request with a non-revocation interval"
+    ]
+   },
+   "noledger_substitution": "revocation registry not exercised (needs the ledger); W3C Status List would be the no-ledger equivalent"
+  },
+  "P07": {
+   "name": "DID Registry",
+   "realised": true,
+   "note": "DID registry = Indy ledger (von-network)",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [
+      "--genesis-url http://host.docker.internal:9000/genesis"
+     ],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": "not exercised in the no-ledger profile (the ledger is the DID registry)"
+  },
+  "P12": {
+   "name": "Verifiable ID (V-ID)",
+   "realised": true,
+   "note": "Verifiable ID = credential issued over issue-credential v2",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [
+    "issuer -> holder: POST /issue-credential-2.0/send with filter.ld_proof (JSON-LD, did:key) in the no-ledger profile, or filter.indy {cred_def_id} + credential_preview in the indy profile; holder: GET /credentials"
+   ],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P13": {
+   "name": "Verifiable Attestation (VA)",
+   "realised": true,
+   "note": "Verifiable Attestation = second credential type",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [
+    "issuer -> holder: a second credential type over issue-credential v2"
+   ],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P17": {
+   "name": "Selective Content Generation",
+   "realised": true,
+   "note": "selective disclosure = present-proof v2 with requested attributes",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [
+    "verifier: POST /present-proof-2.0/send-request - dif {options{challenge,domain}, presentation_definition{id:uuid,...}} in no-ledger, or indy {requested_attributes restricted to the cred_def_id} in indy; holder: POST /records/{id}/send-presentation (dif: issuer_id = holder did:key, record_ids; indy: cred_id, revealed); verifier: state done, verified true"
+   ],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P24": {
+   "name": "Public DIDs",
+   "realised": true,
+   "note": "public DIDs written to the ledger",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [
+      "--seed 000000000000000000000000Issuer01",
+      "--public-invites"
+     ],
+     "verifier": [
+      "--seed 00000000000000000000000Verifier1",
+      "--public-invites"
+     ]
+    },
+    "tests": [
+     "register the issuer and verifier public DIDs on the ledger (von-network :9000, Register from seed, role Endorser) BEFORE starting the agents; check GET /wallet/did/public -> posture posted"
+    ]
+   },
+   "noledger_substitution": "public DIDs replaced by did:key for issuer and verifier (no registry)"
+  },
+  "P25": {
+   "name": "Pairwise DIDs (and N-wise DIDs)",
+   "realised": true,
+   "note": "pairwise did:peer per connection (DID Exchange, default in ACA-Py 1.x)",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P26": {
+   "name": "Static DIDs",
+   "realised": true,
+   "note": "static did:key, not registered",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [
+     "--wallet-local-did"
+    ],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P27": {
+   "name": "Dual Resolution",
+   "realised": true,
+   "note": "DID resolution built into every agent (did:key, did:peer, did:web; did:sov via the ledger)",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P28": {
+   "name": "On-Chain (Dual) Resolution",
+   "realised": true,
+   "note": "on-chain resolution: resolver reads the ledger (indy profile)",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P29": {
+   "name": "Off-Chain (Dual) Resolution",
+   "realised": true,
+   "note": "off-chain resolution: DID Exchange carries the DID documents",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P30": {
+   "name": "Delegate List",
+   "realised": false,
+   "note": "not realised by the Aries stack",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P32": {
+   "name": "Master and Sub Key",
+   "realised": true,
+   "note": "hierarchical keys: Askar wallet (KMS) with per-DID keys",
+   "services": [],
+   "options": {
+    "all": [
+     "--wallet-type askar"
+    ],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P33": {
+   "name": "Key Shards",
+   "realised": false,
+   "note": "not realised by the Aries stack",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P37": {
+   "name": "Hot and Cold Wallet Storage",
+   "realised": false,
+   "note": "not realised by the Aries stack",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P38": {
+   "name": "Local (Private) Storage",
+   "realised": true,
+   "note": "local encrypted SQLite wallet",
+   "services": [],
+   "options": {
+    "all": [
+     "--wallet-storage-type default"
+    ],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P39": {
+   "name": "External (Remote) Cloud Storage",
+   "realised": true,
+   "note": "cloud-backed wallet = Postgres storage",
+   "services": [
+    "postgres"
+   ],
+   "options": {
+    "all": [],
+    "holder": [
+     "--wallet-storage-type postgres_storage",
+     "--wallet-storage-config '{{\"url\":\"postgres:5432\",\"wallet_scheme\":\"DatabasePerWallet\"}}'",
+     "--wallet-storage-creds '{{\"account\":\"postgres\",\"password\":\"wallet\",\"admin_account\":\"postgres\",\"admin_password\":\"wallet\"}}'"
+    ],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  },
+  "P40": {
+   "name": "Identity Hub",
+   "realised": false,
+   "note": "not realised by the Aries stack",
+   "services": [],
+   "options": {
+    "all": [],
+    "holder": [],
+    "issuer": [],
+    "verifier": []
+   },
+   "tests": [],
+   "indy": {
+    "services": [],
+    "options": {
+     "all": [],
+     "issuer": [],
+     "verifier": []
+    },
+    "tests": []
+   },
+   "noledger_substitution": ""
+  }
+ },
+ "component_types": {
+  "Actor agent": {
+   "provides": [],
+   "requires": []
+  },
+  "Verifiable data registry": {
+   "provides": [],
+   "requires": []
+  },
+  "Verifiable data registry (abstract)": {
+   "provides": [],
+   "requires": []
+  },
+  "Key manager": {
+   "provides": [
+    "KeyManagement"
+   ],
+   "requires": []
+  },
+  "Key manager (hierarchical)": {
+   "provides": [
+    "KeyManagement",
+    "KeyDerivation"
+   ],
+   "requires": []
+  },
+  "Master key store (offline)": {
+   "provides": [
+    "MasterKey"
+   ],
+   "requires": []
+  },
+  "Sub-key derivation": {
+   "provides": [
+    "KeyDerivation"
+   ],
+   "requires": [
+    "MasterKey"
+   ]
+  },
+  "Key shard manager": {
+   "provides": [
+    "KeyRecovery"
+   ],
+   "requires": [
+    "MasterKey",
+    "ShardCustody"
+   ]
+  },
+  "Shard trustee (external)": {
+   "provides": [
+    "ShardCustody"
+   ],
+   "requires": []
+  },
+  "Recovery delegate list": {
+   "provides": [
+    "KeyRecovery"
+   ],
+   "requires": [
+    "RecoveryAuthorization"
+   ]
+  },
+  "Recovery delegate (external)": {
+   "provides": [
+    "RecoveryAuthorization"
+   ],
+   "requires": [
+    "MasterKey"
+   ]
+  },
+  "Cold wallet (offline)": {
+   "provides": [
+    "KeyStorage"
+   ],
+   "requires": [
+    "MasterKey"
+   ]
+  },
+  "Hot wallet": {
+   "provides": [
+    "KeyStorage"
+   ],
+   "requires": [
+    "KeyDerivation"
+   ]
+  },
+  "DID manager": {
+   "provides": [
+    "DIDManagement"
+   ],
+   "requires": []
+  },
+  "Public DID (did:web/ion) + service endpoint": {
+   "provides": [
+    "DIDDocument",
+    "ServiceEndpoint"
+   ],
+   "requires": [
+    "DIDRegistration",
+    "KeyManagement"
+   ]
+  },
+  "Public DID + service endpoint": {
+   "provides": [
+    "DIDDocument",
+    "ServiceEndpoint"
+   ],
+   "requires": [
+    "DIDRegistration",
+    "KeyManagement"
+   ]
+  },
+  "Pairwise DID manager (did:peer)": {
+   "provides": [
+    "DIDDocument",
+    "DIDCommEndpoint"
+   ],
+   "requires": [
+    "KeyDerivation"
+   ]
+  },
+  "Static DID (did:key)": {
+   "provides": [
+    "DIDDocument"
+   ],
+   "requires": [
+    "KeyDerivation"
+   ]
+  },
+  "DID resolver": {
+   "provides": [
+    "DIDResolution"
+   ],
+   "requires": [
+    "DIDDocument"
+   ]
+  },
+  "DID registry (DPKI)": {
+   "provides": [
+    "DIDRegistration",
+    "DIDLookup"
+   ],
+   "requires": []
+  },
+  "Schema registry": {
+   "provides": [
+    "SchemaRegistry"
+   ],
+   "requires": []
+  },
+  "Status / revocation registry": {
+   "provides": [
+    "StatusList"
+   ],
+   "requires": []
+  },
+  "Trusted issuer registry": {
+   "provides": [
+    "TrustedIssuerLookup"
+   ],
+   "requires": []
+  },
+  "Credential issuance": {
+   "provides": [
+    "CredentialIssuance"
+   ],
+   "requires": [
+    "SchemaRegistry",
+    "KeyManagement"
+   ]
+  },
+  "Verifiable ID issuance": {
+   "provides": [
+    "CredentialIssuance"
+   ],
+   "requires": [
+    "KeyManagement",
+    "SchemaRegistry"
+   ]
+  },
+  "Verifiable Attestation issuance": {
+   "provides": [
+    "CredentialIssuance"
+   ],
+   "requires": [
+    "SchemaRegistry"
+   ]
+  },
+  "Wallet": {
+   "provides": [
+    "CredentialStorage"
+   ],
+   "requires": []
+  },
+  "Wallet (local)": {
+   "provides": [
+    "CredentialStorage"
+   ],
+   "requires": [
+    "LocalStorage"
+   ]
+  },
+  "Wallet (cloud-backed)": {
+   "provides": [
+    "CredentialStorage"
+   ],
+   "requires": [
+    "CloudStorage"
+   ]
+  },
+  "Wallet (hub-backed)": {
+   "provides": [
+    "CredentialStorage"
+   ],
+   "requires": [
+    "HubStorage"
+   ]
+  },
+  "Credential store": {
+   "provides": [
+    "CredentialStorage"
+   ],
+   "requires": [
+    "CredentialIssuance"
+   ]
+  },
+  "Local encrypted store": {
+   "provides": [
+    "LocalStorage"
+   ],
+   "requires": []
+  },
+  "Encrypted cloud store": {
+   "provides": [
+    "CloudStorage"
+   ],
+   "requires": []
+  },
+  "Identity hub (external agent)": {
+   "provides": [
+    "HubStorage"
+   ],
+   "requires": []
+  },
+  "Presentation generator (selective disclosure)": {
+   "provides": [
+    "PresentationGeneration"
+   ],
+   "requires": [
+    "CredentialStorage"
+   ]
+  },
+  "Presentation verification": {
+   "provides": [
+    "PresentationVerification"
+   ],
+   "requires": [
+    "SchemaRegistry"
+   ]
+  },
+  "Presentation verifier": {
+   "provides": [
+    "PresentationVerification"
+   ],
+   "requires": [
+    "PresentationGeneration",
+    "DIDResolution"
+   ]
+  }
+ },
+ "connectors": {
+  "derive": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "MasterKey",
+   "implementations": ""
+  },
+  "controls": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "KeyManagement",
+   "implementations": ""
+  },
+  "key per relationship": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "KeyDerivation",
+   "implementations": ""
+  },
+  "key": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "KeyDerivation",
+   "implementations": ""
+  },
+  "publish DID document": {
+   "standard": "W3C DID Core / did:web, did:ebsi; DID Registration (DIF)",
+   "kind": "registry",
+   "interface": "DIDRegistration",
+   "implementations": "Universal Registrar, EBSI DID Registry"
+  },
+  "DIDComm pairwise channel": {
+   "standard": "did:peer (DIF) + DIDComm v2",
+   "kind": "network",
+   "interface": "DIDCommEndpoint",
+   "implementations": "Aries Cloud Agent Python (ACA-Py), Aries Framework JavaScript"
+  },
+  "connection": {
+   "standard": "did:key + DIDComm v2",
+   "kind": "network",
+   "interface": "DIDDocument",
+   "implementations": "ACA-Py, Veramo"
+  },
+  "resolve + authenticate": {
+   "standard": "W3C DID Resolution",
+   "kind": "network",
+   "interface": "DIDDocument",
+   "implementations": "Universal Resolver, Aries resolvers"
+  },
+  "on-chain resolution": {
+   "standard": "W3C DID Resolution over the registry",
+   "kind": "registry",
+   "interface": "DIDLookup",
+   "implementations": "EBSI DID Registry API, Universal Resolver"
+  },
+  "off-chain resolution": {
+   "standard": "DIDComm v2 (DID exchange)",
+   "kind": "network",
+   "interface": "DIDResolution",
+   "implementations": "ACA-Py (DID exchange protocol)"
+  },
+  "publish / read schema": {
+   "standard": "EBSI Trusted Schemas Registry API",
+   "kind": "registry",
+   "interface": "SchemaRegistry",
+   "implementations": "EBSI"
+  },
+  "read schema": {
+   "standard": "EBSI Trusted Schemas Registry API",
+   "kind": "registry",
+   "interface": "SchemaRegistry",
+   "implementations": "EBSI"
+  },
+  "check schema": {
+   "standard": "EBSI Trusted Schemas Registry API",
+   "kind": "registry",
+   "interface": "SchemaRegistry",
+   "implementations": "EBSI"
+  },
+  "issue V-ID": {
+   "standard": "OpenID4VCI / Aries issue-credential v2; W3C VC Data Model",
+   "kind": "network",
+   "interface": "CredentialIssuance",
+   "implementations": "walt.id, Veramo, ACA-Py, EBSI conformance"
+  },
+  "issue VA": {
+   "standard": "OpenID4VCI / Aries issue-credential v2",
+   "kind": "network",
+   "interface": "CredentialIssuance",
+   "implementations": "walt.id, Veramo, ACA-Py"
+  },
+  "sign": {
+   "standard": "local call (KMS)",
+   "kind": "local",
+   "interface": "KeyManagement",
+   "implementations": ""
+  },
+  "select claims": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "CredentialStorage",
+   "implementations": ""
+  },
+  "present proof": {
+   "standard": "OpenID4VP / Aries present-proof v2; SD-JWT or BBS+ for selective disclosure",
+   "kind": "network",
+   "interface": "PresentationGeneration",
+   "implementations": "walt.id, ACA-Py, Sphereon"
+  },
+  "persist": {
+   "standard": "Aries Askar (encrypted storage)",
+   "kind": "local",
+   "interface": "LocalStorage",
+   "implementations": "Aries Askar"
+  },
+  "sync / backup": {
+   "standard": "encrypted sync (provider API)",
+   "kind": "network",
+   "interface": "CloudStorage",
+   "implementations": ""
+  },
+  "replicate": {
+   "standard": "DIF Identity Hub / Decentralized Web Node",
+   "kind": "network",
+   "interface": "HubStorage",
+   "implementations": "DWN reference implementation (TBD54566975)"
+  },
+  "publish status": {
+   "standard": "W3C Status List 2021 / EBSI Status API",
+   "kind": "registry",
+   "interface": "StatusList",
+   "implementations": "Veramo, walt.id, EBSI"
+  },
+  "check status": {
+   "standard": "W3C Status List 2021 / EBSI Status API",
+   "kind": "registry",
+   "interface": "StatusList",
+   "implementations": "Veramo, walt.id, EBSI"
+  },
+  "listed as trusted issuer": {
+   "standard": "EBSI Trusted Issuers Registry API",
+   "kind": "registry",
+   "interface": "TrustedIssuerLookup",
+   "implementations": "EBSI"
+  },
+  "check issuer trust": {
+   "standard": "EBSI Trusted Issuers Registry API",
+   "kind": "registry",
+   "interface": "TrustedIssuerLookup",
+   "implementations": "EBSI"
+  },
+  "split": {
+   "standard": "Shamir secret sharing",
+   "kind": "local",
+   "interface": "MasterKey",
+   "implementations": "libsodium / SSS libraries"
+  },
+  "distribute shard": {
+   "standard": "secure channel",
+   "kind": "network",
+   "interface": "ShardCustody",
+   "implementations": ""
+  },
+  "authorize recovery": {
+   "standard": "secure channel",
+   "kind": "network",
+   "interface": "RecoveryAuthorization",
+   "implementations": ""
+  },
+  "recover": {
+   "standard": "secure channel",
+   "kind": "network",
+   "interface": "MasterKey",
+   "implementations": ""
+  },
+  "kept in": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "KeyStorage",
+   "implementations": ""
+  },
+  "get issuer key": {
+   "standard": "W3C DID Resolution (local resolver)",
+   "kind": "local",
+   "interface": "DIDResolution",
+   "implementations": ""
+  }
+ }
+}

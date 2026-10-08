@@ -1,0 +1,13 @@
+digraph A { rankdir=TB; compound=true; nodesep=0.3; ranksep=0.5; pad=0.1; fontname=Helvetica;
+node [fontname=Helvetica, fontsize=20, shape=box, style="rounded,filled", margin="0.12,0.05", fillcolor="#dce6f2", color="#1f3864", penwidth=1.6];
+edge [fontname=Helvetica, fontsize=16, color="#374151", fontcolor="#1f3864", penwidth=1.6, arrowsize=1.1];
+"Holder" [label="Holder\nActor agent"];
+"Issuer" [label="Issuer\nActor agent"];
+"Verifier" [label="Verifier\nActor agent"];
+"VDR" [label="VDR\nVerifiable data registry (abstract)"];
+"Issuer" -> "Holder" [style=dotted, label="issue credentials (VC)"];
+"Holder" -> "Verifier" [style=dotted, label="present presentations (VP)"];
+"Issuer" -> "VDR" [style=dotted, label="register identifiers and schemas (DID, schema)"];
+"Holder" -> "VDR" [style=dotted, label="verify identifiers and schemas (DID, schema)"];
+"Verifier" -> "VDR" [style=dotted, label="verify identifiers and schemas (DID, schema)"];
+}

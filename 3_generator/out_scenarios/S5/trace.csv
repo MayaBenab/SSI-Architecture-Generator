@@ -1,0 +1,7 @@
+pattern,realizes FR,chosen among,required by,supports NFR,components added (Phase 2),connectors added,deployment (Aries)
+P32_Master_and_Sub_Key,FR01,,P25,,"KeyMgr_H, MasterKeyStore_H, SubKeyDeriv_H",derive,hierarchical keys: Askar wallet (KMS) with per-DID keys
+P07_DID_Registry,,,P24 P27,,DIDRegistry,,DID registry = Indy ledger (von-network)
+P24_Public_DIDs,FR02 FR03 FR06,,,,"DIDMgr_I, DIDMgr_V, KeyMgr_I, KeyMgr_V, PublicDID_I, PublicDID_V","publish DID document, publish DID document, controls, controls",public DIDs written to the ledger
+P25_Pairwise_DIDs,,P25/P26,P29,NFR02 NFR18,"DIDMgr_H, PairwiseDID_H","key per relationship, DIDComm pairwise channel, DIDComm pairwise channel","pairwise did:peer per connection (DID Exchange, default in ACA-Py 1.x)"
+P27_Dual_Resolution,FR07 FR08,,P29,NFR02,"Resolver_H, Resolver_I, Resolver_V","resolve + authenticate, resolve + authenticate","DID resolution built into every agent (did:key, did:peer, did:web; did:sov via the ledger)"
+P29_Off_Chain,,P28/P29,,NFR18,,"off-chain resolution, off-chain resolution",off-chain resolution: DID Exchange carries the DID documents

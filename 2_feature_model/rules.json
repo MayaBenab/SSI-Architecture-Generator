@@ -1,0 +1,909 @@
+{
+ "G0": {
+  "components": {
+   "Holder": {
+    "type": "Actor agent",
+    "container": null
+   },
+   "Issuer": {
+    "type": "Actor agent",
+    "container": null
+   },
+   "Verifier": {
+    "type": "Actor agent",
+    "container": null
+   },
+   "VDR": {
+    "type": "Verifiable data registry (abstract)",
+    "container": null
+   }
+  },
+  "connectors": [
+   {
+    "src": "Issuer",
+    "dst": "Holder",
+    "name": "issue credentials",
+    "protocol": "abstract",
+    "payload": "VC"
+   },
+   {
+    "src": "Holder",
+    "dst": "Verifier",
+    "name": "present presentations",
+    "protocol": "abstract",
+    "payload": "VP"
+   },
+   {
+    "src": "Issuer",
+    "dst": "VDR",
+    "name": "register identifiers and schemas",
+    "protocol": "abstract",
+    "payload": "DID, schema"
+   },
+   {
+    "src": "Holder",
+    "dst": "VDR",
+    "name": "verify identifiers and schemas",
+    "protocol": "abstract",
+    "payload": "DID, schema"
+   },
+   {
+    "src": "Verifier",
+    "dst": "VDR",
+    "name": "verify identifiers and schemas",
+    "protocol": "abstract",
+    "payload": "DID, schema"
+   }
+  ]
+ },
+ "rules": {
+  "P04": {
+   "name": "Trusted Issuer Registry (TIR)",
+   "required": [
+    "VDR",
+    "Issuer",
+    "Verifier"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "TIR",
+      "type": "Trusted issuer registry",
+      "container": "VDR"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "Issuer",
+      "dst": "TIR",
+      "name": "listed as trusted issuer",
+      "protocol": "registry write",
+      "payload": "issuer DID, accreditation"
+     },
+     {
+      "src": "Verifier",
+      "dst": "TIR",
+      "name": "check issuer trust",
+      "protocol": "registry read",
+      "payload": "trusted issuer entry"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P05": {
+   "name": "Trusted Schemas Registry (TSR)",
+   "required": [
+    "VDR"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "TSR",
+      "type": "Schema registry",
+      "container": "VDR"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "Issuer",
+      "dst": "TSR",
+      "name": "publish / read schema",
+      "protocol": "registry read-write",
+      "payload": "credential schema"
+     },
+     {
+      "src": "Verifier",
+      "dst": "TSR",
+      "name": "check schema",
+      "protocol": "registry read",
+      "payload": "credential schema"
+     }
+    ],
+    "refines": {
+     "VDR": "Verifiable data registry"
+    }
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P06": {
+   "name": "Status Registry",
+   "required": [
+    "VDR",
+    "Issuer",
+    "Verifier"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "StatusRegistry",
+      "type": "Status / revocation registry",
+      "container": "VDR"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "Issuer",
+      "dst": "StatusRegistry",
+      "name": "publish status",
+      "protocol": "registry write",
+      "payload": "credential status"
+     },
+     {
+      "src": "Verifier",
+      "dst": "StatusRegistry",
+      "name": "check status",
+      "protocol": "registry read",
+      "payload": "revoked / suspended"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P07": {
+   "name": "DID Registry",
+   "required": [
+    "VDR"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "DIDRegistry",
+      "type": "DID registry (DPKI)",
+      "container": "VDR"
+     }
+    ],
+    "connectors": [],
+    "refines": {
+     "VDR": "Verifiable data registry"
+    }
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P12": {
+   "name": "Verifiable ID (V-ID)",
+   "required": [
+    "Issuer",
+    "Holder",
+    "TSR",
+    "PublicDID_I",
+    "KeyMgr_I"
+   ],
+   "deleted": [
+    {
+     "src": "Issuer",
+     "dst": "Holder",
+     "name": "issue credentials"
+    }
+   ],
+   "added": {
+    "components": [
+     {
+      "id": "IssuanceSvc",
+      "type": "Credential issuance",
+      "container": "Issuer"
+     },
+     {
+      "id": "VIDIssuer",
+      "type": "Verifiable ID issuance",
+      "container": "IssuanceSvc"
+     },
+     {
+      "id": "Wallet",
+      "type": "Wallet",
+      "container": "Holder"
+     },
+     {
+      "id": "CredStore_H",
+      "type": "Credential store",
+      "container": "Wallet"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "VIDIssuer",
+      "dst": "CredStore_H",
+      "name": "issue V-ID",
+      "protocol": "issue-credential (DIDComm)",
+      "payload": "V-ID signed with Issuer key"
+     },
+     {
+      "src": "KeyMgr_I",
+      "dst": "VIDIssuer",
+      "name": "sign",
+      "protocol": "local",
+      "payload": "Issuer private key"
+     },
+     {
+      "src": "IssuanceSvc",
+      "dst": "TSR",
+      "name": "read schema",
+      "protocol": "registry read",
+      "payload": "credential schema"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P13": {
+   "name": "Verifiable Attestation (VA)",
+   "required": [
+    "IssuanceSvc",
+    "CredStore_H",
+    "TSR"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "VAIssuer",
+      "type": "Verifiable Attestation issuance",
+      "container": "IssuanceSvc"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "VAIssuer",
+      "dst": "CredStore_H",
+      "name": "issue VA",
+      "protocol": "issue-credential",
+      "payload": "VA"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P17": {
+   "name": "Selective Content Generation",
+   "required": [
+    "CredStore_H",
+    "Verifier",
+    "TSR",
+    "Resolver_V"
+   ],
+   "deleted": [
+    {
+     "src": "Holder",
+     "dst": "Verifier",
+     "name": "present presentations"
+    }
+   ],
+   "added": {
+    "components": [
+     {
+      "id": "PresGen_H",
+      "type": "Presentation generator (selective disclosure)",
+      "container": "Wallet"
+     },
+     {
+      "id": "VerifSvc",
+      "type": "Presentation verification",
+      "container": "Verifier"
+     },
+     {
+      "id": "PresVerif_V",
+      "type": "Presentation verifier",
+      "container": "VerifSvc"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "CredStore_H",
+      "dst": "PresGen_H",
+      "name": "select claims",
+      "protocol": "local",
+      "payload": "subset of credential claims"
+     },
+     {
+      "src": "PresGen_H",
+      "dst": "PresVerif_V",
+      "name": "present proof",
+      "protocol": "present-proof (DIDComm)",
+      "payload": "VP with minimal disclosure"
+     },
+     {
+      "src": "PresVerif_V",
+      "dst": "Resolver_V",
+      "name": "get issuer key",
+      "protocol": "local",
+      "payload": "issuer DID → public key"
+     },
+     {
+      "src": "VerifSvc",
+      "dst": "TSR",
+      "name": "check schema",
+      "protocol": "registry read",
+      "payload": "credential schema"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P24": {
+   "name": "Public DIDs",
+   "required": [
+    "Issuer",
+    "Verifier",
+    "DIDRegistry"
+   ],
+   "deleted": [
+    {
+     "src": "Issuer",
+     "dst": "VDR",
+     "name": "register identifiers and schemas"
+    }
+   ],
+   "added": {
+    "components": [
+     {
+      "id": "DIDMgr_I",
+      "type": "DID manager",
+      "container": "Issuer"
+     },
+     {
+      "id": "DIDMgr_V",
+      "type": "DID manager",
+      "container": "Verifier"
+     },
+     {
+      "id": "KeyMgr_I",
+      "type": "Key manager",
+      "container": "Issuer"
+     },
+     {
+      "id": "KeyMgr_V",
+      "type": "Key manager",
+      "container": "Verifier"
+     },
+     {
+      "id": "PublicDID_I",
+      "type": "Public DID (did:web/ion) + service endpoint",
+      "container": "DIDMgr_I"
+     },
+     {
+      "id": "PublicDID_V",
+      "type": "Public DID + service endpoint",
+      "container": "DIDMgr_V"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "PublicDID_I",
+      "dst": "DIDRegistry",
+      "name": "publish DID document",
+      "protocol": "registry write",
+      "payload": "DID document (public key, endpoint)"
+     },
+     {
+      "src": "PublicDID_V",
+      "dst": "DIDRegistry",
+      "name": "publish DID document",
+      "protocol": "registry write",
+      "payload": "DID document"
+     },
+     {
+      "src": "KeyMgr_I",
+      "dst": "PublicDID_I",
+      "name": "controls",
+      "protocol": "local",
+      "payload": "issuer key pair"
+     },
+     {
+      "src": "KeyMgr_V",
+      "dst": "PublicDID_V",
+      "name": "controls",
+      "protocol": "local",
+      "payload": "verifier key pair"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P25": {
+   "name": "Pairwise DIDs (and N-wise DIDs)",
+   "required": [
+    "SubKeyDeriv_H",
+    "DIDMgr_I",
+    "DIDMgr_V"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "DIDMgr_H",
+      "type": "DID manager",
+      "container": "Holder"
+     },
+     {
+      "id": "PairwiseDID_H",
+      "type": "Pairwise DID manager (did:peer)",
+      "container": "DIDMgr_H"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "SubKeyDeriv_H",
+      "dst": "PairwiseDID_H",
+      "name": "key per relationship",
+      "protocol": "local",
+      "payload": "sub-key"
+     },
+     {
+      "src": "PairwiseDID_H",
+      "dst": "DIDMgr_I",
+      "name": "DIDComm pairwise channel",
+      "protocol": "DIDComm",
+      "payload": "peer DID documents, messages"
+     },
+     {
+      "src": "PairwiseDID_H",
+      "dst": "DIDMgr_V",
+      "name": "DIDComm pairwise channel",
+      "protocol": "DIDComm",
+      "payload": "peer DID documents, messages"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P26": {
+   "name": "Static DIDs",
+   "required": [
+    "SubKeyDeriv_H",
+    "DIDMgr_I",
+    "DIDMgr_V"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "DIDMgr_H",
+      "type": "DID manager",
+      "container": "Holder"
+     },
+     {
+      "id": "StaticDID_H",
+      "type": "Static DID (did:key)",
+      "container": "DIDMgr_H"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "SubKeyDeriv_H",
+      "dst": "StaticDID_H",
+      "name": "key",
+      "protocol": "local",
+      "payload": "key pair"
+     },
+     {
+      "src": "StaticDID_H",
+      "dst": "DIDMgr_I",
+      "name": "connection",
+      "protocol": "DIDComm",
+      "payload": "did:key"
+     },
+     {
+      "src": "StaticDID_H",
+      "dst": "DIDMgr_V",
+      "name": "connection",
+      "protocol": "DIDComm",
+      "payload": "did:key"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P27": {
+   "name": "Dual Resolution",
+   "required": [
+    "DIDMgr_H",
+    "DIDMgr_I",
+    "DIDMgr_V"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "Resolver_H",
+      "type": "DID resolver",
+      "container": "DIDMgr_H"
+     },
+     {
+      "id": "Resolver_I",
+      "type": "DID resolver",
+      "container": "DIDMgr_I"
+     },
+     {
+      "id": "Resolver_V",
+      "type": "DID resolver",
+      "container": "DIDMgr_V"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "Resolver_H",
+      "dst": "PublicDID_I",
+      "name": "resolve + authenticate",
+      "protocol": "resolution",
+      "payload": "DID document → public key"
+     },
+     {
+      "src": "Resolver_H",
+      "dst": "PublicDID_V",
+      "name": "resolve + authenticate",
+      "protocol": "resolution",
+      "payload": "DID document → public key"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P28": {
+   "name": "On-Chain (Dual) Resolution",
+   "required": [
+    "Resolver_H",
+    "Resolver_V",
+    "DIDRegistry"
+   ],
+   "deleted": [
+    {
+     "src": "Holder",
+     "dst": "VDR",
+     "name": "verify identifiers and schemas"
+    },
+    {
+     "src": "Verifier",
+     "dst": "VDR",
+     "name": "verify identifiers and schemas"
+    }
+   ],
+   "added": {
+    "components": [],
+    "connectors": [
+     {
+      "src": "Resolver_H",
+      "dst": "DIDRegistry",
+      "name": "on-chain resolution",
+      "protocol": "registry read",
+      "payload": "DID document"
+     },
+     {
+      "src": "Resolver_V",
+      "dst": "DIDRegistry",
+      "name": "on-chain resolution",
+      "protocol": "registry read",
+      "payload": "DID document"
+     },
+     {
+      "src": "Resolver_I",
+      "dst": "DIDRegistry",
+      "name": "on-chain resolution",
+      "protocol": "registry read",
+      "payload": "DID document"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P29": {
+   "name": "Off-Chain (Dual) Resolution",
+   "required": [
+    "Resolver_I",
+    "Resolver_V",
+    "PairwiseDID_H"
+   ],
+   "deleted": [
+    {
+     "src": "Holder",
+     "dst": "VDR",
+     "name": "verify identifiers and schemas"
+    },
+    {
+     "src": "Verifier",
+     "dst": "VDR",
+     "name": "verify identifiers and schemas"
+    }
+   ],
+   "added": {
+    "components": [],
+    "connectors": [
+     {
+      "src": "PairwiseDID_H",
+      "dst": "Resolver_I",
+      "name": "off-chain resolution",
+      "protocol": "peer exchange",
+      "payload": "DID document"
+     },
+     {
+      "src": "PairwiseDID_H",
+      "dst": "Resolver_V",
+      "name": "off-chain resolution",
+      "protocol": "peer exchange",
+      "payload": "DID document"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P30": {
+   "name": "Delegate List",
+   "required": [
+    "MasterKeyStore_H",
+    "DIDMgr_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "DelegateList_H",
+      "type": "Recovery delegate list",
+      "container": "DIDMgr_H"
+     },
+     {
+      "id": "Delegate",
+      "type": "Recovery delegate (external)",
+      "container": null
+     }
+    ],
+    "connectors": [
+     {
+      "src": "DelegateList_H",
+      "dst": "Delegate",
+      "name": "authorize recovery",
+      "protocol": "secure channel",
+      "payload": "recovery authorization"
+     },
+     {
+      "src": "Delegate",
+      "dst": "MasterKeyStore_H",
+      "name": "recover",
+      "protocol": "secure channel",
+      "payload": "recovery key"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P32": {
+   "name": "Master and Sub Key",
+   "required": [
+    "Holder"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "KeyMgr_H",
+      "type": "Key manager (hierarchical)",
+      "container": "Holder"
+     },
+     {
+      "id": "MasterKeyStore_H",
+      "type": "Master key store (offline)",
+      "container": "KeyMgr_H"
+     },
+     {
+      "id": "SubKeyDeriv_H",
+      "type": "Sub-key derivation",
+      "container": "KeyMgr_H"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "MasterKeyStore_H",
+      "dst": "SubKeyDeriv_H",
+      "name": "derive",
+      "protocol": "local",
+      "payload": "sub-key per DID / purpose"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P33": {
+   "name": "Key Shards",
+   "required": [
+    "MasterKeyStore_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "ShardMgr_H",
+      "type": "Key shard manager",
+      "container": "KeyMgr_H"
+     },
+     {
+      "id": "Trustee",
+      "type": "Shard trustee (external)",
+      "container": null
+     }
+    ],
+    "connectors": [
+     {
+      "src": "MasterKeyStore_H",
+      "dst": "ShardMgr_H",
+      "name": "split",
+      "protocol": "local",
+      "payload": "key shards"
+     },
+     {
+      "src": "ShardMgr_H",
+      "dst": "Trustee",
+      "name": "distribute shard",
+      "protocol": "secure channel",
+      "payload": "shard"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P37": {
+   "name": "Hot and Cold Wallet Storage",
+   "required": [
+    "KeyMgr_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "ColdWallet_H",
+      "type": "Cold wallet (offline)",
+      "container": "KeyMgr_H"
+     },
+     {
+      "id": "HotWallet_H",
+      "type": "Hot wallet",
+      "container": "KeyMgr_H"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "MasterKeyStore_H",
+      "dst": "ColdWallet_H",
+      "name": "kept in",
+      "protocol": "local",
+      "payload": "master key"
+     },
+     {
+      "src": "SubKeyDeriv_H",
+      "dst": "HotWallet_H",
+      "name": "kept in",
+      "protocol": "local",
+      "payload": "sub-keys"
+     }
+    ],
+    "refines": {}
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P38": {
+   "name": "Local (Private) Storage",
+   "required": [
+    "Wallet",
+    "CredStore_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "LocalStore_H",
+      "type": "Local encrypted store",
+      "container": "Wallet"
+     }
+    ],
+    "connectors": [
+     {
+      "src": "CredStore_H",
+      "dst": "LocalStore_H",
+      "name": "persist",
+      "protocol": "local",
+      "payload": "credentials, keys"
+     }
+    ],
+    "refines": {
+     "Wallet": "Wallet (local)"
+    }
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P39": {
+   "name": "External (Remote) Cloud Storage",
+   "required": [
+    "Wallet",
+    "CredStore_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "CloudStore",
+      "type": "Encrypted cloud store",
+      "container": null
+     }
+    ],
+    "connectors": [
+     {
+      "src": "CredStore_H",
+      "dst": "CloudStore",
+      "name": "sync / backup",
+      "protocol": "encrypted sync",
+      "payload": "credentials, keys (encrypted)"
+     }
+    ],
+    "refines": {
+     "Wallet": "Wallet (cloud-backed)"
+    }
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  },
+  "P40": {
+   "name": "Identity Hub",
+   "required": [
+    "Wallet",
+    "CredStore_H"
+   ],
+   "deleted": [],
+   "added": {
+    "components": [
+     {
+      "id": "IdentityHub",
+      "type": "Identity hub (external agent)",
+      "container": null
+     }
+    ],
+    "connectors": [
+     {
+      "src": "CredStore_H",
+      "dst": "IdentityHub",
+      "name": "replicate",
+      "protocol": "hub protocol",
+      "payload": "credentials (encrypted)"
+     }
+    ],
+    "refines": {
+     "Wallet": "Wallet (hub-backed)"
+    }
+   },
+   "source": "refine.py (rule written from the pattern's solution text)"
+  }
+ }
+}

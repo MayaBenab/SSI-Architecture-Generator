@@ -1,0 +1,11 @@
+pattern,realizes FR,chosen among,required by,supports NFR,components added (Phase 2),connectors added,deployment (Aries)
+P32_Master_and_Sub_Key,FR01,,P26,,"KeyMgr_H, MasterKeyStore_H, SubKeyDeriv_H",derive,hierarchical keys: Askar wallet (KMS) with per-DID keys
+P07_DID_Registry,,,P24 P27 P28,NFR09,DIDRegistry,,DID registry = Indy ledger (von-network)
+P24_Public_DIDs,FR02 FR03 FR06,,P12,NFR09,"DIDMgr_I, DIDMgr_V, KeyMgr_I, KeyMgr_V, PublicDID_I, PublicDID_V","publish DID document, publish DID document, controls, controls",public DIDs written to the ledger
+P26_Static_DIDs,,P25/P26,,,"DIDMgr_H, StaticDID_H","key, connection, connection","static did:key, not registered"
+P27_Dual_Resolution,FR07 FR08,,P17 P28,,"Resolver_H, Resolver_I, Resolver_V","resolve + authenticate, resolve + authenticate","DID resolution built into every agent (did:key, did:peer, did:web; did:sov via the ledger)"
+P28_On_Chain,,P28/P29,,,,"on-chain resolution, on-chain resolution, on-chain resolution",on-chain resolution: resolver reads the ledger (indy profile)
+P05_Trusted_Schemas_Registry,FR14,,P12,,TSR,"publish / read schema, check schema",schema registry = ledger schema + cred def
+P12_Verifiable_ID,FR12,P12/P13/P14,P17,,"IssuanceSvc, VIDIssuer, Wallet, CredStore_H","issue V-ID, sign, read schema",Verifiable ID = credential issued over issue-credential v2
+P39_External,,P38/P39/P40,,NFR09 NFR11,CloudStore,sync / backup,cloud-backed wallet = Postgres storage
+P17_Selective_Content_Generation,FR16,,,,"PresGen_H, VerifSvc, PresVerif_V","select claims, present proof, get issuer key, check schema",selective disclosure = present-proof v2 with requested attributes

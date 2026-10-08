@@ -1,0 +1,19 @@
+--admin 0.0.0.0 8031
+--admin-insecure-mode
+--inbound-transport http 0.0.0.0 8030
+--outbound-transport http
+--endpoint http://issuer:8030
+--label issuer
+--wallet-name issuer
+--wallet-key issuer-key
+--auto-provision
+--auto-accept-invites
+--auto-accept-requests
+--auto-respond-credential-offer
+--auto-store-credential
+--log-level info
+--genesis-url http://host.docker.internal:9000/genesis
+--seed 000000000000000000000000Issuer01
+--public-invites
+--wallet-type askar
+--wallet-storage-type default

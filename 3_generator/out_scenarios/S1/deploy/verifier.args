@@ -1,0 +1,17 @@
+--admin 0.0.0.0 8041
+--admin-insecure-mode
+--inbound-transport http 0.0.0.0 8040
+--outbound-transport http
+--endpoint http://verifier:8040
+--label verifier
+--wallet-name verifier
+--wallet-key verifier-key
+--auto-provision
+--auto-accept-invites
+--auto-accept-requests
+--auto-respond-credential-offer
+--auto-store-credential
+--log-level info
+--wallet-type askar
+--wallet-storage-type default
+--no-ledger

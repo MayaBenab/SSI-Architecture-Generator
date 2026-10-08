@@ -1,0 +1,871 @@
+{
+ "request": {
+  "FR": [
+   "FR04",
+   "FR13",
+   "FR19",
+   "FR21",
+   "FR28",
+   "FR29"
+  ],
+  "NFR": [
+   "NFR08",
+   "NFR13"
+  ],
+  "forbid": []
+ },
+ "required_functions": [
+  "FR01_Key_pair_generation",
+  "FR02_DID_generation",
+  "FR03_DID_document_creation_publication",
+  "FR04_Onboarding_permissioned_system",
+  "FR05_DID_registration",
+  "FR06_DID_connection",
+  "FR07_DID_resolution",
+  "FR08_Mutual_authentication",
+  "FR09_Service_access_request",
+  "FR10_Proof_request",
+  "FR11_VC_request",
+  "FR12_Holder_authentication_by_the_Issuer",
+  "FR13_VC_issuance",
+  "FR14_Credential_schema_management",
+  "FR15_VC_storage",
+  "FR16_VP_generation_selective_disclosure",
+  "FR17_VP_presentation",
+  "FR19_Issuer_trust_verification",
+  "FR21_Validity_status_check",
+  "FR28_Issuer_accreditation",
+  "FR29_Authorization_to_ledger_services"
+ ],
+ "valid_partial_configuration": true,
+ "tradeoffs": [],
+ "products": 40,
+ "commonality": [
+  "P02_Trusted_Registration_Authority_Registry",
+  "P03_Trusted_Accreditation_Registry",
+  "P04_Trusted_Issuer_Registry",
+  "P05_Trusted_Schemas_Registry",
+  "P06_Status_Registry",
+  "P07_DID_Registry",
+  "P10_Onboarding_or_DID_Registration",
+  "P12_Verifiable_ID",
+  "P15_Verifiable_Accreditation",
+  "P16_Verifiable_Authorization",
+  "P17_Selective_Content_Generation",
+  "P24_Public_DIDs",
+  "P26_Static_DIDs",
+  "P27_Dual_Resolution",
+  "P28_On_Chain",
+  "P32_Master_and_Sub_Key"
+ ],
+ "status": "SAT",
+ "size": 17,
+ "score": 28,
+ "selection": [
+  "P02_Trusted_Registration_Authority_Registry",
+  "P03_Trusted_Accreditation_Registry",
+  "P04_Trusted_Issuer_Registry",
+  "P05_Trusted_Schemas_Registry",
+  "P06_Status_Registry",
+  "P07_DID_Registry",
+  "P10_Onboarding_or_DID_Registration",
+  "P12_Verifiable_ID",
+  "P15_Verifiable_Accreditation",
+  "P16_Verifiable_Authorization",
+  "P17_Selective_Content_Generation",
+  "P24_Public_DIDs",
+  "P26_Static_DIDs",
+  "P27_Dual_Resolution",
+  "P28_On_Chain",
+  "P32_Master_and_Sub_Key",
+  "P40_Identity_Hub"
+ ],
+ "choices": [
+  {
+   "for": [
+    "FR02",
+    "FR06"
+   ],
+   "among": [
+    "P25",
+    "P26"
+   ],
+   "chosen": [
+    "P26"
+   ]
+  },
+  {
+   "for": [
+    "FR04"
+   ],
+   "among": [
+    "P10",
+    "P11"
+   ],
+   "chosen": [
+    "P10"
+   ]
+  },
+  {
+   "for": [
+    "FR07"
+   ],
+   "among": [
+    "P28",
+    "P29"
+   ],
+   "chosen": [
+    "P28"
+   ]
+  },
+  {
+   "for": [
+    "FR13"
+   ],
+   "among": [
+    "P12",
+    "P13",
+    "P14"
+   ],
+   "chosen": [
+    "P12"
+   ]
+  },
+  {
+   "for": [
+    "FR15"
+   ],
+   "among": [
+    "P38",
+    "P39",
+    "P40"
+   ],
+   "chosen": [
+    "P40"
+   ]
+  }
+ ],
+ "reasons": {
+  "P02_Trusted_Registration_Authority_Registry": [
+   "realizes FR04",
+   "required by P10",
+   "supports NFR08"
+  ],
+  "P03_Trusted_Accreditation_Registry": [
+   "realizes FR28",
+   "required by P04",
+   "required by P15",
+   "supports NFR08"
+  ],
+  "P04_Trusted_Issuer_Registry": [
+   "realizes FR19",
+   "realizes FR28",
+   "supports NFR08"
+  ],
+  "P05_Trusted_Schemas_Registry": [
+   "realizes FR14",
+   "required by P02",
+   "required by P03",
+   "required by P12",
+   "required by P15",
+   "supports NFR08",
+   "supports NFR13"
+  ],
+  "P06_Status_Registry": [
+   "realizes FR21",
+   "supports NFR08"
+  ],
+  "P07_DID_Registry": [
+   "realizes FR05",
+   "required by P10",
+   "required by P24",
+   "required by P27",
+   "required by P28",
+   "supports NFR08"
+  ],
+  "P10_Onboarding_or_DID_Registration": [
+   "realizes FR04",
+   "chosen for FR04 among P10/P11",
+   "required by P16",
+   "supports NFR08"
+  ],
+  "P12_Verifiable_ID": [
+   "realizes FR12",
+   "chosen for FR13 among P12/P13/P14",
+   "required by P17",
+   "supports NFR08"
+  ],
+  "P15_Verifiable_Accreditation": [
+   "realizes FR28",
+   "supports NFR08"
+  ],
+  "P16_Verifiable_Authorization": [
+   "realizes FR29"
+  ],
+  "P17_Selective_Content_Generation": [
+   "realizes FR16"
+  ],
+  "P24_Public_DIDs": [
+   "realizes FR02",
+   "realizes FR03",
+   "realizes FR06",
+   "required by P12",
+   "supports NFR08"
+  ],
+  "P26_Static_DIDs": [
+   "chosen for FR02, FR06 among P25/P26"
+  ],
+  "P27_Dual_Resolution": [
+   "realizes FR07",
+   "realizes FR08",
+   "required by P17",
+   "required by P28",
+   "supports NFR08"
+  ],
+  "P28_On_Chain": [
+   "chosen for FR07 among P28/P29",
+   "supports NFR08"
+  ],
+  "P32_Master_and_Sub_Key": [
+   "realizes FR01",
+   "required by P26"
+  ],
+  "P40_Identity_Hub": [
+   "chosen for FR15 among P38/P39/P40"
+  ]
+ },
+ "sequence": [
+  "P32_Master_and_Sub_Key",
+  "P07_DID_Registry",
+  "P24_Public_DIDs",
+  "P26_Static_DIDs",
+  "P05_Trusted_Schemas_Registry",
+  "P02_Trusted_Registration_Authority_Registry",
+  "P10_Onboarding_or_DID_Registration",
+  "P27_Dual_Resolution",
+  "P28_On_Chain",
+  "P12_Verifiable_ID",
+  "P40_Identity_Hub",
+  "P17_Selective_Content_Generation",
+  "P03_Trusted_Accreditation_Registry",
+  "P04_Trusted_Issuer_Registry",
+  "P06_Status_Registry",
+  "P15_Verifiable_Accreditation",
+  "P16_Verifiable_Authorization"
+ ],
+ "refinement": [
+  {
+   "pattern": "P32",
+   "status": "APPLIED",
+   "components_added": [
+    "KeyMgr_H",
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H"
+   ],
+   "connectors_added": [
+    "derive"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR01",
+    "required by P26"
+   ]
+  },
+  {
+   "pattern": "P07",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDRegistry"
+   ],
+   "connectors_added": [],
+   "connectors_deleted": [],
+   "refines": {
+    "VDR": "Verifiable data registry"
+   },
+   "reason": [
+    "realizes FR05",
+    "required by P10",
+    "required by P24",
+    "required by P27",
+    "required by P28",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P24",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDMgr_I",
+    "DIDMgr_V",
+    "KeyMgr_I",
+    "KeyMgr_V",
+    "PublicDID_I",
+    "PublicDID_V"
+   ],
+   "connectors_added": [
+    "publish DID document",
+    "publish DID document",
+    "controls",
+    "controls"
+   ],
+   "connectors_deleted": [
+    "register identifiers and schemas (Issuer\u2192VDR)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR02",
+    "realizes FR03",
+    "realizes FR06",
+    "required by P12",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P26",
+   "status": "APPLIED",
+   "components_added": [
+    "DIDMgr_H",
+    "StaticDID_H"
+   ],
+   "connectors_added": [
+    "key",
+    "connection",
+    "connection"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "chosen for FR02, FR06 among P25/P26"
+   ]
+  },
+  {
+   "pattern": "P05",
+   "status": "APPLIED",
+   "components_added": [
+    "TSR"
+   ],
+   "connectors_added": [
+    "publish / read schema",
+    "check schema"
+   ],
+   "connectors_deleted": [],
+   "refines": {
+    "VDR": "Verifiable data registry"
+   },
+   "reason": [
+    "realizes FR14",
+    "required by P02",
+    "required by P03",
+    "required by P12",
+    "required by P15",
+    "supports NFR08",
+    "supports NFR13"
+   ]
+  },
+  {
+   "pattern": "P02",
+   "status": "SKIPPED (no rule yet)",
+   "reason": [
+    "realizes FR04",
+    "required by P10",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P10",
+   "status": "SKIPPED (no rule yet)",
+   "reason": [
+    "realizes FR04",
+    "chosen for FR04 among P10/P11",
+    "required by P16",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P27",
+   "status": "APPLIED",
+   "components_added": [
+    "Resolver_H",
+    "Resolver_I",
+    "Resolver_V"
+   ],
+   "connectors_added": [
+    "resolve + authenticate",
+    "resolve + authenticate"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR07",
+    "realizes FR08",
+    "required by P17",
+    "required by P28",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P28",
+   "status": "APPLIED",
+   "components_added": [],
+   "connectors_added": [
+    "on-chain resolution",
+    "on-chain resolution",
+    "on-chain resolution"
+   ],
+   "connectors_deleted": [
+    "verify identifiers and schemas (Holder\u2192VDR)",
+    "verify identifiers and schemas (Verifier\u2192VDR)"
+   ],
+   "refines": {},
+   "reason": [
+    "chosen for FR07 among P28/P29",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P12",
+   "status": "APPLIED",
+   "components_added": [
+    "IssuanceSvc",
+    "VIDIssuer",
+    "Wallet",
+    "CredStore_H"
+   ],
+   "connectors_added": [
+    "issue V-ID",
+    "sign",
+    "read schema"
+   ],
+   "connectors_deleted": [
+    "issue credentials (Issuer\u2192Holder)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR12",
+    "chosen for FR13 among P12/P13/P14",
+    "required by P17",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P40",
+   "status": "APPLIED",
+   "components_added": [
+    "IdentityHub"
+   ],
+   "connectors_added": [
+    "replicate"
+   ],
+   "connectors_deleted": [],
+   "refines": {
+    "Wallet": "Wallet (hub-backed)"
+   },
+   "reason": [
+    "chosen for FR15 among P38/P39/P40"
+   ]
+  },
+  {
+   "pattern": "P17",
+   "status": "APPLIED",
+   "components_added": [
+    "PresGen_H",
+    "VerifSvc",
+    "PresVerif_V"
+   ],
+   "connectors_added": [
+    "select claims",
+    "present proof",
+    "get issuer key",
+    "check schema"
+   ],
+   "connectors_deleted": [
+    "present presentations (Holder\u2192Verifier)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR16"
+   ]
+  },
+  {
+   "pattern": "P03",
+   "status": "SKIPPED (no rule yet)",
+   "reason": [
+    "realizes FR28",
+    "required by P04",
+    "required by P15",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P04",
+   "status": "APPLIED",
+   "components_added": [
+    "TIR"
+   ],
+   "connectors_added": [
+    "listed as trusted issuer",
+    "check issuer trust"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR19",
+    "realizes FR28",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P06",
+   "status": "APPLIED",
+   "components_added": [
+    "StatusRegistry"
+   ],
+   "connectors_added": [
+    "publish status",
+    "check status"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR21",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P15",
+   "status": "SKIPPED (no rule yet)",
+   "reason": [
+    "realizes FR28",
+    "supports NFR08"
+   ]
+  },
+  {
+   "pattern": "P16",
+   "status": "SKIPPED (no rule yet)",
+   "reason": [
+    "realizes FR29"
+   ]
+  }
+ ],
+ "architecture": {
+  "components": {
+   "Holder": [
+    "Actor agent",
+    null
+   ],
+   "Issuer": [
+    "Actor agent",
+    null
+   ],
+   "Verifier": [
+    "Actor agent",
+    null
+   ],
+   "VDR": [
+    "Verifiable data registry",
+    null
+   ],
+   "KeyMgr_H": [
+    "Key manager (hierarchical)",
+    "Holder"
+   ],
+   "MasterKeyStore_H": [
+    "Master key store (offline)",
+    "KeyMgr_H"
+   ],
+   "SubKeyDeriv_H": [
+    "Sub-key derivation",
+    "KeyMgr_H"
+   ],
+   "DIDRegistry": [
+    "DID registry (DPKI)",
+    "VDR"
+   ],
+   "DIDMgr_I": [
+    "DID manager",
+    "Issuer"
+   ],
+   "DIDMgr_V": [
+    "DID manager",
+    "Verifier"
+   ],
+   "KeyMgr_I": [
+    "Key manager",
+    "Issuer"
+   ],
+   "KeyMgr_V": [
+    "Key manager",
+    "Verifier"
+   ],
+   "PublicDID_I": [
+    "Public DID (did:web/ion) + service endpoint",
+    "DIDMgr_I"
+   ],
+   "PublicDID_V": [
+    "Public DID + service endpoint",
+    "DIDMgr_V"
+   ],
+   "DIDMgr_H": [
+    "DID manager",
+    "Holder"
+   ],
+   "StaticDID_H": [
+    "Static DID (did:key)",
+    "DIDMgr_H"
+   ],
+   "TSR": [
+    "Schema registry",
+    "VDR"
+   ],
+   "Resolver_H": [
+    "DID resolver",
+    "DIDMgr_H"
+   ],
+   "Resolver_I": [
+    "DID resolver",
+    "DIDMgr_I"
+   ],
+   "Resolver_V": [
+    "DID resolver",
+    "DIDMgr_V"
+   ],
+   "IssuanceSvc": [
+    "Credential issuance",
+    "Issuer"
+   ],
+   "VIDIssuer": [
+    "Verifiable ID issuance",
+    "IssuanceSvc"
+   ],
+   "Wallet": [
+    "Wallet (hub-backed)",
+    "Holder"
+   ],
+   "CredStore_H": [
+    "Credential store",
+    "Wallet"
+   ],
+   "IdentityHub": [
+    "Identity hub (external agent)",
+    null
+   ],
+   "PresGen_H": [
+    "Presentation generator (selective disclosure)",
+    "Wallet"
+   ],
+   "VerifSvc": [
+    "Presentation verification",
+    "Verifier"
+   ],
+   "PresVerif_V": [
+    "Presentation verifier",
+    "VerifSvc"
+   ],
+   "TIR": [
+    "Trusted issuer registry",
+    "VDR"
+   ],
+   "StatusRegistry": [
+    "Status / revocation registry",
+    "VDR"
+   ]
+  },
+  "connectors": [
+   [
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H",
+    "derive",
+    "local",
+    "sub-key per DID / purpose"
+   ],
+   [
+    "PublicDID_I",
+    "DIDRegistry",
+    "publish DID document",
+    "registry write",
+    "DID document (public key, endpoint)"
+   ],
+   [
+    "PublicDID_V",
+    "DIDRegistry",
+    "publish DID document",
+    "registry write",
+    "DID document"
+   ],
+   [
+    "KeyMgr_I",
+    "PublicDID_I",
+    "controls",
+    "local",
+    "issuer key pair"
+   ],
+   [
+    "KeyMgr_V",
+    "PublicDID_V",
+    "controls",
+    "local",
+    "verifier key pair"
+   ],
+   [
+    "SubKeyDeriv_H",
+    "StaticDID_H",
+    "key",
+    "local",
+    "key pair"
+   ],
+   [
+    "StaticDID_H",
+    "DIDMgr_I",
+    "connection",
+    "DIDComm",
+    "did:key"
+   ],
+   [
+    "StaticDID_H",
+    "DIDMgr_V",
+    "connection",
+    "DIDComm",
+    "did:key"
+   ],
+   [
+    "Issuer",
+    "TSR",
+    "publish / read schema",
+    "registry read-write",
+    "credential schema"
+   ],
+   [
+    "Verifier",
+    "TSR",
+    "check schema",
+    "registry read",
+    "credential schema"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_I",
+    "resolve + authenticate",
+    "resolution",
+    "DID document \u2192 public key"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_V",
+    "resolve + authenticate",
+    "resolution",
+    "DID document \u2192 public key"
+   ],
+   [
+    "Resolver_H",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
+   ],
+   [
+    "Resolver_V",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
+   ],
+   [
+    "Resolver_I",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
+   ],
+   [
+    "VIDIssuer",
+    "CredStore_H",
+    "issue V-ID",
+    "issue-credential (DIDComm)",
+    "V-ID signed with Issuer key"
+   ],
+   [
+    "KeyMgr_I",
+    "VIDIssuer",
+    "sign",
+    "local",
+    "Issuer private key"
+   ],
+   [
+    "IssuanceSvc",
+    "TSR",
+    "read schema",
+    "registry read",
+    "credential schema"
+   ],
+   [
+    "CredStore_H",
+    "IdentityHub",
+    "replicate",
+    "hub protocol",
+    "credentials (encrypted)"
+   ],
+   [
+    "CredStore_H",
+    "PresGen_H",
+    "select claims",
+    "local",
+    "subset of credential claims"
+   ],
+   [
+    "PresGen_H",
+    "PresVerif_V",
+    "present proof",
+    "present-proof (DIDComm)",
+    "VP with minimal disclosure"
+   ],
+   [
+    "PresVerif_V",
+    "Resolver_V",
+    "get issuer key",
+    "local",
+    "issuer DID \u2192 public key"
+   ],
+   [
+    "VerifSvc",
+    "TSR",
+    "check schema",
+    "registry read",
+    "credential schema"
+   ],
+   [
+    "Issuer",
+    "TIR",
+    "listed as trusted issuer",
+    "registry write",
+    "issuer DID, accreditation"
+   ],
+   [
+    "Verifier",
+    "TIR",
+    "check issuer trust",
+    "registry read",
+    "trusted issuer entry"
+   ],
+   [
+    "Issuer",
+    "StatusRegistry",
+    "publish status",
+    "registry write",
+    "credential status"
+   ],
+   [
+    "Verifier",
+    "StatusRegistry",
+    "check status",
+    "registry read",
+    "revoked / suspended"
+   ]
+  ]
+ },
+ "interfaces": {
+  "unknown_type": [],
+  "unbound_connector": [],
+  "unsatisfied": []
+ }
+}

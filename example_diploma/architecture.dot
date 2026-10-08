@@ -1,0 +1,84 @@
+digraph A { rankdir=LR; compound=true; nodesep=0.3; ranksep=0.5; pad=0.1; fontname=Helvetica;
+node [fontname=Helvetica, fontsize=20, shape=box, style="rounded,filled", margin="0.12,0.05", fillcolor="#dce6f2", color="#1f3864", penwidth=1.6];
+edge [fontname=Helvetica, fontsize=16, color="#374151", fontcolor="#1f3864", penwidth=1.6, arrowsize=1.1];
+subgraph "cluster_Holder" { label="Holder"; style="rounded,filled"; fontname=Helvetica; fillcolor="#f3f6fa"; color="#1f3864"; penwidth=2; fontsize=22;
+"Holder" [label="", shape=point, style=invis];
+subgraph "cluster_KeyMgr_H" { label="Key manager (hierarchical)\n← P32"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"KeyMgr_H" [label="", shape=point, style=invis];
+"MasterKeyStore_H" [label="Master key store (offline)\n← P32"];
+"SubKeyDeriv_H" [label="Sub-key derivation\n← P32"];
+}
+subgraph "cluster_DIDMgr_H" { label="DID manager\n← P25"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"DIDMgr_H" [label="", shape=point, style=invis];
+"PairwiseDID_H" [label="Pairwise DID manager (did:peer)\n← P25"];
+"Resolver_H" [label="DID resolver\n← P27"];
+}
+subgraph "cluster_Wallet" { label="Wallet (local)\n← P12"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"Wallet" [label="", shape=point, style=invis];
+"CredStore_H" [label="Credential store\n← P12"];
+"LocalStore_H" [label="Local encrypted store\n← P38"];
+"PresGen_H" [label="Presentation generator (selective disclosure)\n← P17"];
+}
+}
+subgraph "cluster_Issuer" { label="Issuer"; style="rounded,filled"; fontname=Helvetica; fillcolor="#f3f6fa"; color="#1f3864"; penwidth=2; fontsize=22;
+"Issuer" [label="", shape=point, style=invis];
+subgraph "cluster_DIDMgr_I" { label="DID manager\n← P24"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"DIDMgr_I" [label="", shape=point, style=invis];
+"PublicDID_I" [label="Public DID (did:web/ion) + service endpoint\n← P24"];
+"Resolver_I" [label="DID resolver\n← P27"];
+}
+"KeyMgr_I" [label="Key manager\n← P24"];
+subgraph "cluster_IssuanceSvc" { label="Credential issuance\n← P12"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"IssuanceSvc" [label="", shape=point, style=invis];
+"VIDIssuer" [label="Verifiable ID issuance\n← P12"];
+}
+}
+subgraph "cluster_Verifier" { label="Verifier"; style="rounded,filled"; fontname=Helvetica; fillcolor="#f3f6fa"; color="#1f3864"; penwidth=2; fontsize=22;
+"Verifier" [label="", shape=point, style=invis];
+subgraph "cluster_DIDMgr_V" { label="DID manager\n← P24"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"DIDMgr_V" [label="", shape=point, style=invis];
+"PublicDID_V" [label="Public DID + service endpoint\n← P24"];
+"Resolver_V" [label="DID resolver\n← P27"];
+}
+"KeyMgr_V" [label="Key manager\n← P24"];
+subgraph "cluster_VerifSvc" { label="Presentation verification\n← P17"; style="rounded,filled"; fontname=Helvetica; fillcolor="#ffffff"; color="#8a99b3"; fontsize=18;
+"VerifSvc" [label="", shape=point, style=invis];
+"PresVerif_V" [label="Presentation verifier\n← P17"];
+}
+}
+subgraph "cluster_VDR" { label="Verifiable data registry\n← P07"; style="rounded,filled"; fontname=Helvetica; fillcolor="#f3f6fa"; color="#1f3864"; penwidth=2; fontsize=22;
+"VDR" [label="", shape=point, style=invis];
+"DIDRegistry" [label="DID registry (DPKI)\n← P07"];
+"TSR" [label="Schema registry\n← P05"];
+}
+"MasterKeyStore_H" -> "SubKeyDeriv_H" [style=dashed, label="derive\n[local]"];
+"PublicDID_I" -> "DIDRegistry" [style=dotted, label="publish DID document\n[registry write]"];
+"PublicDID_V" -> "DIDRegistry" [style=dotted, label="publish DID document\n[registry write]"];
+"KeyMgr_I" -> "PublicDID_I" [style=dashed, label="controls\n[local]"];
+"KeyMgr_V" -> "PublicDID_V" [style=dashed, label="controls\n[local]"];
+"SubKeyDeriv_H" -> "PairwiseDID_H" [style=dashed, label="key per relationship\n[local]"];
+"PairwiseDID_H" -> "DIDMgr_I" [style=solid, label="DIDComm pairwise channel\n[DIDComm]", lhead="cluster_DIDMgr_I"];
+"PairwiseDID_H" -> "DIDMgr_V" [style=solid, label="DIDComm pairwise channel\n[DIDComm]", lhead="cluster_DIDMgr_V"];
+"Resolver_H" -> "PublicDID_I" [style=solid, label="resolve + authenticate\n[resolution]"];
+"Resolver_H" -> "PublicDID_V" [style=solid, label="resolve + authenticate\n[resolution]"];
+"PairwiseDID_H" -> "Resolver_I" [style=solid, label="off-chain resolution\n[peer exchange]"];
+"PairwiseDID_H" -> "Resolver_V" [style=solid, label="off-chain resolution\n[peer exchange]"];
+"Issuer" -> "TSR" [style=dotted, label="publish / read schema\n[registry read-write]", ltail="cluster_Issuer"];
+"Verifier" -> "TSR" [style=dotted, label="check schema\n[registry read]", ltail="cluster_Verifier"];
+"VIDIssuer" -> "CredStore_H" [style=solid, label="issue V-ID\n[issue-credential (DIDComm)]"];
+"KeyMgr_I" -> "VIDIssuer" [style=dashed, label="sign\n[local]"];
+"IssuanceSvc" -> "TSR" [style=dotted, label="read schema\n[registry read]", ltail="cluster_IssuanceSvc"];
+"CredStore_H" -> "LocalStore_H" [style=dashed, label="persist\n[local]"];
+"CredStore_H" -> "PresGen_H" [style=dashed, label="select claims\n[local]"];
+"PresGen_H" -> "PresVerif_V" [style=solid, label="present proof\n[present-proof (DIDComm)]"];
+"PresVerif_V" -> "Resolver_V" [style=dashed, label="get issuer key\n[local]"];
+"VerifSvc" -> "TSR" [style=dotted, label="check schema\n[registry read]", ltail="cluster_VerifSvc"];
+subgraph cluster_legend { label="connectors"; fontsize=18; fontname=Helvetica; style="rounded"; color="#8a99b3";
+lg0a [label="", shape=point, width=0.05]; lg0b [label="message between two agents (network)", shape=plaintext, style="", fontsize=17];
+lg0a -> lg0b [style=solid, arrowhead=normal, minlen=1];
+lg1a [label="", shape=point, width=0.05]; lg1b [label="local call inside one agent", shape=plaintext, style="", fontsize=17];
+lg1a -> lg1b [style=dashed, arrowhead=normal, minlen=1];
+lg2a [label="", shape=point, width=0.05]; lg2b [label="registry access (write or read)", shape=plaintext, style="", fontsize=17];
+lg2a -> lg2b [style=dotted, arrowhead=normal, minlen=1];
+}
+}
