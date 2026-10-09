@@ -1,12 +1,14 @@
 """Step 0 (offline, once per catalogue): the 'Related Patterns' field of every pattern of the catalogue [1]
-(sources/SSIpatternsCatalog23.xlsx, the catalogue's own workbook) -> sheet 'related (catalogue)' of the knowledge base.
+(the catalogue's own workbook, published by its authors; it is not redistributed here) -> sheet 'related (catalogue)' of the knowledge base.
 Each numbered item 'n. Name: text' of a pattern's Related Patterns is matched to our pattern ids by name; one row per
 (pattern, related pattern, item). The links are undirected in the catalogue ('these two patterns are related'); they are
 used to justify the order of the refinement (3_generator/16_check_order.py), never as constraints of the feature model.
-usage: python 00_catalogue_links.py"""
-import os, re, openpyxl
+usage: python 00_catalogue_links.py <path to the catalogue workbook (SSIpatternsCatalog23.xlsx)>
+The sheet 'related (catalogue)' it produced is already in the knowledge base: this script is only needed to rebuild it."""
+import os, re, sys, openpyxl
 HERE = os.path.dirname(os.path.abspath(__file__))
-CAT = os.path.join(HERE, "sources", "SSIpatternsCatalog23.xlsx")
+if len(sys.argv) < 2: sys.exit("usage: python 00_catalogue_links.py <path to SSIpatternsCatalog23.xlsx> (the catalogue's workbook, from its authors)")
+CAT = sys.argv[1]
 KB = os.path.join(HERE, "SSI_Pattern_KnowledgeBase.xlsx")
 
 ALIAS = [  # (substring of the item title or pattern name, lower case) -> id ; the most specific first

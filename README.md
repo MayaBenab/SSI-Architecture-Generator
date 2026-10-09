@@ -64,7 +64,7 @@ Docker and the von-network ledger for step 5.
 
 ```bash
 # step 1 - once per catalogue: the Related Patterns of the catalogue's own workbook -> sheet 'related (catalogue)'
-cd 1_knowledge_base && python 00_catalogue_links.py && cd ..
+cd 1_knowledge_base && python 00_catalogue_links.py <path to the catalogue workbook> && cd ..   # optional: the sheet is already in the KB
 
 # step 2 - after any change of the knowledge base (once per catalogue)
 cd 2_feature_model
@@ -99,8 +99,7 @@ requests of the paper (S7 shows an impossible request returned with its explanat
 
 ```
 1_knowledge_base/SSI_Pattern_KnowledgeBase.xlsx   the only source (sheet README lists the others); every row cites its source
-   sources/SSIpatternsCatalog23.xlsx   the catalogue's own workbook [1]
-   00_catalogue_links.py   its 'Related Patterns' items -> sheet 'related (catalogue)' (196 items, 129 pairs)
+   00_catalogue_links.py   the 'Related Patterns' items of the catalogue's workbook [1] (not redistributed; path given as argument) -> sheet 'related (catalogue)' (196 items, 129 pairs)
    draw_kb.py   draws the knowledge base (sources, FR / P / NFR, relations with their counts) -> kb.png (poster section 4)
    part A  FR, NFR, P, realised_by (FR -> a pattern, or one of several: P38 | P39 | P40), may_use (FR -> P, read as part of the justification P => reasons), requires (P -> P), depends (FR -> FR), affects (P -> NFR)   -> FM_SSI.uvl
    part B  G0 (abstract architecture), Rules (R,F)                                         -> rules.json
