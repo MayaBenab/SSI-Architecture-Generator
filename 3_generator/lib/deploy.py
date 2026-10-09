@@ -1,52 +1,75 @@
-"""Deployment of a generated architecture on a reference SSI stack (Hyperledger Aries: ACA-Py agents, Indy ledger, tails
-server, Postgres), so that the components exist as runnable services and the requested functions can be exercised.
+"""Deployment of a generated architecture G_n on a reference SSI stack (Hyperledger Aries: ACA-Py agents, Indy ledger, tails
+server, Postgres). What is deployed are the components and connectors of G_n, not the patterns (a pattern is a graph
+transformation): every component v is realised in the agent of its role (the root of its containers: holder, issuer,
+verifier), as the row of its type says; every connector by the row of its protocol (sheet 'Deployment (components)').
+    deploy(G_n) = U_v delta(type(v)) on agent(role(v))  U  U_e delta(protocol(e)) on the agents of its ends
 called by generate.py: result.json -> deploy/{docker-compose.yml, <role>.args, smoke_test.sh, DEPLOY.md}
-Each selected pattern maps to configuration of the stack; patterns the stack does not realise are reported, not dropped silently."""
+An element the stack does not realise is reported, never dropped silently."""
 import os, sys, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# pattern id -> what it becomes in the deployment: part C of the knowledge base, sheet "Deployment (Aries)".
 # Two profiles of the Aries stack: no-ledger (default, runnable at once) and indy (needs the von-network ledger built locally:
 # git clone https://github.com/bcgov/von-network; ./manage build; ./manage start).
-import json
 DEPLOY_PATH = os.path.join(HERE, "..", "..", "2_feature_model", "deployment.json")
-
-def _load_mapping():
-    """Part C of the knowledge base as written by 2_feature_model/build_rules.py (deployment.json)."""
-    d = json.load(open(DEPLOY_PATH, encoding="utf-8"))["mapping"]; M = {}
-    for p, r in d.items():
-        if not r["realised"]: M[p] = None; continue
-        m = {"note": r["note"], "services": {x: x for x in r["services"]}, "all": r["options"]["all"],
-             "roles": {k: v for k, v in r["options"].items() if k != "all" and v}, "test": r["tests"]}
-        ind = {"services": {x: x for x in r["indy"]["services"]}, "all": r["indy"]["options"]["all"],
-               "roles": {k: v for k, v in r["indy"]["options"].items() if k != "all" and v}, "test": r["indy"]["tests"]}
-        if ind["services"] or ind["all"] or ind["roles"] or ind["test"]: m["indy"] = ind
-        if r["noledger_substitution"]: m["noledger"] = r["noledger_substitution"]
-        M[p] = m
-    return M
-
-MAPPING = _load_mapping()
+REAL = json.load(open(DEPLOY_PATH, encoding="utf-8"))["realisation"]
 IMAGE = "ghcr.io/openwallet-foundation/acapy-agent:py3.12-1.3-lts"
 BASE = ["--admin 0.0.0.0 {admin}", "--admin-insecure-mode", "--inbound-transport http 0.0.0.0 {port}", "--outbound-transport http",
         "--endpoint http://{name}:{port}", "--label {name}", "--wallet-name {name}", "--wallet-key {name}-key", "--auto-provision",
         "--auto-accept-invites", "--auto-accept-requests", "--auto-respond-credential-offer", "--auto-store-credential", "--log-level info"]
 ROLES = {"holder": (8020, 8021), "issuer": (8030, 8031), "verifier": (8040, 8041)}
 
+
+def role_of(cid, comps):
+    while comps[cid][1] is not None: cid = comps[cid][1]
+    return cid.lower()
+
+
+def provenance(steps):
+    prov = {}
+    for st in steps:
+        for c in st.get("components_added", []): prov[c] = st["pattern"]
+        for c in st.get("refines", {}): prov[c] = st["pattern"]
+    return prov
+
+
 def deploy(result_path, profile="no-ledger"):
     r = json.load(open(result_path, encoding="utf-8")); out = os.path.join(os.path.dirname(result_path), "deploy"); os.makedirs(out, exist_ok=True)
-    patterns = [p.split("_")[0] for p in r["selection"]]
+    comps = {k: tuple(v) for k, v in r["architecture"]["components"].items()}
+    conns = [tuple(c) for c in r["architecture"]["connectors"]]
+    prov = provenance(r.get("refinement", []))
     services, agent_args, tests, notes, unsupported, substituted = {}, {k: list(BASE) for k in ROLES}, [], [], [], []
-    for p in patterns:
-        m = MAPPING.get(p, "missing")
-        if m is None: unsupported.append(p); continue
-        if m == "missing": unsupported.append(p + " (no mapping yet)"); continue
-        parts = [m] + ([m["indy"]] if profile == "indy" and "indy" in m else [])
-        if profile != "indy" and "noledger" in m: substituted.append(f"{p}: {m['noledger']}")
+
+    def apply(entry, label, agents):
+        if entry is None: unsupported.append(f"{label} (no realisation in the knowledge base)"); return
+        if not entry["realised"]: unsupported.append(f"{label}: {entry['note']}"); return
+        parts = [entry] + ([entry["indy"]] if profile == "indy" else [])
+        if profile != "indy" and entry["noledger_substitution"]: substituted.append(f"{label}: {entry['noledger_substitution']}")
         for part in parts:
-            services.update(part.get("services", {}))
-            for k in ROLES: agent_args[k] += part.get("all", []) + part.get("roles", {}).get(k, [])
-            tests += part.get("test", [])
-        notes.append(f"{p}: {m['note']}")
+            for sv in part.get("services", []): services[sv] = sv
+            for a in agents:
+                for o in part.get("options", []):
+                    if o not in agent_args[a]: agent_args[a].append(o)
+            for t in part.get("tests", []):
+                if t not in tests: tests.append(t)
+        notes.append(f"{label}: {entry['note']}")
+
+    def target(entry, own):
+        a = (entry or {}).get("agents", "")
+        if a == "all": return list(ROLES)
+        if a in ROLES: return [a]
+        return [x for x in own if x in ROLES]
+
+    for cid, (typ, _) in comps.items():
+        e = REAL["components"].get(typ); role = role_of(cid, comps)
+        tag = f" <- {prov[cid]}" if cid in prov else " (G0)"
+        apply(e, f"{typ} [{role}]{tag}", target(e, [role]))
+    seen = set()
+    for src, dst, name, proto, payload in conns:
+        e = REAL["connectors"].get(proto); ends = [role_of(src, comps), role_of(dst, comps)]
+        key = (name, proto, tuple(ends))   # every connector of G_n is reported once
+        if key in seen: continue
+        seen.add(key)
+        apply(e, f"{name} [{proto}] {ends[0]} -> {ends[1]}", target(e, ends))
     if profile != "indy":
         for k in ROLES: agent_args[k].append("--no-ledger")
     L = [f"# generated by deploy.py ({profile} profile) from " + os.path.basename(os.path.dirname(result_path)), "services:"]
@@ -77,9 +100,9 @@ def deploy(result_path, profile="no-ledger"):
           "Profiles: no-ledger (default, runnable at once) or Indy (`python 10_generate.py ... --indy`), after building the ledger:",
           "`git clone https://github.com/bcgov/von-network && cd von-network && ./manage build && ./manage start` (ledger console on http://localhost:9000).", "",
           "## Services", *[f"- {k}: {v}" for k, v in services.items()], *[f"- {role}: ACA-Py agent ({IMAGE}), ports {p[0]} / admin {p[1]}" for role, p in ROLES.items()], "",
-          "## What each selected pattern became", *[f"- {n}" for n in notes], "",
+          "## How each component and connector of the architecture is realised", *[f"- {n}" for n in notes], "",
           "## Substitutions in this profile", *([f"- {s_}" for s_ in substituted] or ["- none"]), "",
-          "## Patterns the stack does not realise (reported, not silently dropped)", *([f"- {u}" for u in unsupported] or ["- none"])]
+          "## Elements the stack does not realise (reported, not silently dropped)", *([f"- {u}" for u in unsupported] or ["- none"])]
     open(os.path.join(out, "DEPLOY.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(f"deployment ({profile}) written to {out}: services {list(services)} + 3 agents; substituted: {len(substituted)}; unsupported: {unsupported or 'none'}")
     return out, unsupported

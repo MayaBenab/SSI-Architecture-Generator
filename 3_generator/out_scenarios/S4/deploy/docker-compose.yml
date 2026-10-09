@@ -2,7 +2,7 @@
 services:
   holder:
     image: ghcr.io/openwallet-foundation/acapy-agent:py3.12-1.3-lts
-    command: start --admin 0.0.0.0 8021 --admin-insecure-mode --inbound-transport http 0.0.0.0 8020 --outbound-transport http --endpoint http://holder:8020 --label holder --wallet-name holder --wallet-key holder-key --auto-provision --auto-accept-invites --auto-accept-requests --auto-respond-credential-offer --auto-store-credential --log-level info --wallet-local-did --wallet-type askar --no-ledger
+    command: start --admin 0.0.0.0 8021 --admin-insecure-mode --inbound-transport http 0.0.0.0 8020 --outbound-transport http --endpoint http://holder:8020 --label holder --wallet-name holder --wallet-key holder-key --auto-provision --auto-accept-invites --auto-accept-requests --auto-respond-credential-offer --auto-store-credential --log-level info --wallet-type askar --wallet-local-did --no-ledger
     ports: ['8020:8020', '8021:8021']
   issuer:
     image: ghcr.io/openwallet-foundation/acapy-agent:py3.12-1.3-lts

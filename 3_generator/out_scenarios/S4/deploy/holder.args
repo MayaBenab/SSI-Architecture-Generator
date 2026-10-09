@@ -12,6 +12,6 @@
 --auto-respond-credential-offer
 --auto-store-credential
 --log-level info
---wallet-local-did
 --wallet-type askar
+--wallet-local-did
 --no-ledger

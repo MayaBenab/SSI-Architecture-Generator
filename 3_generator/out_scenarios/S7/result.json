@@ -32,7 +32,7 @@
  "tradeoffs": [
   "nfr04: strongly hindered by P23 Blockchain and Social Media Account Pair, forced by the requested functions"
  ],
- "products": 0,
+ "products": null,
  "commonality": [],
  "status": "UNSAT",
  "unsat_core": [
@@ -40,5 +40,6 @@
  ],
  "explanation": [
   "forbidden P07 is forced by the requested functions"
- ]
+ ],
+ "products_note": "number of products (filter) not recorded in this copy: run 10_generate.py with z3-solver to count them"
 }

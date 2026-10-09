@@ -7,27 +7,27 @@ features
         mandatory
             Functions
                 optional
-                    FR01_Key_pair_generation {optional_patterns 'P37'}
-                    FR02_DID_generation {optional_patterns 'P22'}
-                    FR03_DID_document_creation_publication {optional_patterns 'P31'}
+                    FR01_Key_pair_generation
+                    FR02_DID_generation
+                    FR03_DID_document_creation_publication
                     FR04_Onboarding_permissioned_system
-                    FR05_DID_registration {optional_patterns 'P01, P08'}
+                    FR05_DID_registration
                     FR06_DID_connection
                     FR07_DID_resolution
                     FR08_Mutual_authentication
-                    FR09_Service_access_request {optional_patterns 'P16'}
-                    FR10_Proof_request {optional_patterns 'P18'}
-                    FR11_VC_request {optional_patterns 'P11'}
-                    FR12_Holder_authentication_by_the_Issuer {optional_patterns 'P35'}
-                    FR13_VC_issuance {optional_patterns 'P17, P20, P21'}
+                    FR09_Service_access_request
+                    FR10_Proof_request
+                    FR11_VC_request
+                    FR12_Holder_authentication_by_the_Issuer
+                    FR13_VC_issuance
                     FR14_Credential_schema_management
                     FR15_VC_storage
                     FR16_VP_generation_selective_disclosure
-                    FR17_VP_presentation {optional_patterns 'P18, P19'}
-                    FR18_Signature_integrity_verification {optional_patterns 'P09'}
-                    FR19_Issuer_trust_verification {optional_patterns 'P03, P36'}
+                    FR17_VP_presentation
+                    FR18_Signature_integrity_verification
+                    FR19_Issuer_trust_verification
                     FR20_Schema_compliance_check
-                    FR21_Validity_status_check {optional_patterns 'P20, P21'}
+                    FR21_Validity_status_check
                     FR22_VC_revocation_suspension
                     FR23_Key_recovery
                     FR24_Identity_data_recovery_backup
@@ -39,50 +39,62 @@ features
                     FR30_Legal_binding_of_DIDs_eIDAS
                     FR31_Qualified_signature_of_VCs_eIDAS
                     FR32_Legacy_identity_linking
-                    FR33_DID_document_update_key_rotation {optional_patterns 'P30, P07'}
-                    FR34_DID_deactivation {optional_patterns 'P07'}
+                    FR33_DID_document_update_key_rotation
+                    FR34_DID_deactivation
             Patterns
                 optional
-                    P01_Public_Institution_Registry {entities 'Registry', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR09 1, NFR18 -1}
-                    P02_Trusted_Registration_Authority_Registry {entities 'Registry', NFR02 -1, NFR07 2, NFR08 2, NFR09 1}
-                    P03_Trusted_Accreditation_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR09 1}
-                    P04_Trusted_Issuer_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR09 1, NFR11 1}
-                    P05_Trusted_Schemas_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR13 2, NFR16 2, NFR19 1}
-                    P06_Status_Registry cardinality [1..2] {entities 'Issuer, Registry', NFR04 -1, NFR07 2, NFR08 2, NFR09 1}
-                    P07_DID_Registry {entities 'Registry', NFR02 -1, NFR04 -1, NFR07 1, NFR08 2, NFR09 2, NFR14 2, NFR18 -1}
-                    P08_Identifier_Attribute_Registry {entities 'Registry', NFR04 -1, NFR14 2, NFR18 -1, NFR19 2}
-                    P09_Blockchain_Anchor {entities 'Registry', NFR07 2, NFR08 2, NFR18 -2, NFR19 -1, NFR20 -1}
-                    P10_Onboarding_or_DID_Registration cardinality [1..3] {entities 'Issuer, Verifier, Registration authority', NFR02 -1, NFR07 2, NFR08 2, NFR11 -1, NFR17 1}
-                    P11_Linking_onboarding_with_VC_issuance cardinality [1..4] {entities 'Holder, Issuer, Verifier, Registration authority', NFR07 1, NFR08 2, NFR11 1}
-                    P12_Verifiable_ID cardinality [1..2] {entities 'Holder, Issuer', NFR04 -1, NFR07 1, NFR08 2, NFR17 2, NFR19 1}
-                    P13_Verifiable_Attestation cardinality [1..2] {entities 'Holder, Issuer', NFR11 1, NFR19 1, NFR20 2}
-                    P14_Verifiable_Mandate cardinality [1..3] {entities 'Holder, Issuer, Delegate', NFR03 2, NFR07 -1, NFR15 2, NFR20 1}
-                    P15_Verifiable_Accreditation cardinality [1..2] {entities 'Issuer, Accreditation organisation', NFR08 2, NFR13 1, NFR17 1}
-                    P16_Verifiable_Authorization cardinality [1..3] {entities 'Holder, Verifier, Registration authority', NFR02 -1, NFR07 2, NFR08 1}
-                    P17_Selective_Content_Generation cardinality [1..2] {entities 'Holder, Issuer', NFR04 2, NFR06 2, NFR11 -1, NFR20 1}
-                    P18_Time_Constrained_Access cardinality [1..2] {entities 'Holder, Verifier', NFR04 2, NFR09 -1, NFR18 1, NFR20 1}
-                    P19_One_Off_Access cardinality [1..2] {entities 'Holder, Verifier', NFR04 2, NFR09 -1, NFR18 1}
-                    P20_Expiration_Time cardinality [1..2] {entities 'Issuer, Verifier', NFR07 2, NFR08 2, NFR11 -1, NFR14 -1}
-                    P21_Effective_Time cardinality [1..2] {entities 'Issuer, Verifier', NFR08 1, NFR20 2}
-                    P22_Multiple_Registration {entities 'Holder', NFR01 2, NFR04 2, NFR10 -1, NFR11 -1}
-                    P23_Blockchain_and_Social_Media_Account_Pair {entities 'Holder', NFR02 -1, NFR04 -2, NFR07 1, NFR08 2, NFR17 2}
-                    P24_Public_DIDs cardinality [1..2] {entities 'Issuer, Verifier', NFR02 1, NFR04 -1, NFR08 2, NFR09 2, NFR14 2, NFR18 -2}
-                    P25_Pairwise_DIDs cardinality [1..3] {entities 'Holder, Issuer, Verifier', NFR02 2, NFR04 2, NFR07 1, NFR08 -1, NFR09 -1, NFR14 -1, NFR16 2, NFR18 2, NFR19 2}
-                    P26_Static_DIDs cardinality [1..3] {entities 'Holder, Issuer, Verifier', NFR02 2, NFR04 -1, NFR07 -1, NFR10 -2, NFR14 -2, NFR18 2, NFR19 2}
-                    P27_Dual_Resolution cardinality [1..3] {entities 'Holder, Issuer, Verifier', NFR02 2, NFR07 1, NFR08 2, NFR16 2}
-                    P28_On_Chain cardinality [1..2] {entities 'Issuer, Verifier', NFR04 -1, NFR08 2, NFR16 1, NFR19 -1}
-                    P29_Off_Chain cardinality [1..3] {entities 'Holder, Issuer, Verifier', NFR04 2, NFR07 1, NFR08 -1, NFR18 2, NFR19 2}
-                    P30_Delegate_List {entities 'Holder', NFR03 1, NFR04 -1, NFR10 2, NFR14 2}
-                    P31_DID_Controller {entities 'Holder', NFR03 2, NFR07 -1, NFR20 1}
-                    P32_Master_and_Sub_Key {entities 'Holder', NFR04 2, NFR07 2, NFR10 1, NFR11 -1}
-                    P33_Key_Shards {entities 'Holder', NFR02 2, NFR07 1, NFR10 2, NFR11 -1}
-                    P34_Qualified_Verifiable_Credentials {entities 'Issuer', NFR02 -1, NFR07 1, NFR08 2, NFR17 2, NFR18 -1}
-                    P35_Binding_VCs_and_Qualified_Electronic_Certificates cardinality [1..2] {entities 'Holder, Issuer', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR17 2}
-                    P36_Binding_DIDs_and_Qualified_Electronic_Certificates cardinality [1..2] {entities 'Issuer, Registry', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR09 1, NFR17 2}
-                    P37_Hot_and_Cold_Wallet_Storage {entities 'Holder', NFR07 2, NFR10 1, NFR11 -1}
-                    P38_Local {entities 'Holder', NFR03 2, NFR04 2, NFR07 2, NFR09 -2, NFR10 -2, NFR15 -1}
-                    P39_External {entities 'Holder', NFR02 -1, NFR03 -1, NFR04 -1, NFR09 2, NFR10 2, NFR11 2, NFR19 1}
-                    P40_Identity_Hub {entities 'Holder', NFR02 -1, NFR03 2, NFR04 1, NFR07 2, NFR09 2, NFR15 2, NFR20 1}
+                    Trusted_Registries {abstract}
+                        or
+                            P01_Public_Institution_Registry {entities 'Registry', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR09 1, NFR18 -1}
+                            P02_Trusted_Registration_Authority_Registry {entities 'Registry', NFR02 -1, NFR07 2, NFR08 2, NFR09 1}
+                            P03_Trusted_Accreditation_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR09 1}
+                            P04_Trusted_Issuer_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR09 1, NFR11 1}
+                            P05_Trusted_Schemas_Registry {entities 'Registry', NFR07 1, NFR08 2, NFR13 2, NFR16 2, NFR19 1}
+                            P06_Status_Registry {entities 'Issuer, Registry', NFR04 -1, NFR07 2, NFR08 2, NFR09 1}
+                            P07_DID_Registry {entities 'Registry', NFR02 -1, NFR04 -1, NFR07 1, NFR08 2, NFR09 2, NFR14 2, NFR18 -1}
+                            P08_Identifier_Attribute_Registry {entities 'Registry', NFR04 -1, NFR14 2, NFR18 -1, NFR19 2}
+                            P09_Blockchain_Anchor {entities 'Registry', NFR07 2, NFR08 2, NFR18 -2, NFR19 -1, NFR20 -1}
+                    Onboarding {abstract}
+                        or
+                            P10_Onboarding_or_DID_Registration {entities 'Issuer, Verifier, Registration authority', NFR02 -1, NFR07 2, NFR08 2, NFR11 -1, NFR17 1}
+                            P11_Linking_onboarding_with_VC_issuance {entities 'Holder, Issuer, Verifier, Registration authority', NFR07 1, NFR08 2, NFR11 1}
+                    VCs_VPs {abstract}
+                        or
+                            P12_Verifiable_ID {entities 'Holder, Issuer', NFR04 -1, NFR07 1, NFR08 2, NFR17 2, NFR19 1}
+                            P13_Verifiable_Attestation {entities 'Holder, Issuer', NFR11 1, NFR19 1, NFR20 2}
+                            P14_Verifiable_Mandate {entities 'Holder, Issuer, Delegate', NFR03 2, NFR07 -1, NFR15 2, NFR20 1}
+                            P15_Verifiable_Accreditation {entities 'Issuer, Accreditation organisation', NFR08 2, NFR13 1, NFR17 1}
+                            P16_Verifiable_Authorization {entities 'Holder, Verifier, Registration authority', NFR02 -1, NFR07 2, NFR08 1}
+                            P17_Selective_Content_Generation {entities 'Holder, Issuer', NFR04 2, NFR06 2, NFR11 -1, NFR20 1}
+                            P18_Time_Constrained_Access {entities 'Holder, Verifier', NFR04 2, NFR09 -1, NFR18 1, NFR20 1}
+                            P19_One_Off_Access {entities 'Holder, Verifier', NFR04 2, NFR09 -1, NFR18 1}
+                            P20_Expiration_Time {entities 'Issuer, Verifier', NFR07 2, NFR08 2, NFR11 -1, NFR14 -1}
+                            P21_Effective_Time {entities 'Issuer, Verifier', NFR08 1, NFR20 2}
+                    DIDs_KEYs {abstract}
+                        or
+                            P22_Multiple_Registration {entities 'Holder', NFR01 2, NFR04 2, NFR10 -1, NFR11 -1}
+                            P23_Blockchain_and_Social_Media_Account_Pair {entities 'Holder', NFR02 -1, NFR04 -2, NFR07 1, NFR08 2, NFR17 2}
+                            P24_Public_DIDs {entities 'Issuer, Verifier', NFR02 1, NFR04 -1, NFR08 2, NFR09 2, NFR14 2, NFR18 -2}
+                            P25_Pairwise_DIDs {entities 'Holder, Issuer, Verifier', NFR02 2, NFR04 2, NFR07 1, NFR08 -1, NFR09 -1, NFR14 -1, NFR16 2, NFR18 2, NFR19 2}
+                            P26_Static_DIDs {entities 'Holder, Issuer, Verifier', NFR02 2, NFR04 -1, NFR07 -1, NFR10 -2, NFR14 -2, NFR18 2, NFR19 2}
+                            P27_Dual_Resolution {entities 'Holder, Issuer, Verifier', NFR02 2, NFR07 1, NFR08 2, NFR16 2}
+                            P28_On_Chain_Resolution {entities 'Issuer, Verifier', NFR04 -1, NFR08 2, NFR16 1, NFR19 -1}
+                            P29_Off_Chain_Resolution {entities 'Holder, Issuer, Verifier', NFR04 2, NFR07 1, NFR08 -1, NFR18 2, NFR19 2}
+                            P30_Delegate_List {entities 'Holder', NFR03 1, NFR04 -1, NFR10 2, NFR14 2}
+                            P31_DID_Controller {entities 'Holder', NFR03 2, NFR07 -1, NFR20 1}
+                            P32_Master_and_Sub_Key {entities 'Holder', NFR04 2, NFR07 2, NFR10 1, NFR11 -1}
+                            P33_Key_Shards {entities 'Holder', NFR02 2, NFR07 1, NFR10 2, NFR11 -1}
+                    QEC {abstract}
+                        or
+                            P34_Qualified_Verifiable_Credentials {entities 'Issuer', NFR02 -1, NFR07 1, NFR08 2, NFR17 2, NFR18 -1}
+                            P35_Binding_VCs_and_Qualified_Electronic_Certificates {entities 'Holder, Issuer', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR17 2}
+                            P36_Binding_DIDs_and_Qualified_Electronic_Certificates {entities 'Issuer, Registry', NFR02 -1, NFR04 -1, NFR07 2, NFR08 2, NFR09 1, NFR17 2}
+                    Wallets_and_Off_Chain_Storage {abstract}
+                        or
+                            P37_Hot_and_Cold_Wallet_Storage {entities 'Holder', NFR07 2, NFR10 1, NFR11 -1}
+                            P38_Local_Storage {entities 'Holder', NFR03 2, NFR04 2, NFR07 2, NFR09 -2, NFR10 -2, NFR15 -1}
+                            P39_External_Cloud_Storage {entities 'Holder', NFR02 -1, NFR03 -1, NFR04 -1, NFR09 2, NFR10 2, NFR11 2, NFR19 1}
+                            P40_Identity_Hub {entities 'Holder', NFR02 -1, NFR03 2, NFR04 1, NFR07 2, NFR09 2, NFR15 2, NFR20 1}
 
 constraints
     // ===================================================
@@ -100,12 +112,12 @@ constraints
     FR06_DID_connection => P24_Public_DIDs
     FR06_DID_connection => (P25_Pairwise_DIDs | P26_Static_DIDs)
     FR07_DID_resolution => P27_Dual_Resolution
-    FR07_DID_resolution => (P28_On_Chain | P29_Off_Chain)
+    FR07_DID_resolution => (P28_On_Chain_Resolution | P29_Off_Chain_Resolution)
     FR08_Mutual_authentication => P27_Dual_Resolution
     FR12_Holder_authentication_by_the_Issuer => P12_Verifiable_ID
     FR13_VC_issuance => (P12_Verifiable_ID | P13_Verifiable_Attestation | P14_Verifiable_Mandate)
     FR14_Credential_schema_management => P05_Trusted_Schemas_Registry
-    FR15_VC_storage => (P38_Local | P39_External | P40_Identity_Hub)
+    FR15_VC_storage => (P38_Local_Storage | P39_External_Cloud_Storage | P40_Identity_Hub)
     FR16_VP_generation_selective_disclosure => P17_Selective_Content_Generation
     FR18_Signature_integrity_verification => P27_Dual_Resolution
     FR19_Issuer_trust_verification => P04_Trusted_Issuer_Registry
@@ -113,8 +125,8 @@ constraints
     FR21_Validity_status_check => P06_Status_Registry
     FR22_VC_revocation_suspension => P06_Status_Registry
     FR23_Key_recovery => (P33_Key_Shards | P30_Delegate_List)
-    FR24_Identity_data_recovery_backup => (P38_Local | P39_External | P40_Identity_Hub)
-    FR25_Identity_data_transfer_portability => (P38_Local | P39_External | P40_Identity_Hub)
+    FR24_Identity_data_recovery_backup => (P38_Local_Storage | P39_External_Cloud_Storage | P40_Identity_Hub)
+    FR25_Identity_data_transfer_portability => (P38_Local_Storage | P39_External_Cloud_Storage | P40_Identity_Hub)
     FR26_Delegation_mandate => P14_Verifiable_Mandate
     FR27_Multi_controller_guardianship => P31_DID_Controller
     FR27_Multi_controller_guardianship => (P33_Key_Shards | P30_Delegate_List)
@@ -197,13 +209,56 @@ constraints
     P21_Effective_Time => P12_Verifiable_ID
     P22_Multiple_Registration => P07_DID_Registry
     P24_Public_DIDs => P07_DID_Registry
-    P25_Pairwise_DIDs => P32_Master_and_Sub_Key
-    P26_Static_DIDs => P32_Master_and_Sub_Key
     P27_Dual_Resolution => P07_DID_Registry
-    P28_On_Chain => P07_DID_Registry
-    P28_On_Chain => P27_Dual_Resolution
-    P29_Off_Chain => P25_Pairwise_DIDs
-    P29_Off_Chain => P27_Dual_Resolution
+    P28_On_Chain_Resolution => P07_DID_Registry
+    P28_On_Chain_Resolution => P27_Dual_Resolution
+    P29_Off_Chain_Resolution => P25_Pairwise_DIDs
+    P29_Off_Chain_Resolution => P27_Dual_Resolution
     P30_Delegate_List => P07_DID_Registry
     P34_Qualified_Verifiable_Credentials => P12_Verifiable_ID
     P35_Binding_VCs_and_Qualified_Electronic_Certificates => P05_Trusted_Schemas_Registry
+
+    // ===================================================
+    // JUSTIFICATION: PATTERN -> ITS REASONS
+    // realised_by and requires read backwards, and may_use
+    // ===================================================
+    P01_Public_Institution_Registry => FR05_DID_registration
+    P02_Trusted_Registration_Authority_Registry => (FR04_Onboarding_permissioned_system | P10_Onboarding_or_DID_Registration)
+    P03_Trusted_Accreditation_Registry => (FR28_Issuer_accreditation | FR19_Issuer_trust_verification | P04_Trusted_Issuer_Registry | P15_Verifiable_Accreditation)
+    P04_Trusted_Issuer_Registry => (FR19_Issuer_trust_verification | FR28_Issuer_accreditation)
+    P05_Trusted_Schemas_Registry => (FR14_Credential_schema_management | FR20_Schema_compliance_check | P02_Trusted_Registration_Authority_Registry | P03_Trusted_Accreditation_Registry | P12_Verifiable_ID | P13_Verifiable_Attestation | P15_Verifiable_Accreditation | P35_Binding_VCs_and_Qualified_Electronic_Certificates)
+    P06_Status_Registry => (FR21_Validity_status_check | FR22_VC_revocation_suspension)
+    P07_DID_Registry => (FR05_DID_registration | FR33_DID_document_update_key_rotation | FR34_DID_deactivation | P01_Public_Institution_Registry | P10_Onboarding_or_DID_Registration | P22_Multiple_Registration | P24_Public_DIDs | P27_Dual_Resolution | P28_On_Chain_Resolution | P30_Delegate_List)
+    P08_Identifier_Attribute_Registry => FR05_DID_registration
+    P09_Blockchain_Anchor => FR18_Signature_integrity_verification
+    P10_Onboarding_or_DID_Registration => (FR04_Onboarding_permissioned_system | P11_Linking_onboarding_with_VC_issuance | P16_Verifiable_Authorization)
+    P11_Linking_onboarding_with_VC_issuance => (FR04_Onboarding_permissioned_system | FR11_VC_request)
+    P12_Verifiable_ID => (FR12_Holder_authentication_by_the_Issuer | FR13_VC_issuance | P11_Linking_onboarding_with_VC_issuance | P14_Verifiable_Mandate | P17_Selective_Content_Generation | P20_Expiration_Time | P21_Effective_Time | P34_Qualified_Verifiable_Credentials)
+    P13_Verifiable_Attestation => FR13_VC_issuance
+    P14_Verifiable_Mandate => (FR13_VC_issuance | FR26_Delegation_mandate)
+    P15_Verifiable_Accreditation => FR28_Issuer_accreditation
+    P16_Verifiable_Authorization => (FR29_Authorization_to_ledger_services | FR09_Service_access_request)
+    P17_Selective_Content_Generation => (FR16_VP_generation_selective_disclosure | FR13_VC_issuance)
+    P18_Time_Constrained_Access => (FR10_Proof_request | FR17_VP_presentation | P19_One_Off_Access)
+    P19_One_Off_Access => FR17_VP_presentation
+    P20_Expiration_Time => (FR13_VC_issuance | FR21_Validity_status_check)
+    P21_Effective_Time => (FR13_VC_issuance | FR21_Validity_status_check)
+    P22_Multiple_Registration => (FR34_DID_deactivation | FR02_DID_generation)
+    P23_Blockchain_and_Social_Media_Account_Pair => FR32_Legacy_identity_linking
+    P24_Public_DIDs => (FR02_DID_generation | FR03_DID_document_creation_publication | FR06_DID_connection | P12_Verifiable_ID | P13_Verifiable_Attestation)
+    P25_Pairwise_DIDs => (FR02_DID_generation | FR06_DID_connection | P29_Off_Chain_Resolution)
+    P26_Static_DIDs => (FR02_DID_generation | FR06_DID_connection)
+    P27_Dual_Resolution => (FR07_DID_resolution | FR08_Mutual_authentication | FR18_Signature_integrity_verification | P17_Selective_Content_Generation | P28_On_Chain_Resolution | P29_Off_Chain_Resolution)
+    P28_On_Chain_Resolution => FR07_DID_resolution
+    P29_Off_Chain_Resolution => FR07_DID_resolution
+    P30_Delegate_List => (FR23_Key_recovery | FR27_Multi_controller_guardianship | FR33_DID_document_update_key_rotation)
+    P31_DID_Controller => (FR27_Multi_controller_guardianship | FR33_DID_document_update_key_rotation | FR03_DID_document_creation_publication)
+    P32_Master_and_Sub_Key => FR01_Key_pair_generation
+    P33_Key_Shards => (FR23_Key_recovery | FR27_Multi_controller_guardianship)
+    P34_Qualified_Verifiable_Credentials => FR31_Qualified_signature_of_VCs_eIDAS
+    P35_Binding_VCs_and_Qualified_Electronic_Certificates => (FR31_Qualified_signature_of_VCs_eIDAS | FR12_Holder_authentication_by_the_Issuer)
+    P36_Binding_DIDs_and_Qualified_Electronic_Certificates => (FR30_Legal_binding_of_DIDs_eIDAS | FR19_Issuer_trust_verification)
+    P37_Hot_and_Cold_Wallet_Storage => FR01_Key_pair_generation
+    P38_Local_Storage => (FR15_VC_storage | FR24_Identity_data_recovery_backup | FR25_Identity_data_transfer_portability)
+    P39_External_Cloud_Storage => (FR15_VC_storage | FR24_Identity_data_recovery_backup | FR25_Identity_data_transfer_portability)
+    P40_Identity_Hub => (FR15_VC_storage | FR24_Identity_data_recovery_backup | FR25_Identity_data_transfer_portability)

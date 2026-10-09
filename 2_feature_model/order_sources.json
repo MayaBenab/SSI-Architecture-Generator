@@ -1,0 +1,1169 @@
+{
+ "catalogue_links": [
+  {
+   "p": "P01",
+   "q": "P10",
+   "item": "1.1 #1"
+  },
+  {
+   "p": "P01",
+   "q": "P05",
+   "item": "1.1 #2"
+  },
+  {
+   "p": "P01",
+   "q": "P07",
+   "item": "1.1 #3"
+  },
+  {
+   "p": "P01",
+   "q": "P12",
+   "item": "1.1 #4"
+  },
+  {
+   "p": "P01",
+   "q": "P13",
+   "item": "1.1 #4"
+  },
+  {
+   "p": "P01",
+   "q": "P15",
+   "item": "1.1 #4"
+  },
+  {
+   "p": "P01",
+   "q": "P16",
+   "item": "1.1 #4"
+  },
+  {
+   "p": "P01",
+   "q": "P36",
+   "item": "1.1 #5"
+  },
+  {
+   "p": "P01",
+   "q": "P24",
+   "item": "1.1 #6"
+  },
+  {
+   "p": "P01",
+   "q": "P06",
+   "item": "1.1 #7"
+  },
+  {
+   "p": "P02",
+   "q": "P10",
+   "item": "Trusted Registration Authority Registry (TRAR) #1"
+  },
+  {
+   "p": "P02",
+   "q": "P05",
+   "item": "Trusted Registration Authority Registry (TRAR) #2"
+  },
+  {
+   "p": "P02",
+   "q": "P04",
+   "item": "Trusted Registration Authority Registry (TRAR) #3"
+  },
+  {
+   "p": "P02",
+   "q": "P07",
+   "item": "Trusted Registration Authority Registry (TRAR) #3"
+  },
+  {
+   "p": "P02",
+   "q": "P16",
+   "item": "Trusted Registration Authority Registry (TRAR) #4"
+  },
+  {
+   "p": "P02",
+   "q": "P36",
+   "item": "Trusted Registration Authority Registry (TRAR) #5"
+  },
+  {
+   "p": "P02",
+   "q": "P24",
+   "item": "Trusted Registration Authority Registry (TRAR) #6"
+  },
+  {
+   "p": "P03",
+   "q": "P04",
+   "item": "Trusted Accreditation Registry (TAR) #1"
+  },
+  {
+   "p": "P03",
+   "q": "P05",
+   "item": "Trusted Accreditation Registry (TAR) #2"
+  },
+  {
+   "p": "P03",
+   "q": "P07",
+   "item": "Trusted Accreditation Registry (TAR) #3"
+  },
+  {
+   "p": "P03",
+   "q": "P15",
+   "item": "Trusted Accreditation Registry (TAR) #4"
+  },
+  {
+   "p": "P03",
+   "q": "P36",
+   "item": "Trusted Accreditation Registry (TAR) #5"
+  },
+  {
+   "p": "P03",
+   "q": "P24",
+   "item": "Trusted Accreditation Registry (TAR) #6"
+  },
+  {
+   "p": "P04",
+   "q": "P03",
+   "item": "Trusted Issuer Registry (TIR) #1"
+  },
+  {
+   "p": "P04",
+   "q": "P05",
+   "item": "Trusted Issuer Registry (TIR) #2"
+  },
+  {
+   "p": "P04",
+   "q": "P07",
+   "item": "Trusted Issuer Registry (TIR) #3"
+  },
+  {
+   "p": "P04",
+   "q": "P02",
+   "item": "Trusted Issuer Registry (TIR) #4"
+  },
+  {
+   "p": "P04",
+   "q": "P15",
+   "item": "Trusted Issuer Registry (TIR) #5"
+  },
+  {
+   "p": "P04",
+   "q": "P36",
+   "item": "Trusted Issuer Registry (TIR) #6"
+  },
+  {
+   "p": "P04",
+   "q": "P24",
+   "item": "Trusted Issuer Registry (TIR) #7"
+  },
+  {
+   "p": "P04",
+   "q": "P13",
+   "item": "Trusted Issuer Registry (TIR) #8"
+  },
+  {
+   "p": "P04",
+   "q": "P12",
+   "item": "Trusted Issuer Registry (TIR) #8"
+  },
+  {
+   "p": "P05",
+   "q": "P01",
+   "item": "1.2 #1"
+  },
+  {
+   "p": "P05",
+   "q": "P12",
+   "item": "1.2 #2"
+  },
+  {
+   "p": "P05",
+   "q": "P13",
+   "item": "1.2 #2"
+  },
+  {
+   "p": "P05",
+   "q": "P14",
+   "item": "1.2 #2"
+  },
+  {
+   "p": "P05",
+   "q": "P15",
+   "item": "1.2 #2"
+  },
+  {
+   "p": "P05",
+   "q": "P16",
+   "item": "1.2 #2"
+  },
+  {
+   "p": "P05",
+   "q": "P34",
+   "item": "1.2 #3"
+  },
+  {
+   "p": "P05",
+   "q": "P35",
+   "item": "1.2 #4"
+  },
+  {
+   "p": "P06",
+   "q": "P01",
+   "item": "1.3 #1"
+  },
+  {
+   "p": "P06",
+   "q": "P12",
+   "item": "1.3 #2"
+  },
+  {
+   "p": "P06",
+   "q": "P13",
+   "item": "1.3 #2"
+  },
+  {
+   "p": "P06",
+   "q": "P14",
+   "item": "1.3 #2"
+  },
+  {
+   "p": "P06",
+   "q": "P15",
+   "item": "1.3 #2"
+  },
+  {
+   "p": "P06",
+   "q": "P16",
+   "item": "1.3 #2"
+  },
+  {
+   "p": "P07",
+   "q": "P10",
+   "item": "1.4 #1"
+  },
+  {
+   "p": "P07",
+   "q": "P01",
+   "item": "1.4 #2"
+  },
+  {
+   "p": "P07",
+   "q": "P24",
+   "item": "1.4 #3"
+  },
+  {
+   "p": "P07",
+   "q": "P27",
+   "item": "1.4 #4"
+  },
+  {
+   "p": "P07",
+   "q": "P22",
+   "item": "1.4 #5"
+  },
+  {
+   "p": "P07",
+   "q": "P30",
+   "item": "1.4 #6"
+  },
+  {
+   "p": "P07",
+   "q": "P23",
+   "item": "1.4 #7"
+  },
+  {
+   "p": "P07",
+   "q": "P36",
+   "item": "1.4 #8"
+  },
+  {
+   "p": "P08",
+   "q": "P22",
+   "item": "1.5 #1"
+  },
+  {
+   "p": "P08",
+   "q": "P27",
+   "item": "1.5 #2"
+  },
+  {
+   "p": "P08",
+   "q": "P30",
+   "item": "1.5 #3"
+  },
+  {
+   "p": "P08",
+   "q": "P32",
+   "item": "1.5 #4"
+  },
+  {
+   "p": "P09",
+   "q": "P17",
+   "item": "1.6 #1"
+  },
+  {
+   "p": "P09",
+   "q": "P12",
+   "item": "1.6 #3"
+  },
+  {
+   "p": "P09",
+   "q": "P13",
+   "item": "1.6 #3"
+  },
+  {
+   "p": "P09",
+   "q": "P14",
+   "item": "1.6 #3"
+  },
+  {
+   "p": "P10",
+   "q": "P07",
+   "item": "2.1 #1"
+  },
+  {
+   "p": "P10",
+   "q": "P01",
+   "item": "2.1 #2"
+  },
+  {
+   "p": "P10",
+   "q": "P11",
+   "item": "2.1 #3"
+  },
+  {
+   "p": "P10",
+   "q": "P16",
+   "item": "2.1 #4"
+  },
+  {
+   "p": "P11",
+   "q": "P10",
+   "item": "2.2 #1"
+  },
+  {
+   "p": "P11",
+   "q": "P12",
+   "item": "2.2 #2"
+  },
+  {
+   "p": "P11",
+   "q": "P13",
+   "item": "2.2 #3"
+  },
+  {
+   "p": "P12",
+   "q": "P01",
+   "item": "3.1 #1"
+  },
+  {
+   "p": "P12",
+   "q": "P05",
+   "item": "3.1 #2"
+  },
+  {
+   "p": "P12",
+   "q": "P09",
+   "item": "3.1 #3"
+  },
+  {
+   "p": "P12",
+   "q": "P06",
+   "item": "3.1 #4"
+  },
+  {
+   "p": "P12",
+   "q": "P13",
+   "item": "3.1 #5"
+  },
+  {
+   "p": "P12",
+   "q": "P14",
+   "item": "3.1 #5"
+  },
+  {
+   "p": "P12",
+   "q": "P17",
+   "item": "3.1 #6"
+  },
+  {
+   "p": "P12",
+   "q": "P18",
+   "item": "3.1 #6"
+  },
+  {
+   "p": "P12",
+   "q": "P19",
+   "item": "3.1 #6"
+  },
+  {
+   "p": "P12",
+   "q": "P20",
+   "item": "3.1 #6"
+  },
+  {
+   "p": "P12",
+   "q": "P21",
+   "item": "3.1 #6"
+  },
+  {
+   "p": "P12",
+   "q": "P38",
+   "item": "3.1 #7"
+  },
+  {
+   "p": "P12",
+   "q": "P39",
+   "item": "3.1 #8"
+  },
+  {
+   "p": "P12",
+   "q": "P11",
+   "item": "3.1 #9"
+  },
+  {
+   "p": "P12",
+   "q": "P34",
+   "item": "3.1 #10"
+  },
+  {
+   "p": "P12",
+   "q": "P35",
+   "item": "3.1 #11"
+  },
+  {
+   "p": "P13",
+   "q": "P01",
+   "item": "3.2 #1"
+  },
+  {
+   "p": "P13",
+   "q": "P05",
+   "item": "3.2 #2"
+  },
+  {
+   "p": "P13",
+   "q": "P09",
+   "item": "3.2 #3"
+  },
+  {
+   "p": "P13",
+   "q": "P06",
+   "item": "3.2 #4"
+  },
+  {
+   "p": "P13",
+   "q": "P12",
+   "item": "3.2 #5"
+  },
+  {
+   "p": "P13",
+   "q": "P14",
+   "item": "3.2 #5"
+  },
+  {
+   "p": "P13",
+   "q": "P17",
+   "item": "3.2 #6"
+  },
+  {
+   "p": "P13",
+   "q": "P18",
+   "item": "3.2 #6"
+  },
+  {
+   "p": "P13",
+   "q": "P19",
+   "item": "3.2 #6"
+  },
+  {
+   "p": "P13",
+   "q": "P20",
+   "item": "3.2 #6"
+  },
+  {
+   "p": "P13",
+   "q": "P21",
+   "item": "3.2 #6"
+  },
+  {
+   "p": "P13",
+   "q": "P38",
+   "item": "3.2 #7"
+  },
+  {
+   "p": "P13",
+   "q": "P39",
+   "item": "3.2 #8"
+  },
+  {
+   "p": "P13",
+   "q": "P11",
+   "item": "3.2 #9"
+  },
+  {
+   "p": "P13",
+   "q": "P34",
+   "item": "3.2 #10"
+  },
+  {
+   "p": "P14",
+   "q": "P01",
+   "item": "3.3 #1"
+  },
+  {
+   "p": "P14",
+   "q": "P05",
+   "item": "3.3 #2"
+  },
+  {
+   "p": "P14",
+   "q": "P09",
+   "item": "3.3 #3"
+  },
+  {
+   "p": "P14",
+   "q": "P06",
+   "item": "3.3 #4"
+  },
+  {
+   "p": "P14",
+   "q": "P12",
+   "item": "3.3 #5"
+  },
+  {
+   "p": "P14",
+   "q": "P13",
+   "item": "3.3 #5"
+  },
+  {
+   "p": "P14",
+   "q": "P17",
+   "item": "3.3 #6"
+  },
+  {
+   "p": "P14",
+   "q": "P18",
+   "item": "3.3 #6"
+  },
+  {
+   "p": "P14",
+   "q": "P19",
+   "item": "3.3 #6"
+  },
+  {
+   "p": "P14",
+   "q": "P20",
+   "item": "3.3 #6"
+  },
+  {
+   "p": "P14",
+   "q": "P21",
+   "item": "3.3 #6"
+  },
+  {
+   "p": "P14",
+   "q": "P38",
+   "item": "3.3 #7"
+  },
+  {
+   "p": "P14",
+   "q": "P39",
+   "item": "3.3 #8"
+  },
+  {
+   "p": "P14",
+   "q": "P34",
+   "item": "3.3 #9"
+  },
+  {
+   "p": "P15",
+   "q": "P05",
+   "item": "3.4 #1"
+  },
+  {
+   "p": "P15",
+   "q": "P09",
+   "item": "3.4 #3"
+  },
+  {
+   "p": "P15",
+   "q": "P06",
+   "item": "3.4 #4"
+  },
+  {
+   "p": "P15",
+   "q": "P12",
+   "item": "3.4 #5"
+  },
+  {
+   "p": "P15",
+   "q": "P13",
+   "item": "3.4 #5"
+  },
+  {
+   "p": "P15",
+   "q": "P20",
+   "item": "3.4 #6"
+  },
+  {
+   "p": "P15",
+   "q": "P21",
+   "item": "3.4 #6"
+  },
+  {
+   "p": "P15",
+   "q": "P03",
+   "item": "3.4 #7"
+  },
+  {
+   "p": "P15",
+   "q": "P04",
+   "item": "3.4 #8"
+  },
+  {
+   "p": "P16",
+   "q": "P10",
+   "item": "3.5 #1"
+  },
+  {
+   "p": "P16",
+   "q": "P05",
+   "item": "3.5 #2"
+  },
+  {
+   "p": "P17",
+   "q": "P18",
+   "item": "3.6/3.7 #1"
+  },
+  {
+   "p": "P17",
+   "q": "P19",
+   "item": "3.6/3.7 #2"
+  },
+  {
+   "p": "P17",
+   "q": "P09",
+   "item": "3.6/3.7 #3"
+  },
+  {
+   "p": "P17",
+   "q": "P12",
+   "item": "3.6/3.7 #4"
+  },
+  {
+   "p": "P17",
+   "q": "P13",
+   "item": "3.6/3.7 #4"
+  },
+  {
+   "p": "P17",
+   "q": "P14",
+   "item": "3.6/3.7 #4"
+  },
+  {
+   "p": "P18",
+   "q": "P17",
+   "item": "3.8 #1"
+  },
+  {
+   "p": "P18",
+   "q": "P19",
+   "item": "3.8 #2"
+  },
+  {
+   "p": "P18",
+   "q": "P07",
+   "item": "3.8 #3"
+  },
+  {
+   "p": "P19",
+   "q": "P18",
+   "item": "3.9 #1"
+  },
+  {
+   "p": "P19",
+   "q": "P07",
+   "item": "3.9 #2"
+  },
+  {
+   "p": "P20",
+   "q": "P21",
+   "item": "3.10 #1"
+  },
+  {
+   "p": "P20",
+   "q": "P12",
+   "item": "3.10 #2"
+  },
+  {
+   "p": "P20",
+   "q": "P13",
+   "item": "3.10 #2"
+  },
+  {
+   "p": "P20",
+   "q": "P14",
+   "item": "3.10 #2"
+  },
+  {
+   "p": "P20",
+   "q": "P15",
+   "item": "3.10 #2"
+  },
+  {
+   "p": "P20",
+   "q": "P16",
+   "item": "3.10 #2"
+  },
+  {
+   "p": "P21",
+   "q": "P20",
+   "item": "3.11 #1"
+  },
+  {
+   "p": "P21",
+   "q": "P12",
+   "item": "3.11 #2"
+  },
+  {
+   "p": "P21",
+   "q": "P13",
+   "item": "3.11 #2"
+  },
+  {
+   "p": "P21",
+   "q": "P14",
+   "item": "3.11 #2"
+  },
+  {
+   "p": "P21",
+   "q": "P15",
+   "item": "3.11 #2"
+  },
+  {
+   "p": "P21",
+   "q": "P16",
+   "item": "3.11 #2"
+  },
+  {
+   "p": "P22",
+   "q": "P07",
+   "item": "4.1 #1"
+  },
+  {
+   "p": "P22",
+   "q": "P32",
+   "item": "4.1 #2"
+  },
+  {
+   "p": "P23",
+   "q": "P07",
+   "item": "4.2 #1"
+  },
+  {
+   "p": "P24",
+   "q": "P28",
+   "item": "4.3 #2"
+  },
+  {
+   "p": "P24",
+   "q": "P07",
+   "item": "4.3 #3"
+  },
+  {
+   "p": "P25",
+   "q": "P27",
+   "item": "4.4 #2"
+  },
+  {
+   "p": "P26",
+   "q": "P27",
+   "item": "4.5 #2"
+  },
+  {
+   "p": "P27",
+   "q": "P07",
+   "item": "4.6 #1"
+  },
+  {
+   "p": "P27",
+   "q": "P24",
+   "item": "4.6 #2"
+  },
+  {
+   "p": "P27",
+   "q": "P25",
+   "item": "4.6 #3"
+  },
+  {
+   "p": "P28",
+   "q": "P07",
+   "item": "On-Chain (Dual) Resolution #1"
+  },
+  {
+   "p": "P28",
+   "q": "P24",
+   "item": "On-Chain (Dual) Resolution #2"
+  },
+  {
+   "p": "P28",
+   "q": "P25",
+   "item": "On-Chain (Dual) Resolution #3"
+  },
+  {
+   "p": "P29",
+   "q": "P28",
+   "item": "Off-Chain (Dual) Resolution #1"
+  },
+  {
+   "p": "P29",
+   "q": "P25",
+   "item": "Off-Chain (Dual) Resolution #2"
+  },
+  {
+   "p": "P30",
+   "q": "P07",
+   "item": "4.7 #1"
+  },
+  {
+   "p": "P30",
+   "q": "P37",
+   "item": "4.7 #2"
+  },
+  {
+   "p": "P30",
+   "q": "P33",
+   "item": "4.7 #3"
+  },
+  {
+   "p": "P31",
+   "q": "P27",
+   "item": "4.8 #1"
+  },
+  {
+   "p": "P32",
+   "q": "P37",
+   "item": "4.9 #1"
+  },
+  {
+   "p": "P32",
+   "q": "P33",
+   "item": "4.9 #2"
+  },
+  {
+   "p": "P32",
+   "q": "P07",
+   "item": "4.9 #3"
+  },
+  {
+   "p": "P32",
+   "q": "P22",
+   "item": "4.9 #4"
+  },
+  {
+   "p": "P33",
+   "q": "P32",
+   "item": "4.10 #1"
+  },
+  {
+   "p": "P33",
+   "q": "P37",
+   "item": "4.10 #2"
+  },
+  {
+   "p": "P33",
+   "q": "P30",
+   "item": "4.10 #3"
+  },
+  {
+   "p": "P34",
+   "q": "P12",
+   "item": "5.1 #1"
+  },
+  {
+   "p": "P34",
+   "q": "P13",
+   "item": "5.1 #1"
+  },
+  {
+   "p": "P34",
+   "q": "P14",
+   "item": "5.1 #1"
+  },
+  {
+   "p": "P34",
+   "q": "P15",
+   "item": "5.1 #1"
+  },
+  {
+   "p": "P34",
+   "q": "P16",
+   "item": "5.1 #1"
+  },
+  {
+   "p": "P34",
+   "q": "P05",
+   "item": "5.1 #2"
+  },
+  {
+   "p": "P35",
+   "q": "P05",
+   "item": "5.2 #1"
+  },
+  {
+   "p": "P35",
+   "q": "P09",
+   "item": "5.2 #2"
+  },
+  {
+   "p": "P35",
+   "q": "P06",
+   "item": "5.2 #3"
+  },
+  {
+   "p": "P35",
+   "q": "P34",
+   "item": "5.2 #4"
+  },
+  {
+   "p": "P36",
+   "q": "P02",
+   "item": "5.3 #1"
+  },
+  {
+   "p": "P36",
+   "q": "P03",
+   "item": "5.3 #2"
+  },
+  {
+   "p": "P36",
+   "q": "P04",
+   "item": "5.3 #3"
+  },
+  {
+   "p": "P36",
+   "q": "P05",
+   "item": "5.3 #4"
+  },
+  {
+   "p": "P36",
+   "q": "P27",
+   "item": "5.3 #6"
+  },
+  {
+   "p": "P37",
+   "q": "P32",
+   "item": "6.1 #1"
+  },
+  {
+   "p": "P37",
+   "q": "P33",
+   "item": "6.1 #2"
+  },
+  {
+   "p": "P37",
+   "q": "P30",
+   "item": "6.1 #3"
+  },
+  {
+   "p": "P38",
+   "q": "P39",
+   "item": "6.2 #2"
+  },
+  {
+   "p": "P39",
+   "q": "P38",
+   "item": "6.3 #2"
+  },
+  {
+   "p": "P40",
+   "q": "P18",
+   "item": "6.X #3"
+  },
+  {
+   "p": "P40",
+   "q": "P19",
+   "item": "6.X #3"
+  }
+ ],
+ "variants": [
+  [
+   "P29",
+   "P27"
+  ],
+  [
+   "P28",
+   "P27"
+  ]
+ ],
+ "lifecycle_next": {
+  "VC requested": [
+   "VC issued"
+  ],
+  "VC issued": [
+   "VC stored"
+  ],
+  "VC stored": [
+   "VP presented",
+   "VC lost or compromised"
+  ],
+  "VP presented": [
+   "VP verified"
+  ],
+  "VP verified": [],
+  "VC lost or compromised": [
+   "VC revoked or expired"
+  ],
+  "VC revoked or expired": [],
+  "Keys created": [
+   "Keys stored",
+   "DID created"
+  ],
+  "Keys stored": [
+   "Keys lost or compromised"
+  ],
+  "Keys lost or compromised": [
+   "Keys deleted",
+   "Keys recovered",
+   "DID updated"
+  ],
+  "Keys recovered": [
+   "Keys stored",
+   "DID updated"
+  ],
+  "Keys deleted": [],
+  "DID created": [
+   "DID stored and/or registered"
+  ],
+  "DID stored and/or registered": [
+   "DID resolved",
+   "DID updated",
+   "DID deactivated"
+  ],
+  "DID resolved": [
+   "DID updated"
+  ],
+  "DID updated": [
+   "DID deactivated"
+  ],
+  "DID deactivated": []
+ },
+ "pattern_states": {
+  "P01": [
+   "registry"
+  ],
+  "P02": [
+   "registry"
+  ],
+  "P03": [
+   "registry"
+  ],
+  "P04": [
+   "registry"
+  ],
+  "P05": [
+   "registry"
+  ],
+  "P06": [
+   "registry"
+  ],
+  "P07": [
+   "registry"
+  ],
+  "P08": [
+   "registry"
+  ],
+  "P09": [
+   "registry"
+  ],
+  "P10": [
+   "DID stored and/or registered"
+  ],
+  "P11": [
+   "VC issued"
+  ],
+  "P12": [
+   "VC issued"
+  ],
+  "P13": [
+   "VC issued"
+  ],
+  "P14": [
+   "VC issued"
+  ],
+  "P15": [
+   "VC issued"
+  ],
+  "P16": [
+   "VC issued"
+  ],
+  "P17": [
+   "VC issued",
+   "VP presented"
+  ],
+  "P18": [
+   "VP presented"
+  ],
+  "P19": [
+   "VP presented"
+  ],
+  "P20": [
+   "VC issued"
+  ],
+  "P21": [
+   "VC issued"
+  ],
+  "P22": [
+   "DID stored and/or registered"
+  ],
+  "P23": [
+   "DID stored and/or registered"
+  ],
+  "P24": [
+   "DID created"
+  ],
+  "P25": [
+   "DID created"
+  ],
+  "P26": [
+   "DID created"
+  ],
+  "P27": [
+   "DID resolved"
+  ],
+  "P28": [
+   "DID resolved"
+  ],
+  "P29": [
+   "DID resolved"
+  ],
+  "P30": [
+   "DID updated"
+  ],
+  "P31": [
+   "DID updated"
+  ],
+  "P32": [
+   "Keys created"
+  ],
+  "P33": [
+   "Keys recovered"
+  ],
+  "P34": [
+   "VC issued"
+  ],
+  "P35": [
+   "VC issued"
+  ],
+  "P36": [
+   "DID created"
+  ],
+  "P37": [
+   "Keys stored"
+  ],
+  "P38": [
+   "VC stored"
+  ],
+  "P39": [
+   "VC stored"
+  ],
+  "P40": [
+   "VC stored"
+  ]
+ }
+}

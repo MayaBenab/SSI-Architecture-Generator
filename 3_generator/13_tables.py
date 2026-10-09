@@ -6,7 +6,7 @@ from fm import parse_uvl
 
 path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "out_diploma", "result.json")
 r = json.load(open(path, encoding="utf-8"))
-_, nodes, _ = parse_uvl()
+_, nodes, _ = parse_uvl(); nodes.pop("__justification__", None)
 nfrs = r["request"]["NFR"]
 rows = []
 for p in r["sequence"]:

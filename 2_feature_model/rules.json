@@ -2,16 +2,28 @@
  "G0": {
   "components": {
    "Holder": {
-    "type": "Actor agent",
+    "type": "Holder",
     "container": null
    },
    "Issuer": {
-    "type": "Actor agent",
+    "type": "Issuer",
     "container": null
    },
    "Verifier": {
-    "type": "Actor agent",
+    "type": "Verifier",
     "container": null
+   },
+   "Wallet": {
+    "type": "Wallet",
+    "container": "Holder"
+   },
+   "Wallet_I": {
+    "type": "Wallet",
+    "container": "Issuer"
+   },
+   "Wallet_V": {
+    "type": "Wallet",
+    "container": "Verifier"
    },
    "VDR": {
     "type": "Verifiable data registry (abstract)",
@@ -58,7 +70,7 @@
  },
  "rules": {
   "P04": {
-   "name": "Trusted Issuer Registry (TIR)",
+   "name": "Trusted Issuer Registry",
    "required": [
     "VDR",
     "Issuer",
@@ -94,7 +106,7 @@
    "source": "refine.py (rule written from the pattern's solution text)"
   },
   "P05": {
-   "name": "Trusted Schemas Registry (TSR)",
+   "name": "Trusted Schemas Registry",
    "required": [
     "VDR"
    ],
@@ -187,10 +199,11 @@
    "source": "refine.py (rule written from the pattern's solution text)"
   },
   "P12": {
-   "name": "Verifiable ID (V-ID)",
+   "name": "Verifiable ID",
    "required": [
     "Issuer",
     "Holder",
+    "Wallet",
     "TSR",
     "PublicDID_I",
     "KeyMgr_I"
@@ -213,11 +226,6 @@
       "id": "VIDIssuer",
       "type": "Verifiable ID issuance",
       "container": "IssuanceSvc"
-     },
-     {
-      "id": "Wallet",
-      "type": "Wallet",
-      "container": "Holder"
      },
      {
       "id": "CredStore_H",
@@ -250,10 +258,10 @@
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | G0: the holder has a wallet where it creates its keys (W3C VC overview; Zaeem et al. 2021); issuer and verifier get their keys with their DID (P24, [1] 2.1)"
   },
   "P13": {
-   "name": "Verifiable Attestation (VA)",
+   "name": "Verifiable Attestation",
    "required": [
     "IssuanceSvc",
     "CredStore_H",
@@ -353,7 +361,9 @@
    "required": [
     "Issuer",
     "Verifier",
-    "DIDRegistry"
+    "DIDRegistry",
+    "Wallet_I",
+    "Wallet_V"
    ],
    "deleted": [
     {
@@ -377,12 +387,12 @@
      {
       "id": "KeyMgr_I",
       "type": "Key manager",
-      "container": "Issuer"
+      "container": "Wallet_I"
      },
      {
       "id": "KeyMgr_V",
       "type": "Key manager",
-      "container": "Verifier"
+      "container": "Wallet_V"
      },
      {
       "id": "PublicDID_I",
@@ -423,15 +433,30 @@
       "name": "controls",
       "protocol": "local",
       "payload": "verifier key pair"
+     },
+     {
+      "src": "DIDMgr_I",
+      "dst": "Wallet_I",
+      "name": "stores DIDs",
+      "protocol": "local",
+      "payload": "public DID and DID document"
+     },
+     {
+      "src": "DIDMgr_V",
+      "dst": "Wallet_V",
+      "name": "stores DIDs",
+      "protocol": "local",
+      "payload": "public DID and DID document"
      }
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | G0: every entity has a wallet that creates and stores its DIDs and keys ([1] 2.2, 4.4 'each entity's wallet', 6.2) | agent vs wallet: the wallet stores DIDs, keys and credentials and manages the keys ([1] 6.2, 2.2, 4.4; Windley 2022); the DID manager acts (exchange, DIDComm, publication) in the agent (Aries RFC 0004: the wallet is 'an inert storage container')"
   },
   "P25": {
-   "name": "Pairwise DIDs (and N-wise DIDs)",
+   "name": "Pairwise DIDs",
    "required": [
+    "Wallet",
     "SubKeyDeriv_H",
     "DIDMgr_I",
     "DIDMgr_V"
@@ -454,9 +479,9 @@
      {
       "src": "SubKeyDeriv_H",
       "dst": "PairwiseDID_H",
-      "name": "key per relationship",
+      "name": "controls",
       "protocol": "local",
-      "payload": "sub-key"
+      "payload": "one sub-key per relationship"
      },
      {
       "src": "PairwiseDID_H",
@@ -471,15 +496,23 @@
       "name": "DIDComm pairwise channel",
       "protocol": "DIDComm",
       "payload": "peer DID documents, messages"
+     },
+     {
+      "src": "DIDMgr_H",
+      "dst": "Wallet",
+      "name": "stores DIDs",
+      "protocol": "local",
+      "payload": "pairwise DIDs and DID documents"
      }
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | G0: every entity has a wallet that creates and stores its DIDs and keys ([1] 2.2, 4.4 'each entity's wallet', 6.2) | keys: one sub-key per relationship ([1] 4.9: a sub-key per identity; 4.1: sub-keys register an identifier per relationship); P32 is always present (FR01) | agent vs wallet: the wallet stores DIDs, keys and credentials and manages the keys ([1] 6.2, 2.2, 4.4; Windley 2022); the DID manager acts (exchange, DIDComm, publication) in the agent (Aries RFC 0004: the wallet is 'an inert storage container')"
   },
   "P26": {
    "name": "Static DIDs",
    "required": [
+    "Wallet",
     "SubKeyDeriv_H",
     "DIDMgr_I",
     "DIDMgr_V"
@@ -502,9 +535,9 @@
      {
       "src": "SubKeyDeriv_H",
       "dst": "StaticDID_H",
-      "name": "key",
+      "name": "controls",
       "protocol": "local",
-      "payload": "key pair"
+      "payload": "sub-key encoded in did:key"
      },
      {
       "src": "StaticDID_H",
@@ -519,11 +552,18 @@
       "name": "connection",
       "protocol": "DIDComm",
       "payload": "did:key"
+     },
+     {
+      "src": "DIDMgr_H",
+      "dst": "Wallet",
+      "name": "stores DIDs",
+      "protocol": "local",
+      "payload": "did:key DIDs"
      }
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | rule rewritten (P32 optional): the pattern no longer assumes the master / sub-key hierarchy | G0: every entity has a wallet that creates and stores its DIDs and keys ([1] 2.2, 4.4 'each entity's wallet', 6.2) | keys: did:key encodes a public key ([1] 4.5), here a sub-key of P32 | agent vs wallet: the wallet stores DIDs, keys and credentials and manages the keys ([1] 6.2, 2.2, 4.4; Windley 2022); the DID manager acts (exchange, DIDComm, publication) in the agent (Aries RFC 0004: the wallet is 'an inert storage container')"
   },
   "P27": {
    "name": "Dual Resolution",
@@ -572,7 +612,7 @@
    "source": "refine.py (rule written from the pattern's solution text)"
   },
   "P28": {
-   "name": "On-Chain (Dual) Resolution",
+   "name": "On Chain Resolution",
    "required": [
     "Resolver_H",
     "Resolver_V",
@@ -620,7 +660,7 @@
    "source": "refine.py (rule written from the pattern's solution text)"
   },
   "P29": {
-   "name": "Off-Chain (Dual) Resolution",
+   "name": "Off Chain Resolution",
    "required": [
     "Resolver_I",
     "Resolver_V",
@@ -663,7 +703,6 @@
   "P30": {
    "name": "Delegate List",
    "required": [
-    "MasterKeyStore_H",
     "DIDMgr_H"
    ],
    "deleted": [],
@@ -690,20 +729,20 @@
      },
      {
       "src": "Delegate",
-      "dst": "MasterKeyStore_H",
-      "name": "recover",
+      "dst": "DIDMgr_H",
+      "name": "replace compromised key",
       "protocol": "secure channel",
-      "payload": "recovery key"
+      "payload": "new key"
      }
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | rule rewritten (P32 optional): the pattern no longer assumes the master / sub-key hierarchy"
   },
   "P32": {
    "name": "Master and Sub Key",
    "required": [
-    "Holder"
+    "Wallet"
    ],
    "deleted": [],
    "added": {
@@ -711,7 +750,7 @@
      {
       "id": "KeyMgr_H",
       "type": "Key manager (hierarchical)",
-      "container": "Holder"
+      "container": "Wallet"
      },
      {
       "id": "MasterKeyStore_H",
@@ -735,11 +774,12 @@
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | G0: the holder has a wallet where it creates its keys (W3C VC overview; Zaeem et al. 2021); issuer and verifier get their keys with their DID (P24, [1] 2.1)"
   },
   "P33": {
    "name": "Key Shards",
    "required": [
+    "Wallet",
     "MasterKeyStore_H"
    ],
    "deleted": [],
@@ -748,7 +788,7 @@
      {
       "id": "ShardMgr_H",
       "type": "Key shard manager",
-      "container": "KeyMgr_H"
+      "container": "Wallet"
      },
      {
       "id": "Trustee",
@@ -774,12 +814,14 @@
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | rule rewritten (P32 optional): the pattern no longer assumes the master / sub-key hierarchy | G0: the holder has a wallet where it creates its keys (W3C VC overview; Zaeem et al. 2021); issuer and verifier get their keys with their DID (P24, [1] 2.1) | keys: [1] 4.10 related 1: master and sub-keys split into shards"
   },
   "P37": {
    "name": "Hot and Cold Wallet Storage",
    "required": [
-    "KeyMgr_H"
+    "Wallet",
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H"
    ],
    "deleted": [],
    "added": {
@@ -787,12 +829,12 @@
      {
       "id": "ColdWallet_H",
       "type": "Cold wallet (offline)",
-      "container": "KeyMgr_H"
+      "container": "Wallet"
      },
      {
       "id": "HotWallet_H",
       "type": "Hot wallet",
-      "container": "KeyMgr_H"
+      "container": "Wallet"
      }
     ],
     "connectors": [
@@ -813,10 +855,10 @@
     ],
     "refines": {}
    },
-   "source": "refine.py (rule written from the pattern's solution text)"
+   "source": "refine.py (rule written from the pattern's solution text) | rule rewritten (P32 optional): the pattern no longer assumes the master / sub-key hierarchy | G0: the holder has a wallet where it creates its keys (W3C VC overview; Zaeem et al. 2021); issuer and verifier get their keys with their DID (P24, [1] 2.1) | keys: [1] 6.1 related 1: the master key in the cold wallet, the sub-keys in the hot wallet"
   },
   "P38": {
-   "name": "Local (Private) Storage",
+   "name": "Local Storage",
    "required": [
     "Wallet",
     "CredStore_H"
@@ -846,7 +888,7 @@
    "source": "refine.py (rule written from the pattern's solution text)"
   },
   "P39": {
-   "name": "External (Remote) Cloud Storage",
+   "name": "External Cloud Storage",
    "required": [
     "Wallet",
     "CredStore_H"

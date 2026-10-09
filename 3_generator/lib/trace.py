@@ -3,7 +3,7 @@ usage: python trace.py out_S1/result.json"""
 import os, sys, json, csv
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from refine import P as RULES
-from deploy import MAPPING
+from deploy import REAL
 
 def trace(result_path):
     r = json.load(open(result_path, encoding="utf-8")); out = os.path.dirname(result_path)
@@ -17,7 +17,9 @@ def trace(result_path):
         sup = [x.split()[1] for x in reasons if x.startswith("supports")]
         rule = RULES.get(p_id); comps = ", ".join(rule["F"].get("components", {}).keys()) if rule else "(no rule)"
         conns = ", ".join(k[2] for k in rule["F"].get("connectors", {}).keys()) if rule else ""
-        m = MAPPING.get(p_id); dep = "NOT REALISED" if m is None else (m.get("note", "") if m != "missing" else "(no mapping)")
+        types = [c[0] for c in rule["F"].get("components", {}).values()] if rule else []
+        types += list(rule["F"].get("refines", {}).values()) if rule else []
+        dep = "; ".join(f"{t}: " + (REAL["components"][t]["note"] if t in REAL["components"] else "(no realisation)") for t in dict.fromkeys(types)) or "(no component added)"
         rows.append({"pattern": p, "realizes FR": " ".join(frs), "chosen among": " ".join(dec), "required by": " ".join(req),
                      "supports NFR": " ".join(sup), "components added (Phase 2)": comps, "connectors added": conns, "deployment (Aries)": dep})
     with open(os.path.join(out, "trace.csv"), "w", newline="", encoding="utf-8") as fh:

@@ -12,6 +12,6 @@
 --auto-respond-credential-offer
 --auto-store-credential
 --log-level info
---genesis-url http://host.docker.internal:9000/genesis
 --wallet-type askar
+--genesis-url http://host.docker.internal:9000/genesis
 --wallet-storage-type default

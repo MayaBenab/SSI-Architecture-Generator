@@ -1,504 +1,866 @@
 {
- "mapping": {
-  "P04": {
-   "name": "Trusted Issuer Registry (TIR)",
-   "realised": true,
-   "note": "trusted issuer registry approximated by a configured list",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [
-    "verifier: check the issuer DID against a trusted-issuer list"
-   ],
-   "indy": {
+ "realisation": {
+  "components": {
+   "Actor agent": {
+    "realised": true,
+    "agents": "own",
+    "note": "(kept for older rule sets) one ACA-Py agent per role",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P05": {
-   "name": "Trusted Schemas Registry (TSR)",
-   "realised": true,
-   "note": "schema registry = ledger schema + cred def",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Verifiable data registry (abstract)": {
+    "realised": false,
+    "agents": "",
+    "note": "abstract registry of G0: must be refined (P05, P07) before deployment",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": [
-     "issuer: POST /schemas {schema_name, schema_version, attributes} -> schema_id on the ledger",
-     "issuer: POST /credential-definitions {schema_id, tag, support_revocation:false} -> cred_def_id"
-    ]
+    "noledger_substitution": "",
+    "source": "G0"
    },
-   "noledger_substitution": "schema registry replaced by a JSON-LD context (no ledger); the schema is the credential's @context"
-  },
-  "P06": {
-   "name": "Status Registry",
-   "realised": true,
-   "note": "status registry = Indy revocation registry + tails server",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
+   "Verifiable data registry": {
+    "realised": true,
+    "agents": "",
+    "note": "the Indy ledger (von-network), run outside the compose file",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "no registry in the no-ledger profile",
+    "source": "von-network"
    },
-   "tests": [],
-   "indy": {
-    "services": [
-     "tails-server"
-    ],
-    "options": {
-     "all": [],
-     "issuer": [
+   "DID registry (DPKI)": {
+    "realised": true,
+    "agents": "all",
+    "note": "DID registry = Indy ledger (von-network); every agent joins the ledger network",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [
+      "--genesis-url http://host.docker.internal:9000/genesis"
+     ],
+     "tests": []
+    },
+    "noledger_substitution": "not exercised in the no-ledger profile (the ledger is the DID registry)",
+    "source": "ACA-Py documentation; von-network"
+   },
+   "Schema registry": {
+    "realised": true,
+    "agents": "",
+    "note": "schema registry = ledger schema + credential definition",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": [
+      "issuer: POST /schemas {schema_name, schema_version, attributes} -> schema_id on the ledger",
+      "issuer: POST /credential-definitions {schema_id, tag, support_revocation:false} -> cred_def_id"
+     ]
+    },
+    "noledger_substitution": "schema registry replaced by a JSON-LD context (no ledger); the schema is the credential's @context",
+    "source": "ACA-Py documentation"
+   },
+   "Status / revocation registry": {
+    "realised": true,
+    "agents": "issuer",
+    "note": "status registry = Indy revocation registry + tails server",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [
+      "tails-server"
+     ],
+     "options": [
       "--tails-server-base-url http://tails-server:6543",
       "--notify-revocation"
      ],
-     "verifier": []
+     "tests": [
+      "issuer: revoke the credential; verifier: proof request with a non-revocation interval"
+     ]
     },
+    "noledger_substitution": "revocation registry not exercised (needs the ledger); W3C Status List would be the no-ledger equivalent",
+    "source": "ACA-Py documentation"
+   },
+   "Trusted issuer registry": {
+    "realised": true,
+    "agents": "verifier",
+    "note": "trusted issuer registry approximated by a configured list",
+    "services": [],
+    "options": [],
     "tests": [
-     "issuer: revoke the credential; verifier: proof request with a non-revocation interval"
-    ]
-   },
-   "noledger_substitution": "revocation registry not exercised (needs the ledger); W3C Status List would be the no-ledger equivalent"
-  },
-  "P07": {
-   "name": "DID Registry",
-   "realised": true,
-   "note": "DID registry = Indy ledger (von-network)",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
-    "services": [],
-    "options": {
-     "all": [
-      "--genesis-url http://host.docker.internal:9000/genesis"
-     ],
-     "issuer": [],
-     "verifier": []
+     "verifier: check the issuer DID against a trusted-issuer list"
+    ],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": "not exercised in the no-ledger profile (the ledger is the DID registry)"
-  },
-  "P12": {
-   "name": "Verifiable ID (V-ID)",
-   "realised": true,
-   "note": "Verifiable ID = credential issued over issue-credential v2",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [
-    "issuer -> holder: POST /issue-credential-2.0/send with filter.ld_proof (JSON-LD, did:key) in the no-ledger profile, or filter.indy {cred_def_id} + credential_preview in the indy profile; holder: GET /credentials"
-   ],
-   "indy": {
+   "Key manager": {
+    "realised": true,
+    "agents": "own",
+    "note": "key management of the agent: Askar wallet (KMS)",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [
+     "--wallet-type askar"
+    ],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P13": {
-   "name": "Verifiable Attestation (VA)",
-   "realised": true,
-   "note": "Verifiable Attestation = second credential type",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [
-    "issuer -> holder: a second credential type over issue-credential v2"
-   ],
-   "indy": {
+   "Key manager (hierarchical)": {
+    "realised": true,
+    "agents": "own",
+    "note": "hierarchical keys: Askar wallet (KMS) with per-DID keys",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [
+     "--wallet-type askar"
+    ],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P17": {
-   "name": "Selective Content Generation",
-   "realised": true,
-   "note": "selective disclosure = present-proof v2 with requested attributes",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [
-    "verifier: POST /present-proof-2.0/send-request - dif {options{challenge,domain}, presentation_definition{id:uuid,...}} in no-ledger, or indy {requested_attributes restricted to the cred_def_id} in indy; holder: POST /records/{id}/send-presentation (dif: issuer_id = holder did:key, record_ids; indy: cred_id, revealed); verifier: state done, verified true"
-   ],
-   "indy": {
+   "Master key store (offline)": {
+    "realised": true,
+    "agents": "own",
+    "note": "approximated: the master key stays in the Askar wallet, not offline",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P24": {
-   "name": "Public DIDs",
-   "realised": true,
-   "note": "public DIDs written to the ledger",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Sub-key derivation": {
+    "realised": true,
+    "agents": "own",
+    "note": "one key per DID, created by the Askar KMS",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "DID manager": {
+    "realised": true,
+    "agents": "own",
+    "note": "DID management of the agent (/wallet/did)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Public DID (did:web/ion) + service endpoint": {
+    "realised": true,
+    "agents": "own",
+    "note": "the issuer's public DID, written to the ledger",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [
       "--seed 000000000000000000000000Issuer01",
       "--public-invites"
      ],
-     "verifier": [
-      "--seed 00000000000000000000000Verifier1",
-      "--public-invites"
+     "tests": [
+      "register the issuer and verifier public DIDs on the ledger (von-network :9000, Register from seed, role Endorser) BEFORE starting the agents; check GET /wallet/did/public -> posture posted"
      ]
     },
-    "tests": [
-     "register the issuer and verifier public DIDs on the ledger (von-network :9000, Register from seed, role Endorser) BEFORE starting the agents; check GET /wallet/did/public -> posture posted"
-    ]
+    "noledger_substitution": "public DIDs replaced by did:key for issuer and verifier (no registry)",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": "public DIDs replaced by did:key for issuer and verifier (no registry)"
-  },
-  "P25": {
-   "name": "Pairwise DIDs (and N-wise DIDs)",
-   "realised": true,
-   "note": "pairwise did:peer per connection (DID Exchange, default in ACA-Py 1.x)",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Public DID + service endpoint": {
+    "realised": true,
+    "agents": "own",
+    "note": "the verifier's public DID, written to the ledger",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [
+      "--seed 00000000000000000000000Verifier1",
+      "--public-invites"
+     ],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P26": {
-   "name": "Static DIDs",
-   "realised": true,
-   "note": "static did:key, not registered",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [
+   "Pairwise DID manager (did:peer)": {
+    "realised": true,
+    "agents": "own",
+    "note": "a did:peer per connection (DID Exchange, default in ACA-Py 1.x)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0023"
+   },
+   "Static DID (did:key)": {
+    "realised": true,
+    "agents": "own",
+    "note": "static did:key, not registered",
+    "services": [],
+    "options": [
      "--wallet-local-did"
     ],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
-    "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P27": {
-   "name": "Dual Resolution",
-   "realised": true,
-   "note": "DID resolution built into every agent (did:key, did:peer, did:web; did:sov via the ledger)",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "DID resolver": {
+    "realised": true,
+    "agents": "own",
+    "note": "resolver built into the agent (did:key, did:peer, did:web; did:sov via the ledger)",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P28": {
-   "name": "On-Chain (Dual) Resolution",
-   "realised": true,
-   "note": "on-chain resolution: resolver reads the ledger (indy profile)",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Credential issuance": {
+    "realised": true,
+    "agents": "own",
+    "note": "issue-credential v2 module of the agent",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0453"
    },
-   "noledger_substitution": ""
-  },
-  "P29": {
-   "name": "Off-Chain (Dual) Resolution",
-   "realised": true,
-   "note": "off-chain resolution: DID Exchange carries the DID documents",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Verifiable ID issuance": {
+    "realised": true,
+    "agents": "own",
+    "note": "Verifiable ID = credential issued over issue-credential v2",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [
+     "issuer -> holder: POST /issue-credential-2.0/send with filter.ld_proof (JSON-LD, did:key) in the no-ledger profile, or filter.indy {cred_def_id} + credential_preview in the indy profile; holder: GET /credentials"
+    ],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P30": {
-   "name": "Delegate List",
-   "realised": false,
-   "note": "not realised by the Aries stack",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Verifiable Attestation issuance": {
+    "realised": true,
+    "agents": "own",
+    "note": "Verifiable Attestation = second credential type",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [
+     "issuer -> holder: a second credential type over issue-credential v2"
+    ],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P32": {
-   "name": "Master and Sub Key",
-   "realised": true,
-   "note": "hierarchical keys: Askar wallet (KMS) with per-DID keys",
-   "services": [],
-   "options": {
-    "all": [
+   "Wallet": {
+    "realised": true,
+    "agents": "own",
+    "note": "the agent's Askar wallet: it creates and keeps the agent's DIDs, keys (KMS) and credentials",
+    "services": [],
+    "options": [
      "--wallet-type askar"
     ],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
-    "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P33": {
-   "name": "Key Shards",
-   "realised": false,
-   "note": "not realised by the Aries stack",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Wallet (local)": {
+    "realised": true,
+    "agents": "own",
+    "note": "local Askar wallet: the holder's DIDs, keys (KMS) and credentials, in a local encrypted store",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [
+     "--wallet-type askar"
+    ],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P37": {
-   "name": "Hot and Cold Wallet Storage",
-   "realised": false,
-   "note": "not realised by the Aries stack",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+   "Credential store": {
+    "realised": true,
+    "agents": "own",
+    "note": "credentials kept in the wallet (/credentials)",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P38": {
-   "name": "Local (Private) Storage",
-   "realised": true,
-   "note": "local encrypted SQLite wallet",
-   "services": [],
-   "options": {
-    "all": [
+   "Local encrypted store": {
+    "realised": true,
+    "agents": "own",
+    "note": "local encrypted SQLite wallet",
+    "services": [],
+    "options": [
      "--wallet-storage-type default"
     ],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
-    "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
-  },
-  "P39": {
-   "name": "External (Remote) Cloud Storage",
-   "realised": true,
-   "note": "cloud-backed wallet = Postgres storage",
-   "services": [
-    "postgres"
-   ],
-   "options": {
-    "all": [],
-    "holder": [
+   "Wallet (cloud-backed)": {
+    "realised": true,
+    "agents": "own",
+    "note": "cloud-backed Askar wallet: the holder's DIDs, keys (KMS) and credentials, backed up to a cloud store",
+    "services": [],
+    "options": [
+     "--wallet-type askar"
+    ],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Encrypted cloud store": {
+    "realised": true,
+    "agents": "own",
+    "note": "cloud-backed wallet = Postgres storage",
+    "services": [
+     "postgres"
+    ],
+    "options": [
      "--wallet-storage-type postgres_storage",
      "--wallet-storage-config '{{\"url\":\"postgres:5432\",\"wallet_scheme\":\"DatabasePerWallet\"}}'",
      "--wallet-storage-creds '{{\"account\":\"postgres\",\"password\":\"wallet\",\"admin_account\":\"postgres\",\"admin_password\":\"wallet\"}}'"
     ],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
-    "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
    },
-   "noledger_substitution": ""
+   "Presentation generator (selective disclosure)": {
+    "realised": true,
+    "agents": "own",
+    "note": "selective disclosure = present-proof v2 with requested attributes",
+    "services": [],
+    "options": [],
+    "tests": [
+     "verifier: POST /present-proof-2.0/send-request - dif {options{challenge,domain}, presentation_definition{id:uuid,...}} in no-ledger, or indy {requested_attributes restricted to the cred_def_id} in indy; holder: POST /records/{id}/send-presentation (dif: issuer_id = holder did:key, record_ids; indy: cred_id, revealed); verifier: state done, verified true"
+    ],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0454"
+   },
+   "Presentation verification": {
+    "realised": true,
+    "agents": "own",
+    "note": "present-proof v2 module of the verifier",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Presentation verifier": {
+    "realised": true,
+    "agents": "own",
+    "note": "verifies the presentation (verified: true)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Cold wallet (offline)": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Hot wallet": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Identity hub (external agent)": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Wallet (hub-backed)": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Key shard manager": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Shard trustee (external)": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Recovery delegate list": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Recovery delegate (external)": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "Holder": {
+    "realised": true,
+    "agents": "own",
+    "note": "the holder's ACA-Py agent (role typed Holder in G0)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Issuer": {
+    "realised": true,
+    "agents": "own",
+    "note": "the issuer's ACA-Py agent (role typed Issuer in G0)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "Verifier": {
+    "realised": true,
+    "agents": "own",
+    "note": "the verifier's ACA-Py agent (role typed Verifier in G0)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   }
   },
-  "P40": {
-   "name": "Identity Hub",
-   "realised": false,
-   "note": "not realised by the Aries stack",
-   "services": [],
-   "options": {
-    "all": [],
-    "holder": [],
-    "issuer": [],
-    "verifier": []
-   },
-   "tests": [],
-   "indy": {
+  "connectors": {
+   "local": {
+    "realised": true,
+    "agents": "",
+    "note": "call inside one agent: nothing to deploy",
     "services": [],
-    "options": {
-     "all": [],
-     "issuer": [],
-     "verifier": []
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
     },
-    "tests": []
+    "noledger_substitution": "",
+    "source": ""
    },
-   "noledger_substitution": ""
+   "DIDComm": {
+    "realised": true,
+    "agents": "",
+    "note": "DIDComm channel between two agents: DID Exchange 1.1 with did:peer",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0023"
+   },
+   "issue-credential (DIDComm)": {
+    "realised": true,
+    "agents": "",
+    "note": "Issue Credential v2 between issuer and holder agents",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0453"
+   },
+   "issue-credential": {
+    "realised": true,
+    "agents": "",
+    "note": "Issue Credential v2",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0453"
+   },
+   "present-proof (DIDComm)": {
+    "realised": true,
+    "agents": "",
+    "note": "Present Proof v2 between holder and verifier agents",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation; Aries RFC 0454"
+   },
+   "peer exchange": {
+    "realised": true,
+    "agents": "",
+    "note": "off-chain resolution: DID Exchange carries the DID documents",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "resolution": {
+    "realised": true,
+    "agents": "",
+    "note": "resolver call inside the agent",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "registry read": {
+    "realised": true,
+    "agents": "",
+    "note": "read on the Indy ledger (indy profile)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "not exercised without a ledger",
+    "source": "ACA-Py documentation"
+   },
+   "registry write": {
+    "realised": true,
+    "agents": "",
+    "note": "write on the Indy ledger (indy profile)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "not exercised without a ledger",
+    "source": "ACA-Py documentation"
+   },
+   "registry read-write": {
+    "realised": true,
+    "agents": "",
+    "note": "read and write on the Indy ledger (indy profile)",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "not exercised without a ledger",
+    "source": "ACA-Py documentation"
+   },
+   "encrypted sync": {
+    "realised": true,
+    "agents": "",
+    "note": "Postgres connection of the wallet storage",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "ACA-Py documentation"
+   },
+   "abstract": {
+    "realised": false,
+    "agents": "",
+    "note": "abstract connector of G0: must be replaced before deployment",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": "G0"
+   },
+   "hub protocol": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   },
+   "secure channel": {
+    "realised": false,
+    "agents": "",
+    "note": "not realised by the Aries stack",
+    "services": [],
+    "options": [],
+    "tests": [],
+    "indy": {
+     "services": [],
+     "options": [],
+     "tests": []
+    },
+    "noledger_substitution": "",
+    "source": ""
+   }
   }
  },
  "component_types": {
@@ -535,7 +897,8 @@
   },
   "Sub-key derivation": {
    "provides": [
-    "KeyDerivation"
+    "KeyDerivation",
+    "KeyManagement"
    ],
    "requires": [
     "MasterKey"
@@ -545,10 +908,7 @@
    "provides": [
     "KeyRecovery"
    ],
-   "requires": [
-    "MasterKey",
-    "ShardCustody"
-   ]
+   "requires": []
   },
   "Shard trustee (external)": {
    "provides": [
@@ -576,17 +936,13 @@
    "provides": [
     "KeyStorage"
    ],
-   "requires": [
-    "MasterKey"
-   ]
+   "requires": []
   },
   "Hot wallet": {
    "provides": [
     "KeyStorage"
    ],
-   "requires": [
-    "KeyDerivation"
-   ]
+   "requires": []
   },
   "DID manager": {
    "provides": [
@@ -619,17 +975,13 @@
     "DIDDocument",
     "DIDCommEndpoint"
    ],
-   "requires": [
-    "KeyDerivation"
-   ]
+   "requires": []
   },
   "Static DID (did:key)": {
    "provides": [
     "DIDDocument"
    ],
-   "requires": [
-    "KeyDerivation"
-   ]
+   "requires": []
   },
   "DID resolver": {
    "provides": [
@@ -692,13 +1044,17 @@
   },
   "Wallet": {
    "provides": [
-    "CredentialStorage"
+    "CredentialStorage",
+    "KeyManagement",
+    "DIDStorage"
    ],
    "requires": []
   },
   "Wallet (local)": {
    "provides": [
-    "CredentialStorage"
+    "CredentialStorage",
+    "KeyManagement",
+    "DIDStorage"
    ],
    "requires": [
     "LocalStorage"
@@ -706,7 +1062,9 @@
   },
   "Wallet (cloud-backed)": {
    "provides": [
-    "CredentialStorage"
+    "CredentialStorage",
+    "KeyManagement",
+    "DIDStorage"
    ],
    "requires": [
     "CloudStorage"
@@ -714,7 +1072,9 @@
   },
   "Wallet (hub-backed)": {
    "provides": [
-    "CredentialStorage"
+    "CredentialStorage",
+    "KeyManagement",
+    "DIDStorage"
    ],
    "requires": [
     "HubStorage"
@@ -770,6 +1130,18 @@
     "PresentationGeneration",
     "DIDResolution"
    ]
+  },
+  "Holder": {
+   "provides": [],
+   "requires": []
+  },
+  "Issuer": {
+   "provides": [],
+   "requires": []
+  },
+  "Verifier": {
+   "provides": [],
+   "requires": []
   }
  },
  "connectors": {
@@ -788,7 +1160,7 @@
   "key per relationship": {
    "standard": "local call",
    "kind": "local",
-   "interface": "KeyDerivation",
+   "interface": "KeyManagement",
    "implementations": ""
   },
   "key": {
@@ -957,6 +1329,18 @@
    "standard": "W3C DID Resolution (local resolver)",
    "kind": "local",
    "interface": "DIDResolution",
+   "implementations": ""
+  },
+  "sub-key per relationship": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "KeyDerivation",
+   "implementations": ""
+  },
+  "stores DIDs": {
+   "standard": "local call",
+   "kind": "local",
+   "interface": "DIDStorage",
    "implementations": ""
   }
  }

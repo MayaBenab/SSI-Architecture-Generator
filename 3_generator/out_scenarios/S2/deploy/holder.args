@@ -12,9 +12,6 @@
 --auto-respond-credential-offer
 --auto-store-credential
 --log-level info
---wallet-local-did
 --wallet-type askar
---wallet-storage-type postgres_storage
---wallet-storage-config '{"url":"postgres:5432","wallet_scheme":"DatabasePerWallet"}'
---wallet-storage-creds '{"account":"postgres","password":"wallet","admin_account":"postgres","admin_password":"wallet"}'
+--wallet-local-did
 --no-ledger

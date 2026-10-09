@@ -29,16 +29,14 @@
  ],
  "valid_partial_configuration": true,
  "tradeoffs": [],
- "products": 40,
+ "products": null,
  "commonality": [
   "P05_Trusted_Schemas_Registry",
   "P07_DID_Registry",
   "P12_Verifiable_ID",
   "P17_Selective_Content_Generation",
   "P24_Public_DIDs",
-  "P26_Static_DIDs",
   "P27_Dual_Resolution",
-  "P28_On_Chain",
   "P32_Master_and_Sub_Key"
  ],
  "status": "SAT",
@@ -52,9 +50,9 @@
   "P24_Public_DIDs",
   "P26_Static_DIDs",
   "P27_Dual_Resolution",
-  "P28_On_Chain",
+  "P28_On_Chain_Resolution",
   "P32_Master_and_Sub_Key",
-  "P39_External"
+  "P39_External_Cloud_Storage"
  ],
  "choices": [
   {
@@ -126,7 +124,8 @@
    "required by P17"
   ],
   "P17_Selective_Content_Generation": [
-   "realizes FR16"
+   "realizes FR16",
+   "may complement FR13"
   ],
   "P24_Public_DIDs": [
    "realizes FR02",
@@ -144,53 +143,188 @@
    "required by P17",
    "required by P28"
   ],
-  "P28_On_Chain": [
+  "P28_On_Chain_Resolution": [
    "chosen for FR07 among P28/P29"
   ],
   "P32_Master_and_Sub_Key": [
-   "realizes FR01",
-   "required by P26"
+   "realizes FR01"
   ],
-  "P39_External": [
+  "P39_External_Cloud_Storage": [
    "chosen for FR15 among P38/P39/P40",
    "supports NFR09",
    "supports NFR11"
   ]
  },
- "sequence": [
-  "P32_Master_and_Sub_Key",
+ "patterns": [
+  "P05_Trusted_Schemas_Registry",
   "P07_DID_Registry",
+  "P12_Verifiable_ID",
+  "P17_Selective_Content_Generation",
   "P24_Public_DIDs",
   "P26_Static_DIDs",
   "P27_Dual_Resolution",
-  "P28_On_Chain",
+  "P28_On_Chain_Resolution",
+  "P32_Master_and_Sub_Key",
+  "P39_External_Cloud_Storage"
+ ],
+ "dag": [
+  [
+   "P05",
+   "P12",
+   [
+    "TSR"
+   ]
+  ],
+  [
+   "P05",
+   "P17",
+   [
+    "TSR"
+   ]
+  ],
+  [
+   "P07",
+   "P24",
+   [
+    "DIDRegistry"
+   ]
+  ],
+  [
+   "P07",
+   "P28",
+   [
+    "DIDRegistry"
+   ]
+  ],
+  [
+   "P12",
+   "P17",
+   [
+    "CredStore_H"
+   ]
+  ],
+  [
+   "P12",
+   "P39",
+   [
+    "CredStore_H"
+   ]
+  ],
+  [
+   "P24",
+   "P12",
+   [
+    "KeyMgr_I",
+    "PublicDID_I"
+   ]
+  ],
+  [
+   "P24",
+   "P26",
+   [
+    "DIDMgr_I",
+    "DIDMgr_V"
+   ]
+  ],
+  [
+   "P24",
+   "P27",
+   [
+    "DIDMgr_I",
+    "DIDMgr_V"
+   ]
+  ],
+  [
+   "P26",
+   "P27",
+   [
+    "DIDMgr_H"
+   ]
+  ],
+  [
+   "P27",
+   "P17",
+   [
+    "Resolver_V"
+   ]
+  ],
+  [
+   "P27",
+   "P28",
+   [
+    "Resolver_H",
+    "Resolver_V"
+   ]
+  ],
+  [
+   "P32",
+   "P26",
+   [
+    "SubKeyDeriv_H"
+   ]
+  ]
+ ],
+ "rows": [
+  [
+   "P05_Trusted_Schemas_Registry",
+   "P07_DID_Registry",
+   "P32_Master_and_Sub_Key"
+  ],
+  [
+   "P24_Public_DIDs"
+  ],
+  [
+   "P12_Verifiable_ID",
+   "P26_Static_DIDs"
+  ],
+  [
+   "P27_Dual_Resolution",
+   "P39_External_Cloud_Storage"
+  ],
+  [
+   "P17_Selective_Content_Generation",
+   "P28_On_Chain_Resolution"
+  ]
+ ],
+ "sequence": [
   "P05_Trusted_Schemas_Registry",
+  "P07_DID_Registry",
+  "P32_Master_and_Sub_Key",
+  "P24_Public_DIDs",
   "P12_Verifiable_ID",
-  "P39_External",
-  "P17_Selective_Content_Generation"
+  "P26_Static_DIDs",
+  "P27_Dual_Resolution",
+  "P39_External_Cloud_Storage",
+  "P17_Selective_Content_Generation",
+  "P28_On_Chain_Resolution"
  ],
  "refinement": [
   {
-   "pattern": "P32",
+   "pattern": "P05",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
-    "KeyMgr_H",
-    "MasterKeyStore_H",
-    "SubKeyDeriv_H"
+    "TSR"
    ],
    "connectors_added": [
-    "derive"
+    "publish / read schema",
+    "check schema"
    ],
    "connectors_deleted": [],
-   "refines": {},
+   "refines": {
+    "VDR": "Verifiable data registry"
+   },
    "reason": [
-    "realizes FR01",
-    "required by P26"
-   ]
+    "realizes FR14",
+    "required by P12"
+   ],
+   "row": 1,
+   "needs": {}
   },
   {
    "pattern": "P07",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "DIDRegistry"
    ],
@@ -204,11 +338,34 @@
     "required by P27",
     "required by P28",
     "supports NFR09"
-   ]
+   ],
+   "row": 1,
+   "needs": {}
+  },
+  {
+   "pattern": "P32",
+   "status": "APPLIED",
+   "matches": 1,
+   "components_added": [
+    "KeyMgr_H",
+    "MasterKeyStore_H",
+    "SubKeyDeriv_H"
+   ],
+   "connectors_added": [
+    "derive"
+   ],
+   "connectors_deleted": [],
+   "refines": {},
+   "reason": [
+    "realizes FR01"
+   ],
+   "row": 1,
+   "needs": {}
   },
   {
    "pattern": "P24",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "DIDMgr_I",
     "DIDMgr_V",
@@ -221,10 +378,12 @@
     "publish DID document",
     "publish DID document",
     "controls",
-    "controls"
+    "controls",
+    "stores DIDs",
+    "stores DIDs"
    ],
    "connectors_deleted": [
-    "register identifiers and schemas (Issuer\u2192VDR)"
+    "register identifiers and schemas (Issuer→VDR)"
    ],
    "refines": {},
    "reason": [
@@ -233,29 +392,82 @@
     "realizes FR06",
     "required by P12",
     "supports NFR09"
-   ]
+   ],
+   "row": 2,
+   "needs": {
+    "P07": [
+     "DIDRegistry"
+    ]
+   }
+  },
+  {
+   "pattern": "P12",
+   "status": "APPLIED",
+   "matches": 1,
+   "components_added": [
+    "IssuanceSvc",
+    "VIDIssuer",
+    "CredStore_H"
+   ],
+   "connectors_added": [
+    "issue V-ID",
+    "sign",
+    "read schema"
+   ],
+   "connectors_deleted": [
+    "issue credentials (Issuer→Holder)"
+   ],
+   "refines": {},
+   "reason": [
+    "realizes FR12",
+    "chosen for FR13 among P12/P13/P14",
+    "required by P17"
+   ],
+   "row": 3,
+   "needs": {
+    "P05": [
+     "TSR"
+    ],
+    "P24": [
+     "KeyMgr_I",
+     "PublicDID_I"
+    ]
+   }
   },
   {
    "pattern": "P26",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "DIDMgr_H",
     "StaticDID_H"
    ],
    "connectors_added": [
-    "key",
+    "controls",
     "connection",
-    "connection"
+    "connection",
+    "stores DIDs"
    ],
    "connectors_deleted": [],
    "refines": {},
    "reason": [
     "chosen for FR02, FR06 among P25/P26"
-   ]
+   ],
+   "row": 3,
+   "needs": {
+    "P24": [
+     "DIDMgr_I",
+     "DIDMgr_V"
+    ],
+    "P32": [
+     "SubKeyDeriv_H"
+    ]
+   }
   },
   {
    "pattern": "P27",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "Resolver_H",
     "Resolver_I",
@@ -272,72 +484,22 @@
     "realizes FR08",
     "required by P17",
     "required by P28"
-   ]
-  },
-  {
-   "pattern": "P28",
-   "status": "APPLIED",
-   "components_added": [],
-   "connectors_added": [
-    "on-chain resolution",
-    "on-chain resolution",
-    "on-chain resolution"
    ],
-   "connectors_deleted": [
-    "verify identifiers and schemas (Holder\u2192VDR)",
-    "verify identifiers and schemas (Verifier\u2192VDR)"
-   ],
-   "refines": {},
-   "reason": [
-    "chosen for FR07 among P28/P29"
-   ]
-  },
-  {
-   "pattern": "P05",
-   "status": "APPLIED",
-   "components_added": [
-    "TSR"
-   ],
-   "connectors_added": [
-    "publish / read schema",
-    "check schema"
-   ],
-   "connectors_deleted": [],
-   "refines": {
-    "VDR": "Verifiable data registry"
-   },
-   "reason": [
-    "realizes FR14",
-    "required by P12"
-   ]
-  },
-  {
-   "pattern": "P12",
-   "status": "APPLIED",
-   "components_added": [
-    "IssuanceSvc",
-    "VIDIssuer",
-    "Wallet",
-    "CredStore_H"
-   ],
-   "connectors_added": [
-    "issue V-ID",
-    "sign",
-    "read schema"
-   ],
-   "connectors_deleted": [
-    "issue credentials (Issuer\u2192Holder)"
-   ],
-   "refines": {},
-   "reason": [
-    "realizes FR12",
-    "chosen for FR13 among P12/P13/P14",
-    "required by P17"
-   ]
+   "row": 4,
+   "needs": {
+    "P24": [
+     "DIDMgr_I",
+     "DIDMgr_V"
+    ],
+    "P26": [
+     "DIDMgr_H"
+    ]
+   }
   },
   {
    "pattern": "P39",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "CloudStore"
    ],
@@ -352,11 +514,18 @@
     "chosen for FR15 among P38/P39/P40",
     "supports NFR09",
     "supports NFR11"
-   ]
+   ],
+   "row": 4,
+   "needs": {
+    "P12": [
+     "CredStore_H"
+    ]
+   }
   },
   {
    "pattern": "P17",
    "status": "APPLIED",
+   "matches": 1,
    "components_added": [
     "PresGen_H",
     "VerifSvc",
@@ -369,35 +538,97 @@
     "check schema"
    ],
    "connectors_deleted": [
-    "present presentations (Holder\u2192Verifier)"
+    "present presentations (Holder→Verifier)"
    ],
    "refines": {},
    "reason": [
-    "realizes FR16"
-   ]
+    "realizes FR16",
+    "may complement FR13"
+   ],
+   "row": 5,
+   "needs": {
+    "P05": [
+     "TSR"
+    ],
+    "P12": [
+     "CredStore_H"
+    ],
+    "P27": [
+     "Resolver_V"
+    ]
+   }
+  },
+  {
+   "pattern": "P28",
+   "status": "APPLIED",
+   "matches": 1,
+   "components_added": [],
+   "connectors_added": [
+    "on-chain resolution",
+    "on-chain resolution",
+    "on-chain resolution"
+   ],
+   "connectors_deleted": [
+    "verify identifiers and schemas (Holder→VDR)",
+    "verify identifiers and schemas (Verifier→VDR)"
+   ],
+   "refines": {},
+   "reason": [
+    "chosen for FR07 among P28/P29"
+   ],
+   "row": 5,
+   "needs": {
+    "P07": [
+     "DIDRegistry"
+    ],
+    "P27": [
+     "Resolver_H",
+     "Resolver_V"
+    ]
+   }
   }
  ],
  "architecture": {
   "components": {
    "Holder": [
-    "Actor agent",
+    "Holder",
     null
    ],
    "Issuer": [
-    "Actor agent",
+    "Issuer",
     null
    ],
    "Verifier": [
-    "Actor agent",
+    "Verifier",
     null
+   ],
+   "Wallet": [
+    "Wallet (cloud-backed)",
+    "Holder"
+   ],
+   "Wallet_I": [
+    "Wallet",
+    "Issuer"
+   ],
+   "Wallet_V": [
+    "Wallet",
+    "Verifier"
    ],
    "VDR": [
     "Verifiable data registry",
     null
    ],
+   "TSR": [
+    "Schema registry",
+    "VDR"
+   ],
+   "DIDRegistry": [
+    "DID registry (DPKI)",
+    "VDR"
+   ],
    "KeyMgr_H": [
     "Key manager (hierarchical)",
-    "Holder"
+    "Wallet"
    ],
    "MasterKeyStore_H": [
     "Master key store (offline)",
@@ -406,10 +637,6 @@
    "SubKeyDeriv_H": [
     "Sub-key derivation",
     "KeyMgr_H"
-   ],
-   "DIDRegistry": [
-    "DID registry (DPKI)",
-    "VDR"
    ],
    "DIDMgr_I": [
     "DID manager",
@@ -421,11 +648,11 @@
    ],
    "KeyMgr_I": [
     "Key manager",
-    "Issuer"
+    "Wallet_I"
    ],
    "KeyMgr_V": [
     "Key manager",
-    "Verifier"
+    "Wallet_V"
    ],
    "PublicDID_I": [
     "Public DID (did:web/ion) + service endpoint",
@@ -434,6 +661,18 @@
    "PublicDID_V": [
     "Public DID + service endpoint",
     "DIDMgr_V"
+   ],
+   "IssuanceSvc": [
+    "Credential issuance",
+    "Issuer"
+   ],
+   "VIDIssuer": [
+    "Verifiable ID issuance",
+    "IssuanceSvc"
+   ],
+   "CredStore_H": [
+    "Credential store",
+    "Wallet"
    ],
    "DIDMgr_H": [
     "DID manager",
@@ -455,26 +694,6 @@
     "DID resolver",
     "DIDMgr_V"
    ],
-   "TSR": [
-    "Schema registry",
-    "VDR"
-   ],
-   "IssuanceSvc": [
-    "Credential issuance",
-    "Issuer"
-   ],
-   "VIDIssuer": [
-    "Verifiable ID issuance",
-    "IssuanceSvc"
-   ],
-   "Wallet": [
-    "Wallet (cloud-backed)",
-    "Holder"
-   ],
-   "CredStore_H": [
-    "Credential store",
-    "Wallet"
-   ],
    "CloudStore": [
     "Encrypted cloud store",
     null
@@ -493,6 +712,20 @@
    ]
   },
   "connectors": [
+   [
+    "Issuer",
+    "TSR",
+    "publish / read schema",
+    "registry read-write",
+    "credential schema"
+   ],
+   [
+    "Verifier",
+    "TSR",
+    "check schema",
+    "registry read",
+    "credential schema"
+   ],
    [
     "MasterKeyStore_H",
     "SubKeyDeriv_H",
@@ -529,74 +762,18 @@
     "verifier key pair"
    ],
    [
-    "SubKeyDeriv_H",
-    "StaticDID_H",
-    "key",
-    "local",
-    "key pair"
-   ],
-   [
-    "StaticDID_H",
     "DIDMgr_I",
-    "connection",
-    "DIDComm",
-    "did:key"
+    "Wallet_I",
+    "stores DIDs",
+    "local",
+    "public DID and DID document"
    ],
    [
-    "StaticDID_H",
     "DIDMgr_V",
-    "connection",
-    "DIDComm",
-    "did:key"
-   ],
-   [
-    "Resolver_H",
-    "PublicDID_I",
-    "resolve + authenticate",
-    "resolution",
-    "DID document \u2192 public key"
-   ],
-   [
-    "Resolver_H",
-    "PublicDID_V",
-    "resolve + authenticate",
-    "resolution",
-    "DID document \u2192 public key"
-   ],
-   [
-    "Resolver_H",
-    "DIDRegistry",
-    "on-chain resolution",
-    "registry read",
-    "DID document"
-   ],
-   [
-    "Resolver_V",
-    "DIDRegistry",
-    "on-chain resolution",
-    "registry read",
-    "DID document"
-   ],
-   [
-    "Resolver_I",
-    "DIDRegistry",
-    "on-chain resolution",
-    "registry read",
-    "DID document"
-   ],
-   [
-    "Issuer",
-    "TSR",
-    "publish / read schema",
-    "registry read-write",
-    "credential schema"
-   ],
-   [
-    "Verifier",
-    "TSR",
-    "check schema",
-    "registry read",
-    "credential schema"
+    "Wallet_V",
+    "stores DIDs",
+    "local",
+    "public DID and DID document"
    ],
    [
     "VIDIssuer",
@@ -618,6 +795,48 @@
     "read schema",
     "registry read",
     "credential schema"
+   ],
+   [
+    "SubKeyDeriv_H",
+    "StaticDID_H",
+    "controls",
+    "local",
+    "sub-key encoded in did:key"
+   ],
+   [
+    "StaticDID_H",
+    "DIDMgr_I",
+    "connection",
+    "DIDComm",
+    "did:key"
+   ],
+   [
+    "StaticDID_H",
+    "DIDMgr_V",
+    "connection",
+    "DIDComm",
+    "did:key"
+   ],
+   [
+    "DIDMgr_H",
+    "Wallet",
+    "stores DIDs",
+    "local",
+    "did:key DIDs"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_I",
+    "resolve + authenticate",
+    "resolution",
+    "DID document → public key"
+   ],
+   [
+    "Resolver_H",
+    "PublicDID_V",
+    "resolve + authenticate",
+    "resolution",
+    "DID document → public key"
    ],
    [
     "CredStore_H",
@@ -645,7 +864,7 @@
     "Resolver_V",
     "get issuer key",
     "local",
-    "issuer DID \u2192 public key"
+    "issuer DID → public key"
    ],
    [
     "VerifSvc",
@@ -653,6 +872,27 @@
     "check schema",
     "registry read",
     "credential schema"
+   ],
+   [
+    "Resolver_H",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
+   ],
+   [
+    "Resolver_V",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
+   ],
+   [
+    "Resolver_I",
+    "DIDRegistry",
+    "on-chain resolution",
+    "registry read",
+    "DID document"
    ]
   ]
  },
@@ -660,5 +900,6 @@
   "unknown_type": [],
   "unbound_connector": [],
   "unsatisfied": []
- }
+ },
+ "products_note": "number of products (filter) not recorded in this copy: run 10_generate.py with z3-solver to count them"
 }

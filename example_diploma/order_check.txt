@@ -1,0 +1,20 @@
+precedence arcs (13), P -> Q when Q needs a component P adds:
+  P05 -> P12  needs: TSR | catalogue: 1.2 #2; 3.1 #2 | lifecycle: -
+  P05 -> P17  needs: TSR | catalogue: - | lifecycle: -
+  P07 -> P24  needs: DIDRegistry | catalogue: 1.4 #3; 4.3 #3 | lifecycle: -
+  P12 -> P17  needs: CredStore_H | catalogue: 3.1 #6; 3.6/3.7 #4 | lifecycle: VC issued → VP presented
+  P12 -> P38  needs: CredStore_H | catalogue: 3.1 #7 | lifecycle: VC issued → VC stored
+  P24 -> P12  needs: KeyMgr_I, PublicDID_I | catalogue: - | lifecycle: -
+  P24 -> P25  needs: DIDMgr_I, DIDMgr_V | catalogue: - | lifecycle: -
+  P24 -> P27  needs: DIDMgr_I, DIDMgr_V | catalogue: 4.6 #2 | lifecycle: DID created → DID resolved
+  P25 -> P27  needs: DIDMgr_H | catalogue: 4.4 #2; 4.6 #3 | lifecycle: DID created → DID resolved
+  P25 -> P29  needs: PairwiseDID_H | catalogue: Off-Chain (Dual) Resolution #2 | lifecycle: DID created → DID resolved
+  P27 -> P17  needs: Resolver_V | catalogue: - | lifecycle: -
+  P27 -> P29  needs: Resolver_I, Resolver_V | catalogue: variant | lifecycle: -
+  P32 -> P25  needs: SubKeyDeriv_H | catalogue: - | lifecycle: Keys created → DID created
+steps: 1: P05, P07, P32 | 2: P24 | 3: P12, P25 | 4: P27, P38 | 5: P17, P29
+arcs supported by the catalogue [1] (Related Patterns or lifecycle): 9 of 13
+requires between selected patterns: 8; precedence they add beyond what the rules need: 0 
+orders respecting the DAG: 426
+same G_n: 426; rule failed: 0; different G_n: 0
+reversed sequence: 7 rules fail (P29, P17, P38, P27, P25, P12, P24)

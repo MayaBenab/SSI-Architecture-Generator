@@ -94,10 +94,10 @@ patterns = OrderedDict(
 # ============================================================
 
 mandatory_patterns = defaultdict(list)
-# mandatory: one pattern ("P24") or one of several alternatives ("P38 | P39 | P40")
+# realised_by: one pattern ("P24") or one of several alternatives ("P38 | P39 | P40")
 mandatory_patterns = defaultdict(list)
 
-for r in rows("mandatory"):
+for r in rows("realised_by"):
     mandatory_patterns[r["fr"]].append(
         [x.strip() for x in str(r["p"]).split("|") if x.strip()]
     )
@@ -105,10 +105,10 @@ for r in rows("mandatory"):
 
 # Optional complements: the pattern may complement the function (no constraint;
 # kept as an attribute of the function feature, read by the selection's justification)
-optional_patterns = defaultdict(list)
+may_use_patterns = defaultdict(list)
 
-for r in rows("optional"):
-    optional_patterns[r["fr"]].append(r["p"])
+for r in rows("may_use"):
+    may_use_patterns[r["fr"]].append(r["p"])
 
 
 pattern_requires = sorted(
@@ -189,12 +189,8 @@ def pattern_name(pattern_id):
     Pattern feature name.
     """
 
-    name = str(
-        patterns[pattern_id]["name"]
-    )
-
-    # Remove possible parenthetical information
-    name = name.split("(")[0].strip()
+    # the short name of the knowledge base (sheet P), the one name used in every figure
+    name = str(patterns[pattern_id].get("short name") or str(patterns[pattern_id]["name"]).split("(")[0].strip())
 
     return (
         f"{pattern_id}_"
@@ -275,13 +271,10 @@ def pattern_cardinality(pattern_id):
 
 def pattern_definition(pattern_id):
 
-    cardinality = pattern_cardinality(pattern_id)
-
     attributes = pattern_attributes(pattern_id)
 
     return (
         f"{pattern_name(pattern_id)}"
-        f"{cardinality}"
         f"{attributes}"
     )
 
@@ -334,20 +327,13 @@ L.append("                optional")
 
 for f in fr:
 
-    opt = [p for p in optional_patterns[f] if p in patterns]
-
-    attr = (
-        " {optional_patterns '" + ", ".join(opt) + "'}"
-        if opt else ""
-    )
-
     L.append(
-        f"                    {feature_name(f)}{attr}"
+        f"                    {feature_name(f)}"
     )
 
 
 # ------------------------------------------------------------
-# PATTERNS (all of them: the alternatives of a function are written as constraints)
+# PATTERNS, grouped by the catalogue's categories (abstract features); the alternatives of a function are constraints
 # ------------------------------------------------------------
 
 L.append(
@@ -358,12 +344,24 @@ L.append(
     "                optional"
 )
 
+categories = OrderedDict()
 for p in patterns:
+    categories.setdefault(str(patterns[p]["category"]), []).append(p)
 
-    if True:
+for category, members in categories.items():
 
+    L.append(
+        f"                    {ident(category)} {{abstract}}"
+    )
+
+    # or-group: the (abstract) category is present iff at least one of its patterns is
+    L.append(
+        "                        or"
+    )
+
+    for p in members:
         L.append(
-            "                    "
+            "                            "
             + pattern_definition(p)
         )
 
@@ -486,6 +484,42 @@ for p, q in pattern_requires:
         )
 
 
+# ------------------------------------------------------------
+# Pattern -> its reasons (justification)
+#   P => (F1 | ... | Q1 | ...): a pattern is present only if a function or a pattern calls for it.
+#   The reasons of P are read backwards from three relations of the workbook:
+#   realised_by (F => P, or F => (... | P | ...)), may_use (F may use P), requires (Q => P).
+#   One constraint per pattern, with all its reasons (one constraint per reason would demand all of them).
+# ------------------------------------------------------------
+
+L.append("")
+L.append("    // ===================================================")
+L.append("    // JUSTIFICATION: PATTERN -> ITS REASONS")
+L.append("    // realised_by and requires read backwards, and may_use")
+L.append("    // ===================================================")
+
+reasons = OrderedDict((p, []) for p in patterns)
+for f in fr:
+    for group in mandatory_patterns[f]:
+        for p in group:
+            if p in reasons and f not in reasons[p]: reasons[p].append(f)
+for f in fr:
+    for p in may_use_patterns[f]:
+        if p in reasons and f not in reasons[p]: reasons[p].append(f)
+for q, p in pattern_requires:
+    if p in reasons and q in patterns and q not in reasons[p]: reasons[p].append(q)
+
+n_justification = 0
+for p, rs in reasons.items():
+    if not rs:
+        continue          # no reason at all: the pattern stays free (reported below)
+    names = [feature_name(r) if r in fr else pattern_name(r) for r in rs]
+    rhs = names[0] if len(names) == 1 else "(" + " | ".join(names) + ")"
+    L.append(f"    {pattern_name(p)} => {rhs}")
+    n_justification += 1
+no_reason = [p for p, rs in reasons.items() if not rs]
+
+
 # ============================================================
 # 11. Write file
 # ============================================================
@@ -546,6 +580,7 @@ print(
     "Fichier      :",
     os.path.abspath(OUTPUT)
 )
+print("Justification: " + str(n_justification) + " constraints P => reasons" + (f"; patterns with no reason: {no_reason}" if no_reason else ""))
 
 print(
     "Functions    :",

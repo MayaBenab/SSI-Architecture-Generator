@@ -1,20 +1,11 @@
-"""Activity 3: request -> partial configuration (+ justification, support) -> filter / optimization / explanation -> ordered sequence.
+"""Activity 3: request -> partial configuration (+ justification, support) -> filter / optimization / explanation -> the selected patterns (a set: their order is
+derived by the refinement from the rules, refine.precedence).
 Single source of knowledge: the feature model FM_SSI.uvl written by build_fm.py (functions, patterns, constraints incl. F => (P1 | ... | Pn),
-attributes NFRxx and optional_patterns).
+attributes NFRxx, and the justification P => (its reasons), which carries may_use).
 usage: python selection.py FR13 FR17 --nfr NFR04 NFR07 [--forbid P07]"""
 import sys, json
 from z3 import And, Or, Not, Implies, Solver, Optimize, Sum, If, sat
 from fm import FM
-
-def optional_pairs(fm):
-    """(function, pattern) pairs from the attribute optional_patterns of the function features: the pattern may complement
-    the function; admitted by the justification (no constraint in the model)."""
-    pairs = []
-    for f in fm.FR:
-        for p in fm.nodes[f].get("optional", []):
-            try: pairs.append((f, fm.full(p)))
-            except StopIteration: pass
-    return pairs
 
 def select(fm, fr_req, nfr_req, forbid=()):
     V = fm.V
@@ -26,12 +17,7 @@ def select(fm, fr_req, nfr_req, forbid=()):
         for a, b in fm.FRtoFR:
             if a in closure and b not in closure: closure.add(b); changed = True
     partial = [V[f] for f in closure] + [Not(V[f]) for f in fm.FR if f not in closure] + [Not(V[fm.full(p)]) for p in forbid]
-    # justification: nothing the request does not call for
-    just = []; opt = optional_pairs(fm)
-    for p in fm.PAT:
-        reasons = [V[f] for f, q in fm.FRtoP if q == p] + [V[f] for f, qs in fm.FRtoAny if p in qs] \
-                  + [V[q] for q, r in fm.PtoP if r == p] + [V[f] for f, q in opt if q == p]
-        just.append(Implies(V[p], Or(reasons) if reasons else False))
+    just = []   # the justification P => (reasons) is part of fm.formula (section JUSTIFICATION of FM_SSI.uvl)
     # support: every requested property is strongly supported by some selected pattern (+2) ...
     # ... and strongly hindered (-2) by no AVOIDABLE pattern (one of several alternatives, optional complement).
     # A -2 pattern the request itself forces (mandatory for a required function or prerequisite of one) is allowed,
@@ -65,9 +51,9 @@ def select(fm, fr_req, nfr_req, forbid=()):
     for f, qs in fm.FRtoAny:
         if f in closure: groups.setdefault(tuple(qs), []).append(f.split("_")[0])
     res["choices"] = [{"for": frs, "among": [fm.pid(q) for q in qs], "chosen": [fm.pid(q) for q in qs if q in S]} for qs, frs in groups.items()]
-    # reasons (traceability) and ordering
+    # reasons (traceability); no order here: the refinement derives it from the anchors of the rules (DAG)
     res["reasons"] = {p: reasons_of(fm, p, S, closure, nfrs) for p in S}
-    res["sequence"] = order(fm, S, closure); return res
+    res["patterns"] = S; return res
 
 def reasons_of(fm, p, S, closure, nfrs):
     r = [f"realizes {f.split('_')[0]}" for f, q in fm.FRtoP if q == p and f in closure]
@@ -76,6 +62,7 @@ def reasons_of(fm, p, S, closure, nfrs):
         if p in qs and f in closure: alts.setdefault(tuple(qs), []).append(f.split("_")[0])
     r += [f"chosen for {', '.join(frs)} among {'/'.join(fm.pid(q) for q in qs)}" for qs, frs in alts.items()]
     r += [f"required by {q.split('_')[0]}" for q, t in fm.PtoP if t == p and q in S]
+    r += [f"may complement {f.split('_')[0]}" for f, q in fm.MayUse if q == p and f in closure]
     r += [f"supports {n.upper().replace('NFR', 'NFR')}" for n in nfrs if fm.nodes[p]["attrs"].get(n) == 2]
     return r
 
@@ -88,19 +75,6 @@ def explain(fm, closure, nfrs, forbid):
     for p in forbid:
         if not fm.check(Not(fm.V[fm.full(p)]), *[fm.V[f] for f in closure]): out.append(f"forbidden {p} is forced by the requested functions")
     return out
-
-def order(fm, S, closure):
-    fr_rank = {f: i for i, f in enumerate(fm.FR)}
-    rank = {p: min([fr_rank[f] for f, q in fm.FRtoP if q == p and f in closure] + [fr_rank[f] for f, qs in fm.FRtoAny if p in qs and f in closure] or [99]) for p in S}
-    seq, seen = [], set()
-    def visit(p):
-        if p in seen: return
-        seen.add(p)
-        for q, t in fm.PtoP:
-            if q == p and t in S: visit(t)
-        seq.append(p)
-    for p in sorted(S, key=lambda p: (rank[p], p)): visit(p)
-    return seq
 
 if __name__ == "__main__":
     args = sys.argv[1:]; nfr = []; forbid = []

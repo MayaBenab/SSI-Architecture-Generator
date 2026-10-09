@@ -13,5 +13,4 @@
 --auto-store-credential
 --log-level info
 --wallet-type askar
---wallet-storage-type default
 --no-ledger
